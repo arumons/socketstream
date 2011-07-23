@@ -25,7 +25,7 @@ Project status: 利用可能ですが実験段階です。日々改善してい�
 ◆→bekkou: です／ます で統一しました←◆
 * websockets(もしくはflashsockets)を使った双方向通信です
 * 非常に高速です！　起動は一瞬です。スローダウンの原因になるリクエストごとのHTTPハンドシェイク/ヘッダ/ルーティングはありません
-* ChromeとSafariで問題なく動きます。FirefoxやIEのサポートは不安定ですが、[Socket.IO](http://socket.io/)によって改善しています
+* ChromeとSafariで問題なく動きます。FirefoxやIEのサポートは不安定ですが、[Socket.IO](http://socket.io/)を用いて改善しつづけています
 * 全てのコードは[CoffeeScript](http://jashkenas.github.com/coffee-script/) かJavaScriptによって書かれています。好きな方を選んでください
 * クライアント／サーバー間でコードを簡単に共有できます。ビジネスロジックやモデルの検証に最適です
 * 3G回線のiPadやiPhoneのMobile Safari (iOS 4.2 以上)でも問題なく動きます
