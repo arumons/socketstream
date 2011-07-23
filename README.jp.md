@@ -21,26 +21,28 @@ Project status: 利用可能ですが実験段階です。日々改善してい�
 
 ### 特徴
 
-* websockets(もしくはflashsockets)を使うことによる、双方向通信
-* 非常に高速です！起動は一瞬です。毎回のリクエストに付属するHTTPハンドシェイク/ヘッダ/ルーティングでのスローダウンはありません。
-* ChromeとSafari上でうまく動作します。FirefoxやIEのサポートは不安定ですが、[Socket.IO](http://socket.io/)によって改善しています。
-* 全てのコードは[CoffeeScript](http://jashkenas.github.com/coffee-script/) か JavaScriptによって書かれます。好きな方を選んでください。
-* クライアントとサーバー間のコードを簡単に共有できます。ビジネスロジックとモデルの検証にとって理想的です。
-* 3G回線からでもiPadsやiPhones上のMobile Safari (iOS 4.2 and above)にて、とても良く動作します。
-* オートマティックHTTP/HTTPS API.全てのサーバーサイドコードは高速なリクエストベースのAPIとしてもアクセス可能です。 
-* お手軽にプライベートチャンネルを含むスケーラブルなpub/subシステムが利用可能です。下記の例を参照してください。
-* 統合されたアセットマネージャー。全てのクライアントサイドアセットは自動的にパッケージかつ[ミニファイされます](https://github.com/mishoo/UglifyJS) 
-* 自動HTTPリダイレクトによってすぐに使えるHTTPSをサポートしています。HTTPSセクションを参照してください。
-* モジュール化された認証システムによる組み込みユーザーモデル。ユーザーのオンライン状態を自動的に追跡します(下記を参照してください)。
-* 対話的コンソール。'socketstream console'とタイプするだけで、任意のサーバーサイドや共有メソッドを呼び出すことができます。
-* 'API ツリー'によってシンプルで一貫した名前空間が構築されます。
-* セッションの検索、pub/sub、オンラインユーザーの管理等、即時性が要求されるデータの扱いには[Redis](http://www.redis.io/)を使用します。
-* カスタムHTTP middleware/respondersをサポートします。最大限の柔軟性とスピードのために最初に実行されます。
-* jQueryと[jQuery templates](http://api.jquery.com/category/plugins/templates/)がバンドルされます。これはRailsのパーシャルのように働きます。 
-* [Underscore.js](http://documentcloud.github.com/underscore/)のようなライブラリの追加も容易に行なえます。
-* 初期HTMLレイアウトは[Jade](http://jade-lang.com/)もしくはplain HTMLによって生成されます。
-* [Stylus](http://learnboost.github.com/stylus/)をCSS生成に使います。
-* MITライセンス
+◆→bekkou: 箇条書きの句点は削るほうがいいと思います。←◆
+◆→bekkou: です／ます で統一しました←◆
+* websockets(もしくはflashsockets)を使った双方向通信です
+* 非常に高速です！　起動は一瞬です。スローダウンの原因になるリクエストごとのHTTPハンドシェイク/ヘッダ/ルーティングはありません
+* ChromeとSafariで問題なく動きます。FirefoxやIEのサポートは不安定ですが、[Socket.IO](http://socket.io/)によって改善しています
+* 全てのコードは[CoffeeScript](http://jashkenas.github.com/coffee-script/) かJavaScriptによって書かれています。好きな方を選んでください
+* クライアント／サーバー間でコードを簡単に共有できます。ビジネスロジックやモデルの検証に最適です
+* 3G回線のiPadやiPhoneのMobile Safari (iOS 4.2 以上)でも問題なく動きます
+* オートマチックHTTP/HTTPS API。全てのサーバーサイドコードは高速なリクエストベースのAPIを介してアクセスできます
+* スケーラブルでプライベートチャンネルを含むpub/subシステムを手軽につかえます。下記の例を参照してください
+* 統合されたアセットマネージャー。全てのクライアントサイドアセットは自動的にパッケージングされ[ミニファイされます](https://github.com/mishoo/UglifyJS)
+* 自動HTTPリダイレクトによってすぐに使えるHTTPSをサポートしています。下記のHTTPSセクションを参照してください
+* モジュール化された認証システムによる組み込みユーザーモデル。ユーザーのオンライン状態を自動的にトラッキングします(下記を参照してください)◆→bekkou: 追跡だと生々しい感じなので←◆
+* 対話的コンソール。'socketstream console'とタイプするだけで、任意のサーバーサイド／共有メソッドを呼び出せます◆→bekkou: や より ／ の方がメソッドかかっている形容詞がわかりやすい気がしました←◆
+* 'API ツリー'によって、フロントからバックエンドをまたぐ巨大なコードベースの名前空間を、シンプルで一貫したものにできます
+* セッションの検索、pub/sub、オンラインユーザーの一覧表示など、即時性が要求されるデータの扱いには[Redis](http://www.redis.io/)を使います
+* カスタムHTTP middleware/respondersをサポートします。これらは柔軟性とスピードを最大限にするために最初に実行されます
+* jQueryと[jQuery templates](http://api.jquery.com/category/plugins/templates/)が含まれています。これはRailsのpartialのように動きます◆→bekkou: partiaというメソッド名のほうがそれっぽいと思います←◆
+* [Underscore.js](http://documentcloud.github.com/underscore/)のようなクライアントライブラリを簡単に追加できます
+* 初期HTMLレイアウトは[Jade](http://jade-lang.com/)かプレーンHTMLで書けます
+* [Stylus](http://learnboost.github.com/stylus/)をCSS生成に使えます
+* MITライセンスです
 
 
 ### どのように動作するの？
