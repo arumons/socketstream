@@ -23,6 +23,7 @@ Project status: 利用可能ですが実験段階です。日々改善してい�
 
 ◆→bekkou: 箇条書きの句点は削るほうがいいと思います。←◆
 ◆→bekkou: です／ます で統一しました←◆
+
 * websockets(もしくはflashsockets)を使った双方向通信です
 * 非常に高速です！　起動は一瞬です。スローダウンの原因になるリクエストごとのHTTPハンドシェイク/ヘッダ/ルーティングはありません
 * ChromeとSafariで問題なく動きます。FirefoxやIEのサポートは不安定ですが、[Socket.IO](http://socket.io/)を用いて改善しつづけています
