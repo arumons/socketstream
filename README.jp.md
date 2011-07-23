@@ -33,12 +33,12 @@ Project status: 利用可能ですが実験段階です。日々改善してい�
 * スケーラブルでプライベートチャンネルを含むpub/subシステムを手軽につかえます。下記の例を参照してください
 * 統合されたアセットマネージャー。全てのクライアントサイドアセットは自動的にパッケージングされ[ミニファイされます](https://github.com/mishoo/UglifyJS)
 * 自動HTTPリダイレクトによってすぐに使えるHTTPSをサポートしています。下記のHTTPSセクションを参照してください
-* モジュール化された認証システムによる組み込みユーザーモデル。ユーザーのオンライン状態を自動的にトラッキングします(下記を参照してください)◆→bekkou: 追跡だと生々しい感じなので←◆
-* 対話的コンソール。'socketstream console'とタイプするだけで、任意のサーバーサイド／共有メソッドを呼び出せます◆→bekkou: や より ／ の方がメソッドかかっている形容詞がわかりやすい気がしました←◆
+* モジュール化された認証システムによる組み込みユーザーモデル。ユーザーのオンライン状態を自動的にトラッキングします(下記を参照してください)
+* 対話的コンソール。'socketstream console'とタイプするだけで、任意のサーバーサイド／共有メソッドを呼び出せます
 * 'API ツリー'によって、フロントからバックエンドをまたぐ巨大なコードベースの名前空間を、シンプルで一貫したものにできます
 * セッションの検索、pub/sub、オンラインユーザーの一覧表示など、即時性が要求されるデータの扱いには[Redis](http://www.redis.io/)を使います
 * カスタムHTTP middleware/respondersをサポートします。これらは柔軟性とスピードを最大限にするために最初に実行されます
-* jQueryと[jQuery templates](http://api.jquery.com/category/plugins/templates/)が含まれています。これはRailsのpartialのように動きます◆→bekkou: partiaというメソッド名のほうがそれっぽいと思います←◆
+* jQueryと[jQuery templates](http://api.jquery.com/category/plugins/templates/)が含まれています。これはRailsのpartialのように動きます
 * [Underscore.js](http://documentcloud.github.com/underscore/)のようなクライアントライブラリを簡単に追加できます
 * 初期HTMLレイアウトは[Jade](http://jade-lang.com/)かプレーンHTMLで書けます
 * [Stylus](http://learnboost.github.com/stylus/)をCSS生成に使えます
