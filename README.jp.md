@@ -1,3 +1,5 @@
+◆→bekkou: 直訳より日本語としても伝わりやすそうな部分は表現を変えています。←◆
+
 ![SocketStream!](https://github.com/socketstream/socketstream/raw/master/new_project/public/images/logo.png)
 
 
@@ -10,13 +12,12 @@ IRC channel: [#socketstream](http://webchat.freenode.net/?channels=socketstream)
 
 ### イントロダクション
 
-SocketStremは[Single-page Application](http://en.wikipedia.org/wiki/Single-page_application)時代に合わせて開発された、新しいフルスタックWebフレームワークです。
-websocketや、インメモリデータベース(Redis)、クライアントサイドでのレンダリングを取り入れることでユーザーが驚くほどのレスポンスを提供します。
+SocketStremは、[Single-page Application](http://en.wikipedia.org/wiki/Single-page_application)時代にあわせて開発された新しいフルスタックWebフレームワークです。
+websocketや、インメモリデータベース(Redis)、クライアントサイドでのレンダリングを取り入れることで、驚くほどのレスポンスを実現しています。
 
-Project status: 利用可能ですが、まだ実験段階にあります。改善は日々行われています。
+Project status: 利用可能ですが実験段階です。日々改善しています。
 
-最近の開発状況や考えを知るために[@socketstream](http://twitter.com/#!/socketstream)をフォローしてください。
-Webサイトも近日中に公開します。
+最近の開発状況や思想は[@socketstream](http://twitter.com/#!/socketstream)よりご覧になれます。また、近日中にWebサイトを公開します。
 
 ### 特徴
 
