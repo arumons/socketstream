@@ -65,9 +65,9 @@ SocketStreamはリアルタイムデータ（チャット、株式取引、位�
 [SocketStreamでつくるリアルタイムなCoffeeScript Webアプリケーション](http://addyosmani.com/blog/building-real-time-coffeescript-web-applications-with-socketstream/) by [Addy Osmani](http://addyosmani.com)
 
 
-### サンプルアプリ
+### サンプルアプリ集
 
-これらは今のところ小さなアプリにすぎませんが、コードを見ることはSocketStreamを学ぶ上で役に立つと思います。
+これらのアプリは今のところ小さなものですが、コードを読むことでSocketStreamの学習に役立つでしょう。
 
 [SocketChat](https://github.com/addyosmani/socketchat) - シンプルなグループチャット
 
