@@ -62,7 +62,7 @@ SocketStreamはリアルタイムデータ（チャット、株式取引、位�
 
 ### チュートリアル
 
-[リアルタイムなCoffeeScript WebアプリケーションをSocketStreamで構築する](http://addyosmani.com/blog/building-real-time-coffeescript-web-applications-with-socketstream/) by [Addy Osmani](http://addyosmani.com)
+[SocketStreamでつくるリアルタイムなCoffeeScript Webアプリケーション](http://addyosmani.com/blog/building-real-time-coffeescript-web-applications-with-socketstream/) by [Addy Osmani](http://addyosmani.com)
 
 
 ### サンプルアプリ
