@@ -18,7 +18,7 @@ websocketや、インメモリデータベース（Redis）、クライアント
 
 Project status: 利用可能ですが実験段階です。日々改善しています。
 
-最近の開発状況や思想は[@socketstream](http://twitter.com/#!/socketstream)よりご覧になれます。また、近日中にWebサイトを公開します。
+最近の開発状況や思想は[@socketstream](http://twitter.com/#!/socketstream)よりご覧になれます。近日中にWebサイトを公開します。
 
 ### 特徴
 
