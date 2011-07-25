@@ -1,4 +1,5 @@
 ◆→bekkou: 直訳より日本語としても伝わりやすそうな部分は表現を変えています。←◆
+◆→bekkou: websockets と websocket が混じっていますが、websocket が正しいのでしょうか？←◆
 
 ![SocketStream!](https://github.com/socketstream/socketstream/raw/master/new_project/public/images/logo.png)
 
