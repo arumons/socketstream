@@ -5,8 +5,8 @@
 
 Latest release: 0.1.7   ([view changelog](https://github.com/socketstream/socketstream/blob/master/HISTORY.md))
 
-Twitter: [@socketstream](http://twitter.com/#!/socketstream)  
-Google Group: http://groups.google.com/group/socketstream  
+Twitter: [@socketstream](http://twitter.com/#!/socketstream)
+Google Group: http://groups.google.com/group/socketstream
 IRC channel: [#socketstream](http://webchat.freenode.net/?channels=socketstream) on freenode
 
 
@@ -79,7 +79,7 @@ SocketStreamはリアルタイムデータ(チャット、株式取引、位置�
 
 SocketStreamを使うにあたって鍵となるのは'SS'グローバル変数です。これはサーバーとクライアント両方のどこからでも呼び出すことができます。
 
-例えば、数を二乗するシンプルなサーバーサイドの関数を書いてみます。このコードを/app/server/app.coffeeファイルに追加してください。 
+例えば、数を二乗するシンプルなサーバーサイドの関数を書いてみます。このコードを/app/server/app.coffeeファイルに追加してください。
 
 
 ``` coffee-script
@@ -89,7 +89,7 @@ exports.actions =
     cb(number * number)
 ```
 
-これをブラウザから呼び出すために、下記のコードを/app/client/app.coffee追加してください。 
+これをブラウザから呼び出すために、下記のコードを/app/client/app.coffee追加してください。
 
 ``` coffee-script
 exports.square = (number) ->
@@ -106,7 +106,7 @@ SS.client.app.square(25)
 下記のように出力されたと思います。
 
     25 squared is 625
-    
+
 注意深い人ならSS.client.app.square(25)が実際には'undefined'を返していることに気がつくでしょう。この動作は正常です。注目すべきはリクエストが処理された後にサーバーから非同期に送られるレスポンスです。
 
 サーバーサイドで作成したメソッドは組み込みのHTTP APIを使って下記のURLで呼び出すこともできます。
@@ -114,13 +114,13 @@ SS.client.app.square(25)
 ``` coffee-script
 /api/app/square?25                        # Hint: use .json to output to a file
 ```
-    
+
 サーバーサイドのコンソール('socketstream console'とタイプ)や、ブラウザのコンソール、他のサーバーサイドファイルから呼び出すこともできます。
 
 ``` coffee-script
 SS.server.app.square(25, function(x){ console.log(x) })
 ```
-    
+
 注釈: ブラウザからSS.serverメソッドを呼び出した場合、'console.log'コールバックが自動的に挿入されます。
 
 'SS'変数がjQueryの'$'に似ていることに気がつかれたかもしれません。これはSocketStream APIにアクセスするためのメインとなる方法です。開発チームはAPIがクライアントとサーバ間で可能なかぎり同一になるよう努力しました。
@@ -130,7 +130,7 @@ SS.server.app.square(25, function(x){ console.log(x) })
 
 ### Reverse Geocoding Example
 
-サーバーコードを書く準備として、/app/server/geocode.coffeeを作成し、下記のコードを貼り付けてください。 
+サーバーコードを書く準備として、/app/server/geocode.coffeeを作成し、下記のコードを貼り付けてください。
 
 ``` coffee-script
 exports.actions =
@@ -196,14 +196,14 @@ error = (err) ->
 ### Pub/Sub Example
 
 チャットアプリの作成や、特定ユーザーへの通知を希望ですか？
-    
+
 最初にクライアント側で'newMessage'イベントを見張るようにしましょう。
 
 ``` coffee-script
 exports.init = ->
   SS.events.on('newMessage', (message) -> alert(message))
 ```
-          
+
 次に、通知を行いたいユーザーのIDを既に知っていると仮定して、サーバーサイドで次のように書くことで
 そのユーザーにメッセージの通知を行うことができます。
 
@@ -273,7 +273,7 @@ SocketStreamはNPMパッケージとして公開されています。インス�
 
 #### /app/views
 * /app/views/app.jadeもしくは/app/views/app.htmlは必須です。これはアプリが必要とする初期HTMLを含んでいなければいけません。
-* HTMLの他に[Jade](http://jade-lang.com/)フォーマット(HAMLに似ています)を使えます。(正しいHTML構文が保証されるため使用をお勧めします。） 
+* HTMLの他に[Jade](http://jade-lang.com/)フォーマット(HAMLに似ています)を使えます。(正しいHTML構文が保証されるため使用をお勧めします。）
 * HTMLのHEADタグはJadeの場合 '!= SocketStream' を、プレインHTMLの場合 '<SocketStream>' を含む必要があります。このヘルパは環境毎に正しいライブラリを読み込むことを保証します。(環境はSS_ENVによって指定されます。)
 * JadeとHTML両方でjQuery template(Railsのパーシャルに似ています)を使って追加のHTMLを簡単に取り込むことができます。E.g /app/views/people/customers/info.jade is accessible as $("#people-customers-info").tmpl(myData).
 * ビューとテンプレートは自動的にコンパイルされ、開発モードの場合、そのまま送られます。ステージングや製品モードの場合、プリコンパイル、圧縮、キャッシュが行われます。
@@ -300,7 +300,7 @@ SocketStreamはNPMパッケージとして公開されています。インス�
 アプリを起動する前にあなたのマシン上でRedis2.2+が起動していることを確認したら下記のコマンドをタイプします。
 
     socketstream start
-    
+
 
 もし正常に起動した場合、SocketStreamのバナーが表示され、SocketStreamを始める準備ができたことになります！
 
@@ -317,7 +317,7 @@ __development__モードの他に__staging__と__production__の二つのモー�
 __development__モード以外の環境でSocketStreamを立ち上げるにはSS_ENV環境変数を使います。
 
     SS_ENV=staging socketstream start
-    
+
 追加できる環境の数に制限はありません。SocketStreamコンソール上でSS.envとタイプすることでどの環境で動作しているのかを容易に確認することができます。
 
 設定可能な項目は近日公開予定のサイトにてお知らせします。現在はSocketStreamコンソール上でSS.configとタイプすることで設定可能な項目をみることができます。
@@ -330,7 +330,7 @@ __development__モード以外の環境でSocketStreamを立ち上げるにはSS
 
 ``` coffee-script
 exports.config =
-  limiter: 
+  limiter:
     enabled: true
 ```
 
@@ -423,7 +423,7 @@ exports.draw = ->
 render = (area) ->
   $('body').append("<li>#{area}</li>")
 ```
-    
+
 この場合、'draw'メソッドはパブリックとなり、SS.client.navbar.doraw()とすることで、クライアントコードやブラウザのコンソールのどこからでも呼び出せるようになります。'areas'変数と'render'関数は両方共プライベートなので、
 グローバルの名前空間が汚染されることはありません。
 
@@ -452,7 +452,7 @@ exports.circumference = (radius = 1) ->
   2 * estimatePi() * radius
 
 estimatePi = -> 355/113
-```    
+```
 
 これによってSS.shared.calculalte.circumference(20)といった呼び出しがサーバーとクライアント両方のどこからでも実行できるようになります！/app/sharedは計算やフォーマット用のヘルパ、モデルを検証するコード等を配置するための場所です。共有コードの中でDOMやバックエンドのDB、もしくはNode.jsのライブラリなど特定の環境でのみ動作する処理は行わないでください。共有コードはサーバーとクライアント両方で動作する'ピュア'なコードである必要があります。
 
@@ -560,7 +560,7 @@ SocketStreamクライアントは超軽量な 'ハートビート' シグナル�
 ``` coffee-script
 SS.publish.broadcast('flash', {type: 'notification', message: 'Notice: This service is going down in 10 minutes'})
 ```
-    
+
 複数の部屋をもつチャットアプリのように、時には特定の集団に向けてイベントを通知したいこともあるでしょう。SocketStreamにはプライベートチャンネルと呼ばれるまさにそのための機能があり、複数のサーバーに対して最小のオーバーヘッドで通知を行うことができます。
 
 
@@ -569,16 +569,16 @@ SS.publish.broadcast('flash', {type: 'notification', message: 'Notice: This serv
 ``` coffee-script
 SS.publish.channel(['disney', 'kids'], 'newMessage', {from: 'mickymouse', message: 'Has anyone seen Tom?'})
 ```
-    
+
 ユーザーは無制限のチャンネルを下記コマンドによって登録する事ができます(これらは/app/server内部でのみ動作します)
 
 ``` coffee-script
     @getSession (session) ->
-      
-      session.channel.subscribe('disney')        # note: multiple channel names can be passed as an array 
-    
-      session.channel.unsubscribe('kids')        # note: multiple channel names can be passed as an array 
-    
+
+      session.channel.subscribe('disney')        # note: multiple channel names can be passed as an array
+
+      session.channel.unsubscribe('kids')        # note: multiple channel names can be passed as an array
+
       session.channel.list()                     # shows which channels the client is currently subscribed to
 ```
 
@@ -604,11 +604,11 @@ SS.config.api.prefix             String        default: 'api'        # Sets the 
 
 HTTP APIはBasic認証もサポートしています。それによってsession.user_idを使うメソッドにアクセスできるようになります。このオプションを使いたい場合、SS.config.api.https_onlyオプションにtrueを設定してパスワードが平文のまま送信されないようにすることをお勧めします。
 
-``` coffee-script    
-exports.config = 
-  api: 
-    auth: 
-      basic: 
+``` coffee-script
+exports.config =
+  api:
+    auth:
+      basic:
         module_name: "custom_auth"
 ```
 
@@ -665,7 +665,7 @@ exports.call = (request, response, next) ->
 
   # Log the User Agent of each incoming request
   console.log 'User Agent is:', request.headers['user-agent']
-  
+
   # All middleware must end with next() unless response is being served/terminated here
   next()
 ```
@@ -679,7 +679,7 @@ flashsocketはオーバーヘッドや初期接続レイテンシが存在する
 ``` coffee-script
 SS.config.browser_check.strict = true
 ```
-    
+
 一度このオプションがセットされるとネイティブなwebsocketをサポートしているブラウザ(現在Chrome 4とSafari5以上)のみがアプリと通信できるようになります。
 それ以外のブラウザでアクセスした場合、/static/incompatible_browsers/index.htmlの内容が表示されます。このファイルは自由にカスタマイズ可能です。
 
@@ -711,7 +711,7 @@ SocketStreamは特定のクライアントが一秒に15回以上websocketの接
 これが発生した場合、攻撃しているクライアントがコンソールに表示され、対象のクライアントからの全ての連続したリクエストは無視されます。この機能は我々が実際の環境で実験中のため現在はオフになっていますが、SS.config.limitter.enabledの値をtrueにすることで有効にすることができます。
 
 
-### HTTPS / TLS (SSL) 
+### HTTPS / TLS (SSL)
 もし上記のセキュリティセクションを読み、SocketStreampアプリをインターネットに公開することを決めたのなら(VPNの内側ではなく)HTTPSはあったら良い程度の機能ではありません。必須の機能です。
 
 その理由は二つ挙げられます。
@@ -738,11 +738,11 @@ SocketStreamは自己署名付きSSL証明書を持っています。これは�
     cd config/ssl_certs
 
     openssl genrsa -out site.key.pem 2048
-    
+
     openssl req -new -key site.key.pem -out site.request.csr
-    
+
 注釈:コモンネームの入力には注意を払ってください。これはあなたのWebサイトのフルドメイン(www.を含む)でなければいけません。
-    
+
 site.request.csrファイルの内容を認証局に送ってください。ファイルと交換で/config/ssl_certs/site.cert.pemファイルとして証明書が送られます。全てのブラウザで証明書の検証が行えるように'中間証明書'も取得するようにしてください。
 
 一度全てのファイルが揃うとSocketStreamはその証明書を自己署名のテスト証明書の代わりに使い、サーバーの起動時にそのことを通知します。
