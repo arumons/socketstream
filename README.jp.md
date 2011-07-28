@@ -128,7 +128,7 @@ SS.server.app.square(25, function(x){ console.log(x) })
 
 'SS'変数がjQueryの'$'に似ていることに気がつかれたかもしれません。'SS'はSocketStream APIにアクセスする主要な方法です。APIがクライアント／サーバ間でなるべく同じになるようにつくられています。◆→bekkou: we do our best のニュアンスを削り過ぎかな。。←◆
 
-さあ、もっと深い内容に進みましょう。準備はいいですか？　それではHTML5 Geolocation◆→bekkou: HTML5 Geolocation が正式名っぽかったので変えました←◆を使ったリバースジオコーディングを見てみましょう。
+さあ、もっと深い内容に進みましょう。準備はいいですか？　それではHTML5 Geolocation◆→bekkou: HTML5 Geolocation が正式名っぽかったので変えました←◆を使ったリバースジオコーディング（Reverse geocoding）を見てみましょう。
 
 
 ### Reverse Geocoding Example
