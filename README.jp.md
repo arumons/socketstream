@@ -78,11 +78,11 @@ SocketStreamが得意なのはリアルタイムデータ（チャット、株�
 [SocketRacer](https://github.com/alz/socketracer) - マルチプレイヤーレーシングゲーム
 
 
-### Quick Example
+### ざっくりわかるSocketStream
 
-SocketStreamを使うにあたって鍵となるのは'SS'グローバル変数です。これはサーバーとクライアント両方のどこからでも呼び出すことができます。
+SocketStreamを使いこなすための鍵になるのが'SS'グローバル変数です。これはサーバ／クライアントサイドのどこからでも呼び出せます。
 
-例えば、数を二乗するシンプルなサーバーサイドの関数を書いてみます。このコードを/app/server/app.coffeeファイルに追加してください。
+例えば、数を二乗するシンプルなサーバーサイドの関数を書いてみましょう。このコードを/app/server/app.coffeeファイルに追加してください。
 
 
 ``` coffee-script
@@ -92,7 +92,7 @@ exports.actions =
     cb(number * number)
 ```
 
-これをブラウザから呼び出すために、下記のコードを/app/client/app.coffee追加してください。
+この関数をブラウザから呼び出すために、下記のコードを/app/client/app.coffeeファイルに追加してください。
 
 ``` coffee-script
 exports.square = (number) ->
@@ -100,13 +100,13 @@ exports.square = (number) ->
     console.log "#{number} squared is #{response}"
 ```
 
-サーバーを再起動し、ページをリフレッシュします。そして次のコードをブラウザのコンソールから打ち込んでください。
+サーバーを再起動してページをリフレッシュした後、次のコードをブラウザのコンソールから入力してください。
 
 ``` coffee-script
 SS.client.app.square(25)
 ```
 
-下記のように出力されたと思います。
+以下のように出力されたと思います。
 
     25 squared is 625
 
@@ -115,10 +115,10 @@ SS.client.app.square(25)
 サーバーサイドで作成したメソッドは組み込みのHTTP APIを使って下記のURLで呼び出すこともできます。
 
 ``` coffee-script
-/api/app/square?25                        # Hint: use .json to output to a file
+/api/app/square?25                        # ヒント: .json を使うとファイルに出力できます
 ```
 
-サーバーサイドのコンソール('socketstream console'とタイプ)や、ブラウザのコンソール、他のサーバーサイドファイルから呼び出すこともできます。
+サーバーサイドのコンソール('socketstream console'とタイプ)や、ブラウザのコンソール、他のサーバーサイドのファイルから呼び出すこともできます。
 
 ``` coffee-script
 SS.server.app.square(25, function(x){ console.log(x) })
@@ -126,9 +126,9 @@ SS.server.app.square(25, function(x){ console.log(x) })
 
 注釈: ブラウザからSS.serverメソッドを呼び出した場合、'console.log'コールバックが自動的に挿入されます。
 
-'SS'変数がjQueryの'$'に似ていることに気がつかれたかもしれません。これはSocketStream APIにアクセスするためのメインとなる方法です。開発チームはAPIがクライアントとサーバ間で可能なかぎり同一になるよう努力しました。
+'SS'変数がjQueryの'$'に似ていることに気がつかれたかもしれません。'SS'はSocketStream APIにアクセスする主要な方法です。APIがクライアント／サーバ間でなるべく同じになるようにつくられています。◆→bekkou: we do our best のニュアンスを削り過ぎかな。。←◆
 
-さらに進んだ内容への準備はできましたか？それではHTML5の位置情報を使った座標解析を見てみましょう。
+さあ、もっと深い内容に進みましょう。準備はいいですか？　それではHTML5 Geolocation◆→bekkou: HTML5 Geolocation が正式名っぽかったので変えました←◆を使ったリバースジオコーディングを見てみましょう。
 
 
 ### Reverse Geocoding Example
