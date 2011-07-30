@@ -126,7 +126,7 @@ SS.server.app.square(25, function(x){ console.log(x) })
 
 注釈: ブラウザからSS.serverメソッドを呼び出した場合、'console.log'コールバックが自動的に挿入されます。
 
-'SS'変数がjQueryの'$'に似ていることに気がつかれたかもしれません。'SS'はSocketStream APIにアクセスする主要な方法です。APIがクライアント／サーバ間でなるべく同じになるようにつくられています。◆→bekkou: we do our best のニュアンスを削り過ぎかな。。←◆
+'SS'変数がjQueryの'$'に似ていることに気がつかれたかもしれません。'SS'はSocketStream APIにアクセスする主要な方法です。APIがクライアント／サーバ間でなるべく同じになるようにつくられています。◆→bekkou: we do our best のニュアンスを削り過ぎかな。。←◆◆→arumons:そうだね。なるべくニュアンスを残したいなあ。◆
 
 さあ、もっと深い内容に進みましょう。準備はいいですか？　それではHTML5 Geolocation◆→bekkou: HTML5 Geolocation が正式名っぽかったので変えました←◆を使ったリバースジオコーディング（Reverse geocoding）を見てみましょう。
 
