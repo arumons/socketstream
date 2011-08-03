@@ -131,9 +131,9 @@ SS.server.app.square(25, function(x){ console.log(x) })
 さあ、もっと深い内容に進みましょう。準備はいいですか？　それではHTML5 Geolocation◆→bekkou: HTML5 Geolocation が正式名っぽかったので変えました←◆を使ったリバースジオコーディング（Reverse geocoding）を見てみましょう。
 
 
-### Reverse Geocoding Example
+### リバースジオコーディングの例
 
-サーバーコードを書く準備として、/app/server/geocode.coffeeを作成し、下記のコードを貼り付けてください。
+サーバーコードとして /app/server/geocode.coffee を作成して下記のコードをペーストしてください。
 
 ``` coffee-script
 exports.actions =
@@ -149,7 +149,7 @@ exports.actions =
     request.on 'error', (e) -> console.error "Unable to parse response from #{host}"
     request.on 'response', (response) => parseResponse(response, cb)
 
-parseResponse = (response, cb) ->  # note: private methods are written outside of exports.actions
+parseResponse = (response, cb) ->  # 注釈: プライベートメソッドは exports.actions の外側に書かれている
   output = ''
   response.setEncoding('utf8')
   response.on 'data', (chunk) -> output += chunk
@@ -159,16 +159,15 @@ parseResponse = (response, cb) ->  # note: private methods are written outside o
     cb(result)
 ```
 
-位置情報の取得とアドレスを出力するために下記のコードを/app/client/app.coffeeに追加してください。
+現在地を取得してその住所を出力するために次のコードを /app/client/app.coffee に追加してください。
 
 ``` coffee-script
-# 注釈: SS.client.app.init()メソッドはsocketの準備ができてセッションが利用可能になった時に自動的に呼び出されます。
+# 注釈: SS.client.app.init() メソッドは、ソケットが作成されてセッションが利用可能になった時に、自動的に一度だけ呼び出されます。
 exports.init = ->
   SS.client.geocode.determineLocation()
 ```
 
-次に、純粋にクライアントサイドの名前空間機能を試すため(下記のセクションを見てください)/app/client/geocode.coffeeファイルを作成し、次のコードを
-貼り付けてください。
+次にクライアントサイドの名前空間（下記セクション参照）を試すため /app/client/geocode.coffee ファイルを作成し、以下のコードを書いてください。
 
 ``` coffee-script
 exports.determineLocation = ->
@@ -177,7 +176,7 @@ exports.determineLocation = ->
   else
     alert 'Oh dear. Geolocation is not supported by your browser. Time for an upgrade.'
 
-# Private functions
+# プライベートな関数
 
 success = (coords_from_browser) ->
   SS.server.geocode.lookup coords_from_browser, (response) ->
@@ -189,11 +188,9 @@ error = (err) ->
   alert 'Oops. The browser cannot determine your location. Are you online?'
 ```
 
-このコードを実行すると現在の位置が表示されると思います。(もしWiFi環境下にあるならより正確な位置がでるでしょう)
-もちろん、実際にはコールバックでこの処理を実行中に起こり得る様々なエラーに対応する必要があるでしょう。
+コードを実行すると現在地が表示されます（WiFi 環境下なら、より正確な位置になります）。もちろん実際にはクライアントへのコールバックの処理を実行中に起こりうる様々なエラーに対応する必要があるでしょう。
 
-ボーナス：もう一度実行したいですか？その場合は'SS.client.geocode.determineLocation()' とブラウザのコンソールにてタイプしてください。
-全ての'exportされた'クライアントサイドの関数はこの方法で呼び出すことができます。
+おまけ: 再実行はどうすればできるでしょうか？　その場合は'SS.client.geocode.determineLocation()' とブラウザのコンソールにてタイプしてください。全ての'exportされた'クライアントサイドの関数はこの方法で呼び出すことができます。
 
 
 ### Pub/Sub Example
