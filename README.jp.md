@@ -223,11 +223,11 @@ exports.actions =
 
 ### 動作環境
 
-[Node 0.4](http://nodejs.org/#download) or above (should work fine with 0.5.1 but we recommend 0.4.x)
+[Node 0.4](http://nodejs.org/#download) か、それ以降のバージョン（0.5.1 でも動作しますが、0.4.x を推奨します）
 
-[NPM 1.0](http://npmjs.org/) (Node Package Manager) or above
+[NPM 1.0](http://npmjs.org/) （Node Package Manager）か、それ以降のバージョン
 
-[Redis 2.2](http://redis.io/) or above
+[Redis 2.2](http://redis.io/) か、それ以降のバージョン
 
 
 ### Getting Started
