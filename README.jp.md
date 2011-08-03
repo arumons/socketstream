@@ -131,7 +131,7 @@ SS.server.app.square(25, function(x){ console.log(x) })
 さあ、もっと深い内容に進みましょう。準備はいいですか？　それではHTML5 Geolocation◆→bekkou: HTML5 Geolocation が正式名っぽかったので変えました←◆を使ったリバースジオコーディング（Reverse geocoding）を見てみましょう。
 
 
-### リバースジオコーディングの例
+### 例: リバースジオコーディング
 
 サーバーコードとして /app/server/geocode.coffee を作成して下記のコードをペーストしてください。
 
