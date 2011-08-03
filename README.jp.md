@@ -1,5 +1,8 @@
 ◆→bekkou: 直訳より日本語としても伝わりやすそうな部分は表現を変えています。←◆
 ◆→bekkou: websockets と websocket が混じっていますが、websocket が正しいのでしょうか？←◆
+◆→bekkouTODO ソースコード中の文字列リテラルを日本語にする←◆
+◆→bekkou: TODO サーバー/サーバ といった表記のゆれを統一する←◆
+◆→bekkou: TODO 英単語と日本語の間に半角スペースを入れる ←◆
 
 ![SocketStream!](https://github.com/socketstream/socketstream/raw/master/new_project/public/images/logo.png)
 
@@ -193,31 +196,30 @@ error = (err) ->
 おまけ: 再実行はどうすればできるでしょうか？　'SS.client.geocode.determineLocation()' とブラウザのコンソールでタイプするだけです。すべての 'exportされた' クライアントサイドの関数はこの方法で呼び出せます。
 
 
-### Pub/Sub Example
+### 例: Pub/Sub
 
-チャットアプリの作成や、特定ユーザーへの通知を希望ですか？
+チャットアプリやユーザーへのプッシュ通知を作るにはどうすればよいでしょうか？◆→bekkou: 作りたいですか？というノリは日本語ではあまり見ないのでいったんこうしてみました←◆
 
-最初にクライアント側で'newMessage'イベントを見張るようにしましょう。
+まず始めにクライアント側で 'newMessage' イベントをリッスンしましょう。
 
 ``` coffee-script
 exports.init = ->
   SS.events.on('newMessage', (message) -> alert(message))
 ```
 
-次に、通知を行いたいユーザーのIDを既に知っていると仮定して、サーバーサイドで次のように書くことで
-そのユーザーにメッセージの通知を行うことができます。
+通知を行いたいユーザーのIDを知っていると仮定します。サーバーサイドで次のように書くことでユーザーにメッセージを通知できます。
 
 ``` coffee-script
 exports.actions =
 
   testMessage: (user_id) ->
-    SS.publish.user(user_id, 'newMessage', 'Wow this is cool!')
+    SS.publish.user(user_id, 'newMessage', '超カッコイイ！')
 ```
 
-簡単でしょう？ユーザーが接続しているサーバーはどれなのかを気にする必要はありません。共通のRedisインスタンスと接続している限り、メッセージは常に正しいサーバーへと送られます。
+ね、簡単でしょう？　魅力はこれだけではありません。ユーザーがどのサーバーに接続しているかを気にする必要はありません。SocketStream サーバーは Redis の共通インスタンスを見ているのでメッセージは常に正しいサーバーへ送られます。◆→bekkou: こういうことを言いたいような気がするが、仕組みをちゃんと知らないので自信はない←◆
 
-全てのユーザーへブロードキャストする方法や、プライベートチャンネルの実装方法を知りたいですか？
-'More Pub/Sub'セクションを見てください。
+全ユーザーへブロードキャストする方法や、プライベートチャンネルを実装する方法を知りたいですか？　それなら後述の 'More Pub/Sub' セクションを読んでください。
+
 
 ### 動作環境
 
