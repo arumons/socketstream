@@ -230,19 +230,19 @@ exports.actions =
 [Redis 2.2](http://redis.io/) か、それ以降のバージョン
 
 
-### Getting Started
+### SocketStrem を動かそう
 
-SocketStreamを試す準備はできましたか？SocketStremはまだ実験段階にありますが開発チームは新しいプロジェクトにSocketStreamを使用し、日々改善を行っています。
+SocketStream を試す準備はいいですか？　SocketStrem はまだ実験段階にありますが、私たち開発チームは新しいプロジェクトに SocketStream をつかい、日々改善しています。
 
-SocketStreamはNPMパッケージとして公開されています。インストールは簡単に行なえます。
+SocketStream は NPM パッケージとして公開されています。インストールは以下のコマンドをタイプするだけです。
 
     sudo npm install socketstream -g
 
-新規のSocketStreamプロジェクトを作成するには次のようにタイプしてください。
+新規の SocketStream プロジェクトを作成するには次のようにタイプしてください。
 
     socketstream new <name_of_your_project>
 
-生成されるディレクトリ構成はRailsユーザーにはおなじみでしょう。下記がディレクトリの概要です。
+生成されるディレクトリの構成は Rails ユーザーにはおなじみでしょう。下記がディレクトリの概要です。
 
 #### /app/client
 * /app/clientディレクトリ内の全てのファイルはクライアントに送られます。CoffeeScriptファイルは自動的にJavaScriptファイルに変換されます。
