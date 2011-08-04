@@ -16,12 +16,12 @@ IRC channel: [#socketstream](http://webchat.freenode.net/?channels=socketstream)
 
 ### イントロダクション
 
-SocketStremは、[Single-page Application](http://en.wikipedia.org/wiki/Single-page_application)パラダイムにあわせて開発された新しいフルスタックWebフレームワークです。
-websocketや、インメモリデータベース（Redis）、クライアントサイドでのレンダリングを取り入れることで、驚くほどのレスポンスを実現しています。
+SocketStrem は、[Single-page Application](http://en.wikipedia.org/wiki/Single-page_application)パラダイムにあわせて開発された新しいフルスタックWebフレームワークです。
+websocket や、インメモリデータベース（Redis）、クライアントサイドでのレンダリングを取り入れることで、驚くほどのレスポンスを実現しています。
 
 Project status: 利用可能ですが実験段階です。日々改善しています。
 
-最近の開発状況や思想は[@socketstream](http://twitter.com/#!/socketstream)よりご覧になれます。近日中にWebサイトを公開します。
+最近の開発状況や思想は[@socketstream](http://twitter.com/#!/socketstream)よりご覧になれます。近日中に Webサイトを公開します。
 
 ### 特徴
 
@@ -29,50 +29,50 @@ Project status: 利用可能ですが実験段階です。日々改善してい�
 ◆→bekkou: です／ます で統一しました←◆
 
 * websockets（またはflashsockets）を使った双方向通信です
-* 非常に高速です！　起動は一瞬です。スローダウンの原因になるリクエストごとのHTTPハンドシェイク/ヘッダ/ルーティングはありません
-* ChromeとSafariで問題なく動きます。FirefoxやIEのサポートは不安定ですが、[Socket.IO](http://socket.io/)を用いて改善しつづけています
-* 全てのコードは[CoffeeScript](http://jashkenas.github.com/coffee-script/) もしくはJavaScriptにて記述します。好きな方を選んでください
+* 非常に高速です！　起動は一瞬です。スローダウンの原因になるリクエストごとの HTTPハンドシェイク/ヘッダ/ルーティングはありません
+* Chrome と Safari で問題なく動きます。Firefox や IE のサポートは不安定ですが、[Socket.IO](http://socket.io/)を用いて改善しつづけています
+* 全てのコードは[CoffeeScript](http://jashkenas.github.com/coffee-script/) もしくは JavaScript にて記述します。好きな方を選んでください
 * クライアント／サーバー間でコードを簡単に共有できます。ビジネスロジックやモデルの検証に最適です
-* 3G回線のiPadやiPhoneのMobile Safari（iOS 4.2 以上）でも問題なく動きます
-* オートマチックHTTP/HTTPS API。全てのサーバーサイドコードは高速なリクエストベースのAPIを介してアクセスできます
-* スケーラブルでプライベートチャンネルを含むpub/subシステムを手軽につかえます。下記の例を参照してください
+* 3G回線の iPad や iPhone の Mobile Safari（iOS 4.2 以上）でも問題なく動きます
+* オートマチック HTTP/HTTPS API。全てのサーバーサイドコードは高速なリクエストベースの API を介してアクセスできます
+* スケーラブルでプライベートチャンネルを含む pub/sub システムを手軽につかえます。下記の例を参照してください
 * 統合されたアセットマネージャー。全てのクライアントサイドアセットは自動的にパッケージングされ[ミニファイされます](https://github.com/mishoo/UglifyJS)
-* 自動HTTPリダイレクトによってすぐに使えるHTTPSをサポートしています。下記のHTTPSセクションを参照してください
+* 自動HTTPリダイレクトによってすぐに使える HTTPS をサポートしています。下記の HTTPS のセクションを参照してください
 * モジュール化された認証システムによる組み込みユーザーモデル。ユーザーのオンライン状態を自動的にトラッキングします（下記を参照してください）
-* 対話的コンソール。'socketstream console'とタイプするだけで、任意のサーバーサイド／共有メソッドを呼び出せます
-* 'API ツリー'によって、フロントからバックエンドをまたぐ巨大なコードベースの名前空間を、シンプルで一貫したものにできます
-* セッションの検索、pub/sub、オンラインユーザーの一覧表示など、即時性が要求されるデータの扱いには[Redis](http://www.redis.io/)を使います
-* カスタムHTTP middleware/respondersをサポートします。これらは柔軟性とスピードを最大限にするために最初に実行されます
-* jQueryと[jQuery templates](http://api.jquery.com/category/plugins/templates/)が含まれています。これはRailsのpartialのように動きます
-* [Underscore.js](http://documentcloud.github.com/underscore/)のようなクライアントライブラリを簡単に追加できます
-* 初期HTMLレイアウトは[Jade](http://jade-lang.com/)かプレーンHTMLで書けます
-* [Stylus](http://learnboost.github.com/stylus/)をCSS生成に使えます
+* 対話的コンソール。'socketstream console' とタイプするだけで、任意のサーバーサイド／共有メソッドを呼び出せます
+* 'API ツリー' によって、フロントからバックエンドをまたぐ巨大なコードベースの名前空間を、シンプルで一貫したものにできます
+* セッションの検索、pub/sub、オンラインユーザーの一覧表示など、即時性が要求されるデータの扱いには [Redis](http://www.redis.io/) を使います
+* カスタム HTTP middleware/responders をサポートします。これらは柔軟性とスピードを最大限にするために最初に実行されます
+* jQuery と [jQuery templates](http://api.jquery.com/category/plugins/templates/) が含まれています。これは Rails の partial のように動きます
+* [Underscore.js](http://documentcloud.github.com/underscore/) のようなクライアントライブラリを簡単に追加できます
+* 初期HTMLレイアウトは [Jade](http://jade-lang.com/) かプレーンHTML で書けます
+* [Stylus](http://learnboost.github.com/stylus/) を CSS生成に使えます
 * MITライセンスです
 
 
 ### どのように動作するの？
 
-ユーザーの初回アクセス時、SocketStreamは全ての静的HTML、CSS、クライアントサイドコードを自動的に圧縮しミニファイして送信します。
+ユーザーの初回アクセス時、SocketStream は全ての静的 HTML、CSS、クライアントサイドコードを自動的に圧縮しミニファイして送信します。
 
-その後、全てのデータはシリアライズされたJSONオブジェクトとしてwebsocket（もしくは'flashsocket'）トンネル経由でやりとりされます。
+その後、全てのデータはシリアライズされた JSONオブジェクトとして websocket（もしくは 'flashsocket'）トンネル経由でやりとりされます。
 トンネルはクライアントが接続した直後に生成されます。また、切断しても自動的に再生成されます。
 
 つまり、コネクションレイテンシ、HTTPヘッダによるオーバーヘッド、扱いにくい◆→bekkou: 訳すのが難しいですね。。仕組みをちゃんとわかっていないのでどう訳したものか悩んでます。「余分な」、「ださい」、「不格好な」←◆AJAX呼び出しが無いのです。
-SocketStreamは、正真正銘の双方向で非同期な'ストリーミング'通信をクライアント／サーバ間で可能にします。
+SocketStream は、正真正銘の双方向で非同期な'ストリーミング'通信をクライアント／サーバ間で可能にします。
 
 ### 何をつくれるの？
 
-SocketStreamが得意なのはリアルタイムデータ（チャット、株式取引、位置のモニタリング、分析など）を扱うモダンなアプリケーションです。
-ブログ等、SEOのためにユニークなURLを必要とするコンテンツリッチなサイトには、今のところ向きません。
+SocketStream が得意なのはリアルタイムデータ（チャット、株式取引、位置のモニタリング、分析など）を扱うモダンなアプリケーションです。
+ブログ等、SEO のためにユニークな URL を必要とするコンテンツリッチなサイトには、今のところ向きません。
 
 ### チュートリアル
 
-[SocketStreamでつくるリアルタイムなCoffeeScript Webアプリケーション](http://addyosmani.com/blog/building-real-time-coffeescript-web-applications-with-socketstream/) by [Addy Osmani](http://addyosmani.com)
+[SocketStream でつくるリアルタイムな CoffeeScript Webアプリケーション](http://addyosmani.com/blog/building-real-time-coffeescript-web-applications-with-socketstream/) by [Addy Osmani](http://addyosmani.com)
 
 
 ### サンプルアプリ集
 
-これらのアプリは今のところ小さなものですが、コードを読むことでSocketStreamの学習に役立つでしょう。
+これらのアプリは今のところ小さなものですが、コードを読むことで SocketStream の学習に役立つでしょう。
 
 [SocketChat](https://github.com/addyosmani/socketchat) - シンプルなグループチャット
 
@@ -83,9 +83,9 @@ SocketStreamが得意なのはリアルタイムデータ（チャット、株�
 
 ### ざっくりわかるSocketStream
 
-SocketStreamを使いこなすための鍵になるのが'SS'グローバル変数です。これはサーバ／クライアントサイドのどこからでも呼び出せます。
+SocketStream を使いこなすための鍵になるのが 'SS' グローバル変数です。これはサーバ／クライアントサイドのどこからでも呼び出せます。
 
-例えば、数を二乗するシンプルなサーバーサイドの関数を書いてみましょう。このコードを/app/server/app.coffeeファイルに追加してください。
+例えば、数を二乗するシンプルなサーバーサイドの関数を書いてみましょう。このコードを /app/server/app.coffee ファイルに追加してください。
 
 
 ``` coffee-script
@@ -95,7 +95,7 @@ exports.actions =
     cb(number * number)
 ```
 
-この関数をブラウザから呼び出すために、下記のコードを/app/client/app.coffeeファイルに追加してください。
+この関数をブラウザから呼び出すために、下記のコードを /app/client/app.coffee ファイルに追加してください。
 
 ``` coffee-script
 exports.square = (number) ->
@@ -113,25 +113,25 @@ SS.client.app.square(25)
 
     25 squared is 625
 
-注意深い人ならSS.client.app.square(25)が実際には'undefined'を返していることに気がつくでしょう。この動作は正常です。注目すべきはリクエストが処理された後にサーバーから非同期に送られるレスポンスです。
+注意深い人なら SS.client.app.square(25) が実際には 'undefined' を返していることに気がつくでしょう。この動作は正常です。注目すべきはリクエストが処理された後にサーバーから非同期に送られるレスポンスです。
 
-サーバーサイドで作成したメソッドは組み込みのHTTP APIを使って下記のURLで呼び出すこともできます。
+サーバーサイドで作成したメソッドは組み込みの HTTP API を使って下記の URL で呼び出すこともできます。
 
 ``` coffee-script
 /api/app/square?25                        # ヒント: .json を使うとファイルに出力できます
 ```
 
-サーバーサイドのコンソール('socketstream console'とタイプ)や、ブラウザのコンソール、他のサーバーサイドのファイルから呼び出すこともできます。
+サーバーサイドのコンソール('socketstream console' とタイプ)や、ブラウザのコンソール、他のサーバーサイドのファイルから呼び出すこともできます。
 
 ``` coffee-script
 SS.server.app.square(25, function(x){ console.log(x) })
 ```
 
-注釈: ブラウザからSS.serverメソッドを呼び出した場合、'console.log'コールバックが自動的に挿入されます。
+注釈: ブラウザから SS.server メソッドを呼び出した場合、'console.log' コールバックが自動的に挿入されます。
 
-'SS'変数がjQueryの'$'に似ていることに気がつかれたかもしれません。'SS'はSocketStream APIにアクセスする主要な方法です。APIがクライアント／サーバ間でなるべく同じになるようにつくられています。◆→bekkou: we do our best のニュアンスを削り過ぎかな。。←◆◆→arumons:そうだね。なるべくニュアンスを残したいなあ。◆
+'SS' 変数が jQuery の '$' に似ていることに気がつかれたかもしれません。'SS' は SocketStream API にアクセスする主要な方法です。API がクライアント／サーバ間でなるべく同じになるようにつくられています。◆→bekkou: we do our best のニュアンスを削り過ぎかな。。←◆◆→arumons:そうだね。なるべくニュアンスを残したいなあ。◆
 
-さあ、もっと深い内容に進みましょう。準備はいいですか？　それではHTML5 Geolocation◆→bekkou: HTML5 Geolocation が正式名っぽかったので変えました←◆を使ったリバースジオコーディング（Reverse geocoding）を見てみましょう。
+さあ、もっと深い内容に進みましょう。準備はいいですか？　それでは HTML5 Geolocation◆→bekkou: HTML5 Geolocation が正式名っぽかったので変えました←◆を使ったリバースジオコーディング（Reverse geocoding）を見てみましょう。
 
 
 ### 例: リバースジオコーディング
@@ -207,7 +207,7 @@ exports.init = ->
   SS.events.on('newMessage', (message) -> alert(message))
 ```
 
-通知を行いたいユーザーのIDを知っていると仮定します。サーバーサイドで次のように書くことでユーザーにメッセージを通知できます。
+通知を行いたいユーザーの ID を知っていると仮定します。サーバーサイドで次のように書くことでユーザーにメッセージを通知できます。
 
 ``` coffee-script
 exports.actions =
@@ -234,7 +234,7 @@ exports.actions =
 
 SocketStream を試す準備はいいですか？　SocketStrem はまだ実験段階にありますが、私たち開発チームは新しいプロジェクトに SocketStream をつかい、日々改善しています。
 
-SocketStream は NPM パッケージとして公開されています。インストールは以下のコマンドをタイプするだけです。
+SocketStream は NPMパッケージとして公開されています。インストールは以下のコマンドをタイプするだけです。
 
     sudo npm install socketstream -g
 
@@ -242,7 +242,7 @@ SocketStream は NPM パッケージとして公開されています。イン�
 
     socketstream new <name_of_your_project>
 
-生成されるディレクトリの構成は Rails ユーザーにはおなじみでしょう。構成の概要は下記のとおりです。
+生成されるディレクトリの構成は Railsユーザーにはおなじみでしょう。構成の概要は下記のとおりです。
 
 #### /app/client
 * /app/client ディレクトリ配下の全ファイルはクライアントに送られます。CoffeeScript ファイルは自動的に JavaScript ファイルに変換されます
