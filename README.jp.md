@@ -2,7 +2,10 @@
 ◆→bekkou: websockets と websocket が混じっていますが、websocket が正しいのでしょうか？←◆
 ◆→bekkouTODO ソースコード中の文字列リテラルを日本語にする←◆
 ◆→bekkou: TODO サーバー/サーバ といった表記のゆれを統一する←◆
+ * ユーザー／ユーザ
+ * ネームスペース／名前空間
 ◆→bekkou: TODO 英単語と日本語の間に半角スペースを入れる。個人的な感覚なのですが、英単語の前後はスペースをあてる。英単語＋日本語の単語は前だけにスペースをあてる。日本語＋英語＋日本語の単語はスペースをあてない。という基準でスペースをあてると読みやすいと感じます ←◆
+◆→bekkou: 文言未確定は ★ をつけました←◆
 
 ![SocketStream!](https://github.com/socketstream/socketstream/raw/master/new_project/public/images/logo.png)
 
@@ -258,15 +261,15 @@ SocketStream は NPMパッケージとして公開されています。インス
 * 例えばクライアントから app.init に引数 25 を渡して呼び出すには、SS.server.app.init(25) とクライアント上で実行します
 * すべてのメソッドは自動的に HTTP の API としてもアクセス可能になります（e.g. /api/app/square.json?5）
 * すべてのメソッドは事前にロードされるので、コンソールや他のサーバーサイドのファイルから SS.server 経由でアクセスできます
-* もしメソッドに値が渡された場合、それらは最初の引数にまとめられます。最後の引数は常にコールバック関数(cb)です。
-* 全てのパブリックなメソッドは'exports.actions'のプロパティとして定義されます。プライベートなメソッドはその外側のスコープに配置され、'methodname = (params) ->'で始まります。
-* サーバーファイルは入れ子にすることができます。SS.server.users.online.yesterday()という呼び出しは/app/server/users/online.coffeeにて定義されたyesterdayメソッドを呼び出します。
-* 同じファイルの中でネームスペースを分割するためにオブジェクトを入れ子にすることもできます。
-* @getSessionにてユーザーのセッションにアクセスできます。
-* @userにてカスタムユーザーインスタンスにアクセスできます。詳細は近日中に公開されます。
+* メソッドに値◆→bekkou: incoming params ってなんぞ？←◆が渡されると、それらは最初の引数にまとめられます。最後の引数は常にコールバック関数（cb）です
+* すべてのパブリックなメソッドは 'exports.actions' のプロパティとして定義されます。プライベートなメソッドはそのスコープの外側に配置されます。定義は 'methodname = (params) ->' と書きます
+* サーバー側のファイルはネストできます。例えば SS.server.users.online.yesterday() と書けば、/app/server/users/online.coffee に定義された yesterday メソッドが呼び出されます
+* 同じファイルの中で名前空間をわけるためにオブジェクトをネストすることもできます
+* @getSession でユーザー◆→bekkou: User はクラスの User？　それならユーザじゃなくて User と表記したい←◆のセッションにアクセスできます
+* @user でカスタムユーザーのインスタンスにアクセスできます。詳細は近日中に公開します
 
 #### /app/shared
-* 'コード共有'セクションを見てください。
+* 'コード共有'★ セクションを見てください
 
 #### /app/css
 * /app/css/app.stylは必須です。これはSASSに似た[Stylus](http://learnboost.github.com/stylus/)フォーマットのスタイルシートを含んでいます。
