@@ -2,7 +2,7 @@
 ◆→bekkou: websockets と websocket が混じっていますが、websocket が正しいのでしょうか？←◆
 ◆→bekkouTODO ソースコード中の文字列リテラルを日本語にする←◆
 ◆→bekkou: TODO サーバー/サーバ といった表記のゆれを統一する←◆
-◆→bekkou: TODO 英単語と日本語の間に半角スペースを入れる ←◆
+◆→bekkou: TODO 英単語と日本語の間に半角スペースを入れる。個人的な感覚なのですが、英単語の前後はスペースをあてる。英単語＋日本語の単語は前だけにスペースをあてる。日本語＋英語＋日本語の単語はスペースをあてない。という基準でスペースをあてると読みやすいと感じます ←◆
 
 ![SocketStream!](https://github.com/socketstream/socketstream/raw/master/new_project/public/images/logo.png)
 
