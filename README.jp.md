@@ -4,6 +4,7 @@
 ◆→bekkou: TODO サーバー/サーバ といった表記のゆれを統一する←◆
  * ユーザー／ユーザ
  * ネームスペース／名前空間
+ * フォルダ・ディレクトリ→ディレクトリ
 ◆→bekkou: TODO 英単語と日本語の間に半角スペースを入れる。個人的な感覚なのですが、英単語の前後はスペースをあてる。英単語＋日本語の単語は前だけにスペースをあてる。日本語＋英語＋日本語の単語はスペースをあてない。という基準でスペースをあてると読みやすいと感じます ←◆
 ◆→bekkou: 文言未確定は ★ をつけました←◆
 
@@ -272,43 +273,43 @@ SocketStream は NPMパッケージとして公開されています。インス
 * 'コード共有'★ セクションを見てください
 
 #### /app/css
-* /app/css/app.stylは必須です。これはSASSに似た[Stylus](http://learnboost.github.com/stylus/)フォーマットのスタイルシートを含んでいます。
-* Stylusファイルの追加はapp.styleファイルにて@import 'name_of_file'を使うことで可能になります。ファイルのネストも可能です。
-* もしCSSライブラリ(e.g. reset.css or jQuery UI) をプロジェクトで使いたい場合、それらを/lib/cssに配置するか、ホスティングされているCDNファイルへのリンクを/app/views/app/jadeにてそのファイルをリンクしてください。
-* Stylusファイルは自動的にコンパイルされ、開発モードの場合、そのまま送られます。ステージングもしくは製品モードの場合、プリコンパイル、圧縮、キャッシュが行われます。
+* /app/css/app.styl は必須です。これは SASS に似た [Stylus](http://learnboost.github.com/stylus/) フォーマットで書きます◆→bekkou: 仕組み的にあってるのかな？←◆
+* 外部Stylusファイルは app.styl で @import 'name_of_file' と書くとインポートできます。ファイルはネストできます
+* CSSライブラリ（例: reset.css や jQuery UI など） を使いたい場合、それらを /lib/css に配置するか、ホスティングされている CDNファイルへのリンクを /app/views/app/jade に書いてください
+* Stylusファイルは自動的にコンパイルされ、developmentモードの場合、そのまま送られます。staging もしくは production モードの場合、プリコンパイル、圧縮、キャッシュされます◆→bekkou: 仕組みを試してからもう一度見直したほうがいいかも←◆
 
 #### /app/views
-* /app/views/app.jadeもしくは/app/views/app.htmlは必須です。これはアプリが必要とする初期HTMLを含んでいなければいけません。
-* HTMLの他に[Jade](http://jade-lang.com/)フォーマット(HAMLに似ています)を使えます。(正しいHTML構文が保証されるため使用をお勧めします。）
-* HTMLのHEADタグはJadeの場合 '!= SocketStream' を、プレインHTMLの場合 '<SocketStream>' を含む必要があります。このヘルパは環境毎に正しいライブラリを読み込むことを保証します。(環境はSS_ENVによって指定されます。)
-* JadeとHTML両方でjQuery template(Railsのパーシャルに似ています)を使って追加のHTMLを簡単に取り込むことができます。E.g /app/views/people/customers/info.jade is accessible as $("#people-customers-info").tmpl(myData).
-* ビューとテンプレートは自動的にコンパイルされ、開発モードの場合、そのまま送られます。ステージングや製品モードの場合、プリコンパイル、圧縮、キャッシュが行われます。
+* /app/views/app.jade もしくは /app/views/app.html は必須です。アプリの初期表示するための静的HTML を書いてください
+* [Jade](http://jade-lang.com/)（HAML に似ています）フォーマットを使えます（正しい HTML構文が保証されるため使用をオススメします）
+* HTML の HEADタグには Jade では '!= SocketStream' を、プレーンHTML では '<SocketStream>' を含めます。この Helper によって環境（SS_ENV で指定します）ごとにライブラリをただしく読み込みます
+* Jade と HTML 両方で jQuery template（Rails の partial に似ています）を使って別ファイルにわけた HTML を簡単に取り込めます。例えば /app/views/people/customers/info.jade に書いた部分テンプレートは $("#people-customers-info").tmpl(myData) とアクセスできます
+* ビューとテンプレートは自動的にコンパイルされ、developmentモードの場合、そのまま送られます。staging や production モードの場合、プリコンパイル、圧縮、キャッシュされます◆→bekkou: 仕組みを試してからもう一度見直したほうがいいかも←◆
 
 #### /lib
-* /lib/clientや/lib/css配下のファイルを変更すると、自動的に再コンパイル、パッキング、ミニファイが行われます。
-* これらのディレクトリへの新規ファイルの追加しても上記の処理は行われません。(従ってサーバーの再起動を行う必要があります)開発チームは現在この問題を修正中です。
-* ライブラリの先頭に数字を付与することで、ライブラリの読み込まれる順番を簡単にコントロールすることができます。(e.g. 1.jquery.js, 2.jquery-ui.js)
-* クライアント側のJSファイルはファイル名に'.min'を含んでいない限り、自動的に[UglifyJS](https://github.com/mishoo/UglifyJS)によってミニファイされます。
-* /lib/server内のあらゆるファイルはNodeによってrequireされます。ファイルのフルパスを渡す必要はありません。カスタム認証モジュールや、クライアントに公開せずにサーバーサイドのファイル間でコードを共有する方法として理想的です。
+* /lib/client や /lib/css 配下のファイルを変更すると、自動的に再コンパイル、パッキング、ミニファイされます
+* 新規ファイルをそれらのディレクトリに追加しても上記の処理は行われません（したがってサーバの再起動が必要です）。現在開発チームが対応しています
+* ライブラリ名の先頭に数字をつけることで、ライブラリの読み込み順を簡単に指定できます（例: 1.jquery.js, 2.jquery-ui.js）
+* クライアント側の JSファイルは、ファイル名に '.min' が含まれていないと [UglifyJS](https://github.com/mishoo/UglifyJS) によって自動的にミニファイされます
+* /lib/server 配下の全ファイルは、Node でフルパスを指定せずに require できます。カスタム認証モジュールや、クライアントに公開せずにサーバーサイドのファイル間でコードを共有する方法として理想的です
 
 #### /public
-* スタティックファイルをここに配置してください。(e.g. /public/images, robots.txt, etc)
-* /index.htmlファイルと/public/assetsフォルダはSocketStreamによって管理されます。これらに対して変更は加えないでください。
+* 静的ファイルを配置してください（例: /public/images, robots.txt など）
+* /index.html と /public/assetsディレクトリは SocketStream によって管理されるので変更を加えないでください
 
 #### /static
-* このディレクトリは警告や通知用のファイルを格納します。サイトに応じて変更を加えてください。
+* 警告や通知用のファイルを格納します。サイトに応じて変更を加えてください
 
 #### /vendor
-* ベンダ製のライブラリは/vendor/mycode/lib/mycode.jsのフォーマットに沿って配置してください。
-* このディレクトリの使用は任意です。
+* ベンダ製のライブラリは /vendor/mycode/lib/mycode.js のフォーマットに沿って配置してください
+* このディレクトリの使用は任意です
 
 
-アプリを起動する前にあなたのマシン上でRedis2.2+が起動していることを確認したら下記のコマンドをタイプします。
+アプリを起動する前にローカルで Redis2.2+ が起動していることを確認したら下記のコマンドをタイプします。
 
     socketstream start
 
 
-もし正常に起動した場合、SocketStreamのバナーが表示され、SocketStreamを始める準備ができたことになります！
+正常に起動すると SocketStream のバナーが表示され SocketStream を始める準備ができました！
 
 
 ### 設定ファイル
