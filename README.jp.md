@@ -314,26 +314,25 @@ SocketStream は NPMパッケージとして公開されています。インス
 
 ### 設定ファイル
 
-SocketStreamはデフォルトでは__development__モードで稼働します。全ての着信と発信のリクエストはターミナルに表示され、るサーバーサイドで発生したあらゆる例外がブラウザのコンソールに表示されます。 全てのクライアントアセットはデバッグ用にそのままコンパイルされます。
+SocketStream はデフォルトで __development__モードで稼働し、すべての着信と発信★◆→bekkou: incoming はクライアントからのリクエストで、 outgoing はサーバのレスポンスということ？←◆のリクエストはターミナルに表示され、サーバサイドで発生したあらゆる例外はブラウザのコンソールに表示され、すべてのクライアントアセット◆→bekkou: アセットは一般的？←◆はデバッグ用にそのままコンパイルされます。◆→bekkou: __development__ というように __ が付いているのと付いていないのはどう違う？←◆
 
-__development__モードの他に__staging__と__production__の二つのモードが利用可能です。二つとも意図された用途の設定にてSocketStreamをロードします。
+__development__モードの他に __staging__ と __production__ の二つのモードを利用できます。それぞれモードごとの用途にあった設定で SocketStream をロードします。
 
-必要であれば、プリセット変数は二つのファイルにて上書きや追加の設定を行うことができます。アプリケーション全体に適用されるコンフィグファイルは/config/app.coffeeに配置します。
-指定した環境に対して適用されるコンフィグファイルは/config/enviroments/<SS_ENV>.coffeeに配置します。(e.g. /config/environments/development.coffee)このファイルはapp.coffeeにて行った設定を上書きします。
+プリセット変数の上書きや追加は、設定ファイルを書き換えることで行えます。アプリケーション全体に適用される設定ファイルは /config/app.coffee で、それぞれの環境に適用される設定ファイルは /config/enviroments/<SS_ENV>.coffee です（例: /config/environments/development.coffee）。なお、<SS_ENV>.coffee は app.coffee の設定を上書きします。
 
-__development__モード以外の環境でSocketStreamを立ち上げるにはSS_ENV環境変数を使います。
+__development__モード以外の環境で SocketStream を立ち上げるには SS_ENV環境変数を使います。
 
     SS_ENV=staging socketstream start
 
-追加できる環境の数に制限はありません。SocketStreamコンソール上でSS.envとタイプすることでどの環境で動作しているのかを容易に確認することができます。
+追加できる環境の数に制限はありません。どの環境で動作しているかは SocketStreamコンソール上で SS.env とタイプすると容易に確認できます。
 
-設定可能な項目は近日公開予定のサイトにてお知らせします。現在はSocketStreamコンソール上でSS.configとタイプすることで設定可能な項目をみることができます。
+すべての設定可能な環境変数は近日公開予定のサイトにてお知らせします。現在は SocketStreamコンソール上で SS.config とタイプすると設定可能な環境変数をすべて見られます。
 
-このREADME全体で下記のようなコンフィグ変数を繰り返し見るでしょう。
+README を読んでいると、環境変数を変更しているような下記の表記をたびたび目にするでしょう。
 
     SS.config.limiter.enabled = true
 
-この場合、コンフィグファイルで下記のように書くことで変数の値を変更することができます。
+この場合、設定ファイルで次のように書くことで環境変数の値を変更できます。
 
 ``` coffee-script
 exports.config =
@@ -602,7 +601,7 @@ SocketStream Pub/Subシステムは水平方向へのスケーラビリティと
 
 HTTP APIは全てのサーバーサイドのアクションを、従来のHTTPもしくはHTTPSリクエストベースのインタフェースでアクセスできるようにします。
 
-HTTP APIはデフォルトで有効になっており、下記のコンフィグ変数にて変更することができます。
+HTTP APIはデフォルトで有効になっており、下記の環境変数にて変更することができます。
 
 ``` coffee-script
 SS.config.api.enabled            Boolean       default: true         # Enables/disables the HTTP API
