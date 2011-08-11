@@ -355,20 +355,19 @@ SS.server.user.updatePosition(latestPosition, {silent: true})
 
 ### Redisとの通信
 
-Redisへのアクセスは自動的にグローバル変数Rを使うことでアクセスできるようになっています。
+Redis は、サーバサイドからグローバル変数R でアクセスできます。
 
 ``` coffee-script
     R.set("string key", "string val")
 
-    R.get("string key", (err, data) -> console.log(data))    # prints 'string val'
+    R.get("string key", (err, data) -> console.log(data))    # 'string val' を出力する
 ```
 
-Redisホスト、ポート番号、データベース/keyspace インデックスは全てSS.config.redisパラメータによって設定可能です。
-development/staging/productionそれぞれの環境別にデータを格納するためにSS.config.redis.db_indexの値を設定したくなるかもしれません。
+Redis のホスト、ポート番号、データベース／キースペースのインデックスは SS.config.redis によって設定できます。development／staging／production ごとにデータを格納するために SS.config.redis.db_index の値を設定したくなるかもしれません。
 
-SocketStreamが内部で使用するkeyやpub/subチャンネルのキーは全て先頭に'ss:'が付きます。ユーザーは任意のキーをアプリケーション内でで使うことができます。
+key や pub/subチャンネルなど、SocketStream が内部で使用する全てのキーの先頭には 'ss:' が付きます。それ以外のダブらないキーをアプリケーション内で使えます。
 
-[Redisの全コマンド一覧](http://redis.io/commands)
+[Redis の全コマンド一覧](http://redis.io/commands)
 
 
 ### データベースとの接続
