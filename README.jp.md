@@ -372,9 +372,9 @@ key や pub/subチャンネルなど、SocketStream が内部で使用する全�
 
 ### データベースとの接続
 
-DBとやりとりするためのフレームワークの開発は将来のリリースの中で重要な位置を占めていますが、現在はmongoDBとの接続のみをサポートしています。
+かゆいところに手が届くような DB 接続フレームワークの開発は、将来のリリースで重要視しています。ですが現在は mongoDB の接続のみサポートしています。
 
-/config/db.coffee (or .js) ファイルは起動時に自動的に読み込まれます。(存在する場合) そのため下記のようにデータベースの初期設定をこのファイルに書くことができます。
+/config/db.coffee（もしくは .js）が存在する場合、起動時に自動的に読み込まれます。下記のようにデータベースの設定を書けます。
 
 ``` coffee-script
 mongodb = require('mongodb')   # installed by NPM
@@ -384,9 +384,9 @@ Server = mongodb.Server
 global.M = new Db('my_database_name', new Server('localhost', 27017))
 M.open (err, client) -> console.error(err) if err?
 ```
-これによって、グローバル変数M経由でmongoDBにアクセスできるようになります。
+これによってグローバル変数M で mongoDB にアクセスできるようになります。
 
-このファイルは対象の環境のコンフィグファイルが読み込まれた後にロードされるため、DB接続設定を/config/environments/develpment.coffeeに下記のように書くことができます。
+/config/db.coffee は対象の環境の設定ファイルが読み込まれた後にロードされます。例えば development モードにおける DB接続の設定は /config/environments/develpment.coffee に次のように書けます。
 
 ``` coffee-script
 exports.config =
@@ -397,14 +397,14 @@ exports.config =
       port:         27017
 ```
 
-ここで定義した値を使って/config/db.coffeeの設定を行います。
+development.coffee で定義した値を使って /config/db.coffee の設定を行えます。
 
 ``` coffee-script
 config = SS.config.db.mongo
 global.M = new Db(config.database, new Server(config.host, config.port))
 ```
 
-CouchDBやMYSQL、その他のDBについてはテストをしていません。しかし設定の手順はこれと同じようになるはずです。
+CouchDB や MYSQL 等、その他の DB についてはテストをしていませんが、動作の原理は一緒です。
 
 
 ### ネームスペース (Client and Shared code)
