@@ -622,25 +622,25 @@ exports.config =
 注釈: ベーシック認証は 'username' と 'password' パラメータを exports.authenticate() 関数に渡します。
 
 
-### 回線切断時の対応
+### 回線切断時のハンドリング
 
-websocketと'flashsocket'トンネルは障害に対して驚くほど柔軟に対応しますが、開発者は常に接続が失敗する可能性を考える必要があります。特にモバイル機器の回線は不安定です。
+websocket／'flashsocket'トンネルは障害がおきても驚くほどすぐに回復します。ですが開発者は接続が失敗する可能性をつねに考えなければいけません。特にモバイル機器の回線は不安定です。
 
 **クライアントサイド**
 
-SocketStreamクライアントにて利用可能な(Socket.IOの機能です) 'disconnect' イベントと 'connect' イベントに関数を登録することをおすすめします。例えば
+SocketStream のクライアントで利用できる（Socket.IO の機能です） 'disconnect'・'connect' イベントに関数をバインドすることをオススメします。例えば次のようにやります。
 
 ``` coffee-script
-SS.socket.on('disconnect', -> alert('Connection Down'))
+SS.socket.on('disconnect', -> alert('コネクションが切断されました。'))
 
-SS.socket.on('connect', -> alert('Connection Up'))
+SS.socket.on('connect', -> alert('コネクションが確立しました'))
 ```
 
-これらのイベントはアプリの中でオンライン/オフラインのアイコンを切り替えたり、より良い方法としてスクリーンを暗くして'再接続中です...'とメッセージを表示するために使うことができます。
+オンライン／オフラインのアイコンを切り替えたり、よりよい方法としてはスクリーンを暗くして '再接続中です...' とメッセージを表示したりすることに活用できます。
 
 **サーバーサイド**
 
-SocketStreamは自動的にクライアントが切断(タブが閉じられる等で)されたことを検知できます。その際にユーザーをログアウトやデータベースのクリーン、メッセージのブロードキャストを行いたいと思うでしょう。ユーザーが最初にアプリに接続する際に実行されるメソッド、SS.server.app.init()に下記のイベントハンドラを登録することをお勧めします。
+SocketStream は（ブラウザのタブが閉じた等で）クライアントが切断されたことを自動的に検知します。その際にユーザをログアウトしたり、データベースをクリーンしたり、メッセージのブロードキャストをしたいでしょう。そんなときは、ユーザがアプリに初めて接続するときに実行される SS.server.app.init() メソッドに次のようなイベントハンドラを登録するとよいでしょう。
 
 ``` coffee-script
 exports.actions =
@@ -648,13 +648,13 @@ exports.actions =
   init: (cb) ->
     @getSession (session) ->
       session.on 'disconnect', (disconnected_session) ->
-        console.log "User ID #{disconnected_session.user_id} has just logged out!"
+        console.log "ユーザID #{disconnected_session.user_id} はログアウトしました！"
         disconnected_session.user.logout()
 ```
 
-**Note**
+**注釈**
 
-現時点ではオフライン時にサーバーへとリクエストが送られた場合、リクエストはブラウザ内でキューに格納され、再接続した際に実行されます。近い内にタイムクリティカルなリクエストに対して「株取引のために必須」といったマークがつけられるようになるでしょう。
+オフライン時にサーバへリクエストが送ろうとした場合、リクエストはブラウザ内にキューイングされ、再接続したときに自動的に実行されます。近いうちに、株取引アプリなどで必要になるであろう1秒を争うようなリクエストにはマークを付けられるようにする予定です。
 
 
 ### カスタムHTTPハンドラ/ミドルウェアの使用
