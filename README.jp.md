@@ -492,7 +492,7 @@ exports.actions =
 
 ユーザのログイン・ログアウト機能を必要とする Webアプリケーションは多いでしょう。そのため私たちは 'カレントユーザ' という概念を SocketStream に取り入れました。これは、開発をやりやすくさせるだけでなく、ちゃんとした pub/subシステムの開発、APIリクエストの認証、オンラインユーザのトラッキング（後述するセクションを参照してください）をするために欠かせないものです。
 
-認証はモジュール化されているのでサクッと実装できます。例えば、よくある認証モジュールを /lib/server/custom_auth.coffee につくってみましょう。
+認証はモジュール化されているのでサクッと実装できます。たとえば、お手製の認証モジュールを /lib/server/custom_auth.coffee につくってみましょう。
 
 ``` coffee-script
 exports.authenticate = (params, cb) ->
@@ -657,19 +657,19 @@ exports.actions =
 オフライン時にサーバへリクエストが送ろうとした場合、リクエストはブラウザ内にキューイングされ、再接続したときに自動的に実行されます。近いうちに、株取引アプリなどで必要になるであろう1秒を争うようなリクエストにはマークを付けられるようにする予定です。
 
 
-### カスタムHTTPハンドラ/ミドルウェアの使用
+### カスタムHTTPハンドラ／ミドルウェアの使い方
 
-開発チームはまだこのアイディアを完全に探求していませんが、現在全てのHTTPリクエストをあなた自身のミドルウェアへ送ることができます。これによってリクエストオブジェクトを変更したり、さらにURL、ユーザーエージェント、リクエストパラメータに応じてヘッダとコンテンツを独自に処理できるようになります。
+私たちはこのアイデアをまだ探求し尽くせていませんが、現在、すべてのHTTPリクエストをミドルウェアへ送ることができます。これによってリクエストオブジェクトを変更したり、さらには、URL・ユーザーエージェント・リクエストパラメータに応じてヘッダとコンテンツを独自に処理することさえできます。
 
-これは非常に強力な機能です。HTTPリクエストが到着した時にNodeは最初にこれを呼びだすため、完全に柔軟で無駄の無いNode.jsアプリを作ることができます。
+これはとても強力な機能です。HTTPリクエストがきた時に Node ◆→bekkou: Node.js にしなくていい？←◆によって最初に呼びだされるため、ものすごく柔軟で無駄のない Node.jsアプリをつくれます。
 
-将来この機能を使うときは/config/http.coffeeファイル内のコメントを見てみてください。ミドルウェアの例として、下記の内容を持つmy_middleware.coffeeというファイルを/lib/server内に置くことができます。
+この機能を使うときは /config/http.coffee に書かれているコメントを見てください。ミドルウェアの例として、下記の my_middleware.coffee というファイルを /lib/server 配下につくって試してください。◆→bekkou: feature ですよー。future でないですよー。←◆
 
 ``` coffee-script
 exports.call = (request, response, next) ->
 
   # Log the User Agent of each incoming request
-  console.log 'User Agent is:', request.headers['user-agent']
+  console.log 'ユーザエージェント: ', request.headers['user-agent']
 
   # All middleware must end with next() unless response is being served/terminated here
   next()
