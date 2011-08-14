@@ -555,44 +555,43 @@ SocketStream のクライアントは、超軽量な 'heartbeat' シグナルを
 注釈: 'オンラインユーザ' 機能は、オーバーヘッドが最小になるようにデフォルトでオンになっています。この機能が不要なら、configファイルの SS.config.users.online.enabled の値に false を設定してください。
 
 
-### さらにPub/Sub
+### Pub/Sub をもっと知る
 
-上記で紹介したSS.publish.user()メソッドに加えて、まとめてユーザーにメッセージを送るためのコマンドが二つ用意されています。
+前述した SS.publish.user()メソッドに加えて、ユーザにまとめてメッセージを送る方法が二つあります。◆→bekkou: command はコンソールでたたくコマンドではなく、メソッド的な意味の「命令」だと思います←◆
 
-全てのユーザーに通知を行うために(例えばサーバーメンテナンスによるシステムダウンを全員に通知する場合)、ブロードキャストメソッドを使います。
-
-``` coffee-script
-SS.publish.broadcast('flash', {type: 'notification', message: 'Notice: This service is going down in 10 minutes'})
-```
-
-複数の部屋をもつチャットアプリのように、時には特定の集団に向けてイベントを通知したいこともあるでしょう。SocketStreamにはプライベートチャンネルと呼ばれるまさにそのための機能があり、複数のサーバーに対して最小のオーバーヘッドで通知を行うことができます。
-
-
-構文は通常の通知方法に似ています。チャンネル名(もしくはチャンネル名の配列)を最初の引数として指定してください。
+全ユーザに通知するには（例えば、サーバーメンテナンスによるシステムダウンを全員に通知する場合）、broadcast メソッドを使います。
 
 ``` coffee-script
-SS.publish.channel(['disney', 'kids'], 'newMessage', {from: 'mickymouse', message: 'Has anyone seen Tom?'})
+SS.publish.broadcast('flash', {type: 'notification', message: 'お知らせ: サービスは10分間ご利用できません。'})
 ```
 
-ユーザーは無制限のチャンネルを下記コマンドによって登録する事ができます(これらは/app/server内部でのみ動作します)
+たとえば複数の部屋があるチャットアプリで、絞り込んだユーザだけにイベントを知らせたいこともあるでしょう。まさにそのための機能としてプライベートチャンネルがあり、複数のサーバに対して最小のオーバーヘッドで通知できます。
+
+シンタックスは先ほど紹介したメソッドと似ています。チャンネル名（もしくはチャンネル名の配列）を第一引数に与えてください。
+
+``` coffee-script
+SS.publish.channel(['disney', 'kids'], 'newMessage', {from: 'mickymouse', message: 'Tom をどこかで見なかったかい？'})
+```
+
+ユーザはチャンネルを無制限に登録できます（/app/server 配下でのみ動作します）。
 
 ``` coffee-script
     @getSession (session) ->
 
-      session.channel.subscribe('disney')        # note: multiple channel names can be passed as an array
+      session.channel.subscribe('disney')        # 注釈: 配列も渡せます
 
-      session.channel.unsubscribe('kids')        # note: multiple channel names can be passed as an array
+      session.channel.unsubscribe('kids')        # 注釈: 配列も渡せます
 
-      session.channel.list()                     # shows which channels the client is currently subscribed to
+      session.channel.list()                     # クライアントが登録しているチャンネル一覧を表示
 ```
 
-指定したチャンネル名が存在しない場合、チャンネルは自動的に作成されます。チャンネル名はJavaScriptで有効な任意のオブジェクトキー名を使うことができます。もしクライアントが切断し、別のサーバーインスタンスへ再接続した場合、同じセッションIDを持っている限り、自動的に同じチャンネルへの再登録が行われます。これらのコマンドを使うときはエラーを必ずキャッチするようにしてください。
+指定したチャンネルが存在しない場合、チャンネルは自動的に作成されます。チャンネルの名前には、有効な JavaScript のオブジェクトキーを使えます。もしクライアントが切断して別のサーバのインスタンスへ再接続した場合でも以前のセッションID を保持している限り、同じチャンネルへ再登録されます。これらのメソッドを使うときは、エラーを必ずハンドルしてください。
 
-**Notes**
+**注釈**
 
-SocketStream Pub/Subシステムは水平方向へのスケーラビリティと高スループットを念頭においてデザインされました。将来クラスタリングが可能になった時、'ブロードキャスト'と'チャンネル'コマンドは自動的は複数のSocketStreamサーバーに対してロードバランシングされるでしょう。
+SocketStream の Pub/Subシステムは、水平方向へのスケーラビリティと高いスループットを念頭においてデザインされました。今後クラスタリングできるようになった時、'broadcast' と 'channel' は複数のSocketStream のインスタンスをまたがって自動的にロードバランシングされるでしょう。
 
-注意すべき点として、メッセージは保存されたりログに残らないことが挙げられます。もしclient/userがオフラインの場合、メッセージはキューに残ることなく単純に失われます。もしチャットアプリを作るのならメッセージを送る前に、それをデータベースかメッセージングサーバーに格納することをお勧めします。
+注意すべきことは、送ったメッセージは保存されずログにも残らないことです。もしクライアントがオフラインだと、メッセージはキューに残ることなく失われます。もしリアルタイムなチャットアプリをつくるなら、メッセージを送る前にデータベースかメッセージングサーバに格納することをオススメします。
 
 
 ### HTTP API
