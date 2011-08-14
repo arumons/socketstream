@@ -5,10 +5,11 @@
  * ユーザー／ユーザ
  * ネームスペース／名前空間
  * フォルダ・ディレクトリ→ディレクトリ
- * development／__development__
+ * development／__development__ ←あ、これはこういう記法なのかな
+ * メソッド／関数
 ◆→bekkou: TODO 英単語と日本語の間に半角スペースを入れる。個人的な感覚なのですが、英単語の前後はスペースをあてる。英単語＋日本語の単語は前だけにスペースをあてる。日本語＋英語＋日本語の単語はスペースをあてない。という基準でスペースをあてると読みやすいと感じます ←◆
 ◆→bekkou: 文言未確定は ★ をつけました←◆
-◆→bekkou: '' で囲っているやつと囲っていないやつはニュアンスが何か違うの？　メソッド名に付いていたり付いていなかったり。どちらかに統一したいなぁ。←◆
+◆→bekkou: '' で囲っているやつと囲っていないやつはニュアンスが何か違うの？　メソッド名に付いていたり付いていなかったり。どちらかに統一したいなぁ。あとは xxx() メソッド とか xxx メソッドとかも統一したい←◆
 
 ![SocketStream!](https://github.com/socketstream/socketstream/raw/master/new_project/public/images/logo.png)
 
@@ -533,7 +534,7 @@ __重要__
 exports.authenticate = true
 ```
 
-それによってファイル内のメソッドが実行される前に、ログインチェックが行われるか、もしくはプロンプトに表示◆→bekkou: デバッグ用にということ？  ほんとうに or なの？←◆されます。
+それによってファイル内のメソッドが実行される前に、ログインチェックが行われるか、もしくは（ベーシック認証などで）プロンプトが表示されます。
 
 一度ユーザが認証されれば、/app/server 配下のファイルより @getSession で session を取得して、session.user_id にアクセスするとユーザID を取得できるようになります。
 
@@ -596,17 +597,20 @@ SocketStream の Pub/Subシステムは、水平方向へのスケーラビリ�
 
 ### HTTP API
 
-HTTP APIは全てのサーバーサイドのアクションを、従来のHTTPもしくはHTTPSリクエストベースのインタフェースでアクセスできるようにします。
+HTTP APIは、サーバサイドの全アクションを、おなじみの HTTP/HTTPSリクエストベースのインタフェースでアクセスできるようにします。
 
-HTTP APIはデフォルトで有効になっており、下記の環境変数★にて変更することができます。
+HTTP APIはデフォルトで有効になっており、下記の環境変数★で変更できます。
 
 ``` coffee-script
-SS.config.api.enabled            Boolean       default: true         # Enables/disables the HTTP API
-SS.config.api.prefix             String        default: 'api'        # Sets the URL prefix e.g. http://mysite.com/api
+SS.config.api.enabled            Boolean       default: true         # HTTP API の有効／無効
+SS.config.api.prefix             String        default: 'api'        # URLプリフィックス 例: 左記だと http://mysite.com/api
 ```
 
-HTTP APIはBasic認証もサポートしています。それによってsession.user_idを使うメソッドにアクセスできるようになります。このオプションを使いたい場合、SS.config.api.https_onlyオプションにtrueを設定してパスワードが平文のまま送信されないようにすることをお勧めします。
+HTTP API はベーシック認証もサポートしており、認証後、session.user_id を使うメソッドにアクセスできるようになります。このオプションを使いたい場合、SS.config.api.https_only に true を設定してパスワードが平文のまま送信されないようにすることをオススメします。
 
+'exports.authenticate = true' （上記を参照）を設定することで、そのファイル内のアクションにアクセスする前にサーバがユーザ名とパスワードを要求するようになります。一方 HTTP API では、認証でどのモジュールを使うのかを設定しなくてはいけません。設定ファイルで SS.config.api.auth.basic.module_name 変数に値を入れてください。
+
+◆→bekkou: 今までの流れはコードの前に説明があったので、コードと説明が逆になっていた部分を入れ替えました←◆
 ``` coffee-script
 exports.config =
   api:
@@ -615,9 +619,7 @@ exports.config =
         module_name: "custom_auth"
 ```
 
-'exports.authenticate = true' を設定することでサーバーはそのファイルへのアクセスにユーザー名とパスワードを要求するようになりますが、HTTP APIの場合、認証にどのモジュールを使うのか設定する必要があります。SS.config.api.auth.basic.module_name変数をコンフィグファイルに配置してください。
-
-注釈:Basic認証は'username'と'password'パラメータをexports.authenticate関数に渡します。
+注釈: ベーシック認証は 'username' と 'password' パラメータを exports.authenticate() 関数に渡します。
 
 
 ### 回線切断時の対応
