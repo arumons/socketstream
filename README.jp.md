@@ -224,7 +224,7 @@ exports.actions =
 
 ね、簡単でしょう？　魅力はこれだけではありません。ユーザーがどのサーバーに接続しているかを気にする必要はありません。SocketStream サーバーは Redis の共通インスタンスを見ているのでメッセージは常に正しいサーバーへ送られます。◆→bekkou: こういうことを言いたいような気がするが、仕組みをちゃんと知らないので自信はない←◆
 
-全ユーザーへブロードキャストする方法や、プライベートチャンネルを実装する方法を知りたいですか？　それなら後述の 'More Pub/Sub' セクションを読んでください。
+全ユーザーへブロードキャストする方法や、プライベートチャンネルを実装する方法を知りたいですか？　それなら後述の 'More Pub/Sub'★ セクションを読んでください。
 
 
 ### 動作環境
@@ -487,53 +487,55 @@ exports.actions =
       cb("#{session.created_at} につくられたセッションです。")
 ```
 
-### ユーザーとモジュール化認証
+### モジュール化されたユーザ認証
 
-ほとんと全てのWebアプリケーションはユーザーの認証機構を備えています。そのため開発チームは'カレントユーザー'の概念をSocketStreamのコアに組み込みました。これは開発者の人生を簡単にするだけでなく、正しいpubsubシステムや APIリクエストの認証、オンライン中のユーザーの追跡(下記セクションを参照してください)を行うために必須の機能となっています。
+ユーザのログイン・ログアウト機能を必要とする Webアプリケーションは多いでしょう。そのため私たちは 'カレントユーザ' という概念を SocketStream に取り入れました。これは、開発をやりやすくさせるだけでなく、ちゃんとした pub/subシステムの開発、APIリクエストの認証、オンラインユーザのトラッキング（後述するセクションを参照してください）をするために欠かせないものです。
 
-認証は完全にモジュール化され、簡単に実装できます。下記に示すのは/lib/server/custom_auth.coffeeに配置したカスタム認証モジュールの例です。
+認証はモジュール化されているのでサクッと実装できます。例えば、よくある認証モジュールを /lib/server/custom_auth.coffee につくってみましょう。
 
 ``` coffee-script
 exports.authenticate = (params, cb) ->
-  success = # do DB/third-party lookup
+  success = # DB アクセスなど何かやる
   if success
     cb({success: true, user_id: 21323, info: {username: 'joebloggs'}})
   else
     cb({success: false, info: {num_retries: 2}})
 ```
 
-* クライアントから送られたパラメータが最初の引数に渡されていることに注目してください。通常は{username: 'something', password: 'secret'}といった形になりますが、バイオメトリックIDやiPhoneデバイスID、SSOトークンなどを含むこともできます。
+* クライアントから送られるパラメータが第一引数に渡されていることに注目してください。一般的なパラメータは {username: 'something', password: 'secret'} といった値ですが、バイオメトリックID・iPhoneデバイスID・SSOトークンなど他のパラメータを追加できます。
 
-* 二番目の引数はコールバック関数です。これには必ず 'status' 属性(boolean)と 'user_id' 属性(数もしくは文字列)を成功した場合に渡す必要があります。さらに残り試行回数などを追加のパラメータとしてオブジェクトに含め、クライアントに
-送り返すこともできます。
+* 第二引数はコールバック関数です。コールバック関数には必ず 'status' パラメータ（boolean）◆→bekkou: ソースコードは success になっているけど。。←◆ と 'user_id' パラメータ（数もしくは文字列）渡す必要があります（'user_id' パラメータは認証が成功した場合のみ）。さらに、残りログイン試行回数など他のパラメータを追加してクライアントに送り返せます。
 
-このカスタム認証モジュールをあなたのアプリで使うには、/app/server内のコードで@getSessionを呼び出し、session.authenticateの最初の引数として作成したモジュールの名前を渡す必要があります。
+つくった認証モジュールを使うには、/app/server 内のコードで @getSession を呼び出して session.authenticate の第一引数にモジュール名を渡します。
 
+◆→bekkou: 以下のソースコードがだいぶ違っていたのですが他のコードは大丈夫ですか？　シンプルにコピペしていたら違わないと思うのですが。。README.md を正としますね。←◆
 ``` coffee-script
 exports.actions =
 
   authenticate: (params, cb) ->
-    @session.authenticate 'custom_auth', params, (response) =>
-      @session.setUserId(response.user_id) if response.success       # sets @session.user.id and initiates pub/sub
-      cb(response)                                                   # sends additional info back to the client
+    @getSession (session) ->
+      session.authenticate 'custom_auth', params, (response) =>
+        session.setUserId(response.user_id) if response.success       # session.user.id をセットして pub/sub を開始する
+        cb(response)                                                  # 追加情報をクライアントに送る
 
   logout: (cb) ->
-    @session.user.logout(cb)                                         # disconnects pub/sub and returns a new Session object
+    @getSession (session) ->
+      session.user.logout(cb)                                         # pub/sub を切断してまっさらな Sessionオブジェクトを返す
 ```
 
-このモジュールアプローチは複数の方法でユーザーが認証を行うことを可能にします。将来的にはFacebookコネクトのような共通の認証サービスをサポートするかもしれません。
+このようなモジュール化のアプローチによって、複数のユーザ認証を行えます。今後、Facebookコネクトのような共通認証サービスをサポートする予定です。
 
 __重要__
 
-認証を必要とする/app/server内のファイルでは下記のコードを先頭に配置してください。
+認証が必要な /app/server 配下のファイルには下記のコードを先頭に書いてください。
 
 ``` coffee-script
 exports.authenticate = true
 ```
 
-これによってこのファイル内のメソッドが実行されるまえに、ユーザーのログインチェック、もしくはプロンプトが表示されるようになります。
+それによってファイル内のメソッドが実行される前に、ログインチェックが行われるか、もしくはプロンプトに表示◆→bekkou: デバッグ用にということ？  ほんとうに or なの？←◆されます。
 
-一度ユーザーの認証が済むと、@getSessionでsessionを取得し、session.user_idを見ることで/app/serverコードのどこからでもユーザーIDにアクセスできるようになります。
+一度ユーザが認証されれば、/app/server 配下のファイルより @getSession で session を取得して、session.user_id にアクセスするとユーザID を取得できるようになります。
 
 
 ### オンライン状態の追跡
