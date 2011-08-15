@@ -534,7 +534,7 @@ __重要__
 exports.authenticate = true
 ```
 
-それによってファイル内のメソッドが実行される前に、ログインチェックが行われるか、もしくは（ベーシック認証などで）プロンプトが表示されます。
+それによってファイル内のメソッドが実行される前に、ログインチェックが行われるか、もしくは（BASIC認証などで）プロンプトが表示されます。
 
 一度ユーザが認証されれば、/app/server 配下のファイルより @getSession で session を取得して、session.user_id にアクセスするとユーザID を取得できるようになります。
 
@@ -606,7 +606,7 @@ SS.config.api.enabled            Boolean       default: true         # HTTP API 
 SS.config.api.prefix             String        default: 'api'        # URLプリフィックス 例: 左記だと http://mysite.com/api
 ```
 
-HTTP API はベーシック認証もサポートしており、認証後、session.user_id を使うメソッドにアクセスできるようになります。このオプションを使いたい場合、SS.config.api.https_only に true を設定してパスワードが平文のまま送信されないようにすることをオススメします。
+HTTP API はBASIC認証もサポートしており、認証後、session.user_id を使うメソッドにアクセスできるようになります。このオプションを使いたい場合、SS.config.api.https_only に true を設定してパスワードが平文のまま送信されないようにすることをオススメします。
 
 'exports.authenticate = true' （上記を参照）を設定することで、そのファイル内のアクションにアクセスする前にサーバがユーザ名とパスワードを要求するようになります。一方 HTTP API では、認証でどのモジュールを使うのかを設定しなくてはいけません。設定ファイルで SS.config.api.auth.basic.module_name 変数に値を入れてください。
 
@@ -619,7 +619,7 @@ exports.config =
         module_name: "custom_auth"
 ```
 
-注釈: ベーシック認証は 'username' と 'password' パラメータを exports.authenticate() 関数に渡します。
+注釈: BASIC認証は 'username' と 'password' パラメータを exports.authenticate() 関数に渡します。
 
 
 ### 回線切断時のハンドリング
