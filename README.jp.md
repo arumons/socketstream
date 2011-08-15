@@ -711,27 +711,27 @@ whileループの中で'SS.server' のメソッドをひたすら呼びつづけ
 
 __レート制限とDDOS防御__
 
-SocketStreamは特定のクライアントが一秒に15回以上websocketの接続を行うとしていることを検知することで、DDOS攻撃に対して防御する機能を持ちます。(回数はSS.config.limitter.websockets.rpsにて設定可能です。)
+SocketStream は特定のクライアントが一秒に15回以上 websocket の接続を行うとしていることを検知することで、DDOS攻撃に対して防御する機能を持ちます。(回数はSS.config.limitter.websockets.rpsにて設定可能です)
 
-これが発生した場合、攻撃しているクライアントがコンソールに表示され、対象のクライアントからの全ての連続したリクエストは無視されます。この機能は我々が実際の環境で実験中のため現在はオフになっていますが、SS.config.limitter.enabledの値をtrueにすることで有効にすることができます。
+1秒に15回以上の接続が試みられた場合、対象のクライアントがコンソールに表示され、そのクライアントからの全ての連続したリクエストは無視されます。この機能は我々が実際の環境でテスト中のため現在はオフになっていますが、SS.config.limitter.enabled の値をtrueにすることで有効にすることができます。
 
 
 ### HTTPS / TLS (SSL)
-もし上記のセキュリティセクションを読み、SocketStreampアプリをインターネットに公開することを決めたのなら(VPNの内側ではなく)HTTPSはあったら良い程度の機能ではありません。必須の機能です。
+上記のセキュリティに関するセクションを読み、SocketStream アプリを（VPNの内側ではなく）インターネットに公開することを決めたのなら、HTTPSはあったら良い程度の機能ではありません。必須の機能です。
 
 その理由は二つ挙げられます。
 
-1. HTTPプロキシー、プロキシは特にモバイル通信会社から使われ、HTTPリクエストを改変します。その改変によってwebsocketの初期化は妨害されます。HTTPS/TLSは通信の内容をだけではなくヘッダも暗号化し、3G回線上のモバイルSafariからでも(iPadとiPhone)websocketsが期待通りに動くことを保証します。
+1. HTTPプロキシー、プロキシは特にモバイル通信会社によって使われ、HTTPリクエストを改変します。その改変によって websocket の初期化はたびたび妨害されます。HTTPS/TLS は通信の内容をだけではなくヘッダも暗号化し、3G回線上のモバイルSafari（iPad や iPhone）からでもwebsocketsが期待通りに動くことを保証します。
 
-2. [FireSheep](http://en.wikipedia.org/wiki/Firesheep)を覚えていますか？インターネット上に公開するSocketStreamアプリのデフォルトをHTTPSにすることでこの問題にけりをつけましょう。
+2. [FireSheep](http://en.wikipedia.org/wiki/Firesheep)を覚えていますか？　インターネット上に公開する SocketStream アプリのデフォルトをHTTPSにすることでこの問題にけりをつけましょう。
 
-良いニュースはSocketStreamでHTTPSを使うのは簡単だということです。OpenSSLサポートを有効にして./configureとNode.jsのコンパイルを行っていることを確認してください。もしOpenSSLライブラリが未インストールなら次のコマンドでインストールすることができます(Ubuntuの場合)
+SocketStream でHTTPSを使うのは簡単です。OpenSSLサポートを有効にして./configureとNode.jsのコンパイルを行っていることを確認してください。もしOpenSSLライブラリのインストールがまだなら次のコマンドでインストールすることができます(Ubuntuの場合)
 
-    sudo apt-get install libssl-dev openssl  (ヒント: これを行った後に pkg-config をインストール/起動する必要があるかもしれません)
+    sudo apt-get install libssl-dev openssl  (ヒント: これを行った後に pkg-config をインストール／起動する必要があるかもしれません)
 
-一度NodeがHTTPS/TLSをサポートしたら、statingかproduction環境でSS.config.https.enabled = trueとすることでHTTPS/TLSが有効になります。デフォルトではSocketStreamはHTTPSサーバーをポート443で立ち上げようとするため、起動にはsudoコマンドを使う必要があるでしょう。
+一度 Node が HTTPS/TLS をサポートしたら、stating もしくは production 環境で SS.config.https.enabled = trueとすることで HTTPS/TLS が有効になります。SocketStream はHTTPSサーバーを通常ポート443で立ち上げようとするため、起動には sudo コマンドを使う必要があるでしょう。
 
-SocketStreamは自己署名付きSSL証明書を持っています。これはコマーシャル証明書が見つからない場合にデフォルトでロードされます。これはテスト/デバッグを行うときに役立ちます。しかし、自己署名付き証明書をサポートしていないブラウザでwebsocketを使う場合、問題が発生するかもしれません。
+SocketStream は自己署名付きSSL証明書を持っています。これはコマーシャル証明書が見つからない場合にデフォルトでロードされます。これはテスト／デバッグを行うときに役立ちますが、自己署名付き証明書をサポートしていないブラウザで websocket を使う時に問題が発生するかもしれません。
 
 
 **デプロイ**
@@ -746,24 +746,24 @@ SocketStreamは自己署名付きSSL証明書を持っています。これは�
 
     openssl req -new -key site.key.pem -out site.request.csr
 
-注釈:コモンネームの入力には注意を払ってください。これはあなたのWebサイトのフルドメイン(www.を含む)でなければいけません。
+注釈:Common Name の入力には注意を払ってください。これはあなたのWebサイトのフルドメイン(www.を含む)でなければいけません。
 
-site.request.csrファイルの内容を認証局に送ってください。ファイルと交換で/config/ssl_certs/site.cert.pemファイルとして証明書が送られます。全てのブラウザで証明書の検証が行えるように'中間証明書'も取得するようにしてください。
+site.request.csr ファイルの内容を認証局に送ると、交換で証明書が手に入ります。それを /config/ssl_certs/site.cert.pem に配置してください。全てのブラウザで証明書の検証が行えるように '中間証明書' も取得し、 /config/ssl_certs/site.ca.pem に配置してください。
 
-一度全てのファイルが揃うとSocketStreamはその証明書を自己署名のテスト証明書の代わりに使い、サーバーの起動時にそのことを通知します。
+全てのファイルが揃うと SocketStream はその証明書を自己署名のテスト証明書の代わりに使い、サーバーの起動時にそのことを通知します。
 
 
 **strayリクエストのリダイレクト**
 
-一度HTTPSが有効になると、証明書の中で 'Common Name' としてリストに載っているドメインに行くことが非常に重要になります。これは基本的にあなたのサイトの'www.'バージョンです。SS.config.https.domainにあなたのサイトのFQDN(www.yourdomain.com)を設定することでSocketStreamは自動的に http://yourdomain.com へのあらゆるリクエストを https://www.yourdomain.com にリダイレクトします。そうすることで、サイトの訪問者は奇妙なセキュリティ警告を見なくて済むようになります。
+HTTPSが有効になったら、'Common Name' として証明書内のリストに載っているドメインに、サイトの訪問者が行く必要があります。'Common Name' は基本的にあなたのサイトの 'www.' バージョンです。SS.config.https.domain にあなたのサイトのFQDN（www.yourdomain.com）を設定することで SocketStream は自動的に http://yourdomain.com へのあらゆるリクエストを https://www.yourdomain.com にリダイレクトします。そうすることで、訪問者は奇妙なセキュリティ警告を見なくて済むようになります。
 
-さらにデフォルトではセカンダリHTTPサーバーをポート番号80で立ち上げ、http:// へ送られたAPIではないトラフィックをhttps://へ転送します。これらの動作が不要ならオフにすることも可能です。(SS.config.httpを見てください。)
+さらにデフォルトではセカンダリHTTPサーバーをポート番号80で立ち上げ、http:// へ送られたAPIではないトラフィックを https:// へ転送します。リダイレクトが不要ならオフにすることも可能です。(SS.config.httpを見てください。)
 
 
 **複数の証明書の使用**
 
-最後に、複数のSSL証明書を/config/ssl_certsにインストールすることができ、SS.config.https_cert_nameによってSocketStreamがどれを使うのか選択することができます。
-デフォルトではこの値は'site'になっています。そのためsite.key.pem、 site.cert_pemにしていたわけです。
+複数のSSL証明書を /config/ssl_certs にインストールでき、SS.config.https_cert_name によって SocketStream がどの証明書を使うのか選択することができます。
+デフォルトではこの値は 'site' になっています。そのため上記の説明では、ファイル名を site.key.pem、 site.cert_pem にしていました。
 
 
 ### スケールアップ
