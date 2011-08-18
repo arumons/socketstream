@@ -716,15 +716,15 @@ SocketStream は DDOS攻撃へのプロテクト機能を持っており、特�
 
 
 ### HTTPS / TLS (SSL)
-上記のセキュリティのセクションを読んで SocketStream アプリを（VPNの内側ではなく）インターネットに公開することを決めたのなら、「HTTPS はあったらいいのになぁ」と言ってれば済む機能ではありません。必須ですね。
+上記のセキュリティのセクションを読んで SocketStream アプリを（VPNの内側ではなく）インターネットに公開することを決めたのなら、「HTTPS はあったらいいのになぁ」と言ってれば済む機能ではありません。必須ですね。◆→bekkou: もうちょっといい感じにしたい←◆
 
 理由は二つあります。
 
-1. 携帯の通信会社がよく使う HTTPプロキシーはリクエストを改変します。それによって websocket の初期化はたびたび妨害されます。HTTPS/TLS は通信の内容だけでなくヘッダも暗号化し、3G回線上のモバイルSafari（iPad や iPhone）からでもwebsocketsが期待通りに動くことを保証します。
+1. 携帯の通信会社がよく使う HTTPプロキシーはリクエストを改変します。それによって websocket の初期化はたびたび妨げられます。そこで HTTPS/TLS を使うことで通信の内容だけでなくヘッダも暗号化されるので、3G回線上のモバイルSafari（iPad や iPhone）からでも websocket がちゃんと動くようになるでしょう。◆→bekkou: 保証するだと意味が強すぎるかな←◆
 
-2. [FireSheep](http://en.wikipedia.org/wiki/Firesheep)を覚えていますか？　インターネット上に公開する SocketStream アプリのデフォルトをHTTPSにすることでこの問題にけりをつけましょう。
+2. [FireSheep](http://en.wikipedia.org/wiki/Firesheep) をご存知ですか？　セッションハイジャックの問題は、インターネット上に公開する SocketStreamアプリのデフォルトを HTTPS にすることでケリをつけましょう。
 
-SocketStream でHTTPSを使うのは簡単です。OpenSSLサポートを有効にして./configureとNode.jsのコンパイルを行っていることを確認してください。もしOpenSSLライブラリのインストールがまだなら次のコマンドでインストールすることができます(Ubuntuの場合)
+SocketStream で HTTPS は簡単につかえます。OpenSSL のサポートを有効にして ./configureとNode.js のコンパイルを行っていることを確認してください。もしOpenSSLライブラリのインストールがまだなら次のコマンドでインストールすることができます(Ubuntuの場合)
 
     sudo apt-get install libssl-dev openssl  (ヒント: これを行った後に pkg-config をインストール／起動する必要があるかもしれません)
 
