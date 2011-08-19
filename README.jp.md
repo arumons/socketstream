@@ -736,9 +736,9 @@ Node が HTTPS/TLS をサポートするようにさせたら、stating また�
 
 **デプロイ**
 
-アプリを公開する準備ができたら、ちゃんと認証されたSSL証明書が必要になるでしょう。開発チームはwww.rapidssl.com](www.rapidssl.com) を好んで使っています。何故なら、ここは他の有名なプロバイダが行っていないモバイルバージョンのSafari(iPadとiPhone)をサポートしているからです。
+アプリを公開する準備ができたら、認証済みの SSL証明書が必要になるでしょう。私たちは [www.rapidssl.com](www.rapidssl.com) が気に入っています。他の名だたるプロバイダがやっていないモバイルバージョンの Safari（iPad と iPhone）をサポートしているからです。
 
-商用のSSL証明書を得るには下記のコマンドをプロジェクトのルートディレクトリで実行してください。
+SSL証明書を申請するにはプロジェクトのルートディレクトリで下記のコマンドを実行してください。
 
     cd config/ssl_certs
 
@@ -746,24 +746,24 @@ Node が HTTPS/TLS をサポートするようにさせたら、stating また�
 
     openssl req -new -key site.key.pem -out site.request.csr
 
-注釈:Common Name の入力には注意を払ってください。これはあなたのWebサイトのフルドメイン(www.を含む)でなければいけません。
+注釈: Common Name は注意して入力してください。Common Name は、あなたの Webサイトのフルドメイン（www.を含む）でなければいけません。
 
-site.request.csr ファイルの内容を認証局に送ると交換で証明書が手に入ります。それを /config/ssl_certs/site.cert.pem に配置してください。全てのブラウザで証明書の検証が行えるように '中間証明書' も取得し、 /config/ssl_certs/site.ca.pem に配置してください。
+site.request.csr ファイルを認証局に送ると証明書が手に入ります。その証明書を /config/ssl_certs/site.cert.pem に配置してください。また、すべてのブラウザでただしく検証できるように '中間証明書' を /config/ssl_certs/site.ca.pem に配置してください。
 
-全てのファイルが揃うと SocketStream は自己署名のテスト証明書の代わりにその証明書を使うようになり、サーバーの起動時にそのことを通知します。
+それらのファイルがすべて揃うと SocketStream は自己署名証明書のかわりに認証された証明書を使うようになり、サーバの起動時にコンソールへ通知されます。
 
 
 **strayリクエストのリダイレクト**
 
-HTTPSが有効になったら、'Common Name' として証明書内のリストに載っているドメインに、サイトの訪問者が行く必要があります。'Common Name' は基本的にあなたのサイトの 'www.' バージョンです。SS.config.https.domain にあなたのサイトのFQDN（www.yourdomain.com）を設定することで SocketStream は自動的に http://yourdomain.com へのあらゆるリクエストを https://www.yourdomain.com にリダイレクトします。そうすることで、訪問者は奇妙なセキュリティ警告を見なくて済むようになります。
+HTTPS が使えるようになってからは、証明書に記載されている 'Common Name'（'www.' を含むフルドメイン）にサイト訪問者がアクセスできるようにしなければなりませんね。SS.config.https.domain にサイトのFQDN（例: www.yourdomain.com）を設定することで、SocketStream は http://yourdomain.com へのリクエストを https://www.yourdomain.com へ自動的にリダイレクトします。これによって訪問者は残念なセキュリティ警告を見ずに済みます。
 
-さらにデフォルトではセカンダリHTTPサーバーをポート番号80で立ち上げ、http:// へ送られたAPIではないトラフィックを https:// へ転送します。リダイレクトが不要ならオフにすることも可能です。(SS.config.httpを見てください。)
+デフォルトではさらにセカンダリHTTPサーバーを80番ポートで立ち上げ、APIからではない http:// へのリクエストを https:// へ転送します。リダイレクトが不要ならオフにできます（SS.config.http を参照）。
 
 
-**複数の証明書の使用**
+**複数の証明書を使いわける◆→bekkou: この表現の方が適切かな←◆**
 
-複数のSSL証明書を /config/ssl_certs にインストールでき、SS.config.https_cert_name によって SocketStream がどの証明書を使うのか選択することができます。
-デフォルトではこの値は 'site' になっています。そのため上記の説明では、ファイル名を site.key.pem、 site.cert_pem にしていました。
+複数の証明書を使いわけたいなら /config/ssl_certs にそれぞれを配置し、SS.config.https_cert_name を設定することで SocketStream が使う証明書を指定できます。
+デフォルトではこの値は 'site' になっています。そのため前述した説明ではファイル名を site.key.pem と site.cert_pem にしていました。
 
 
 ### スケールアップ
