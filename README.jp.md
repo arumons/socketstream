@@ -715,7 +715,8 @@ SocketStream は DDOS攻撃へのプロテクト機能を持っており、特�
 毎秒15回をこえる接続をされると対象のクライアントがコンソールに表示され、そのクライアントからの全ての連続したリクエストは無視されます。この機能は実験段階でテスト中のため現在はオフになっていますが、SS.config.limitter.enabled に true をセットすると有効にできます。
 
 
-### HTTPS / TLS (SSL)
+### HTTPS／TLS（SSL）
+
 上記のセキュリティのセクションを読んで SocketStream アプリを（VPNの内側ではなく）インターネットに公開することを決めたのなら、「HTTPS はあったらいいのになぁ」と言ってれば済む機能ではありません。必須ですね。◆→bekkou: もうちょっといい感じにしたい←◆
 
 理由は二つあります。
@@ -724,18 +725,18 @@ SocketStream は DDOS攻撃へのプロテクト機能を持っており、特�
 
 2. [FireSheep](http://en.wikipedia.org/wiki/Firesheep) をご存知ですか？　セッションハイジャックの問題は、インターネット上に公開する SocketStreamアプリのデフォルトを HTTPS にすることでケリをつけましょう。
 
-SocketStream で HTTPS は簡単につかえます。OpenSSL のサポートを有効にして ./configureとNode.js のコンパイルを行っていることを確認してください。もしOpenSSLライブラリのインストールがまだなら次のコマンドでインストールすることができます(Ubuntuの場合)
+SocketStream で HTTPS は簡単につかえます。./configure を実行して、OpenSSL サポート付きの Node.js をコンパイルするだけです◆→bekkou: ということですよね？←◆。もし OpenSSL ライブラリのインストールがまだなら次のコマンドでインストールできます（Ubuntuの場合）
 
-    sudo apt-get install libssl-dev openssl  (ヒント: これを行った後に pkg-config をインストール／起動する必要があるかもしれません)
+    sudo apt-get install libssl-dev openssl （ヒント: 実行後に pkg-config をインストール／起動が必要かもしれません）
 
-一度 Node が HTTPS/TLS をサポートしたら、stating もしくは production 環境で SS.config.https.enabled = trueとすることで HTTPS/TLS が有効になります。SocketStream はHTTPSサーバーを通常ポート443で立ち上げようとするため、起動には sudo コマンドを使う必要があるでしょう。
+Node が HTTPS/TLS をサポートするようにさせたら、stating または production 環境で SS.config.https.enabled = true と設定することで HTTPS/TLS を有効にできます。SocketStream はデフォルトで HTTPSサーバーを 443番ポートで立ち上げようとするため、起動には 'sudo'コマンドが必要になるでしょう。
 
-SocketStream は自己署名付きSSL証明書を持っており、コマーシャル証明書が見つからない場合にデフォルトでロードされます。これはテスト／デバッグを行うときに役立ちますが、自己署名付き証明書をサポートしていないブラウザで websocket を使う時に問題が発生するかもしれません。
+認証されたSSL証明書が見つからない場合は SocketStream に付属する自己署名証明書がデフォルトでロードされます。テストやデバッグには役立ちますが、自己署名証明書をサポートしていないブラウザで websocket を使うときには問題が発生するかもしれません。
 
 
 **デプロイ**
 
-アプリを公開する準備ができたら、正当なSSL証明書が必要になるでしょう。開発チームはwww.rapidssl.com](www.rapidssl.com) を好んで使っています。何故なら、ここは他の有名なプロバイダが行っていないモバイルバージョンのSafari(iPadとiPhone)をサポートしているからです。
+アプリを公開する準備ができたら、ちゃんと認証されたSSL証明書が必要になるでしょう。開発チームはwww.rapidssl.com](www.rapidssl.com) を好んで使っています。何故なら、ここは他の有名なプロバイダが行っていないモバイルバージョンのSafari(iPadとiPhone)をサポートしているからです。
 
 商用のSSL証明書を得るには下記のコマンドをプロジェクトのルートディレクトリで実行してください。
 
