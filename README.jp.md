@@ -1,8 +1,3 @@
-◆→bekkou: メソッド／関数って使い分けどうでしたっけ？←◆◆→arumons:クラスに属している→メソッド、それ以外→関数だけどそういう意味では使い分けられてはいないみたいだね。原文に合わせておきますか←◆
-◆bekkou: TODO
-  environment variable：環境変数
-  config file　　　　　：設定ファイル
-  config variable　　　：コンフィグ変数
 ◆→bekkouTODO ソースコード中の文字列リテラルを日本語にする←◆  
  * development／__development__ ←あ、これはこういう記法なのかな  
 ◆→bekkou: 文言未確定は ★ をつけました←◆  
@@ -317,19 +312,19 @@ __development__モードの他に __staging__ と __production__ の二つのモ
 
 プリセット変数の上書きや追加は、設定ファイルを書き換えることで行えます。アプリケーション全体に適用される設定ファイルは /config/app.coffee で、それぞれの環境に適用される設定ファイルは /config/enviroments/<SS_ENV>.coffee です（例: /config/environments/development.coffee）。なお、<SS_ENV>.coffee は app.coffee の設定を上書きします。
 
-__development__モード以外の環境で SocketStream を立ち上げるには SS_ENV環境変数★を使います。
+__development__モード以外の環境で SocketStream を立ち上げるには SS_ENV環境変数を使います。
 
     SS_ENV=staging socketstream start
 
 追加できる環境の数に制限はありません。どの環境で動作しているかは SocketStreamコンソール上で SS.env とタイプすると容易に確認できます。
 
-すべての設定可能な環境変数★は近日公開予定のサイトにてお知らせします。現在は SocketStreamコンソール上で SS.config とタイプすることですべての設定可能な環境変数★を確認できます。
+すべての設定可能な環境変数は近日公開予定のサイトにてお知らせします。現在は SocketStreamコンソール上で SS.config とタイプすることですべての設定可能な環境変数を確認できます。
 
-README を読んでいると、環境変数★を変更しているような下記の表記をたびたび目にするでしょう。
+README を読んでいると、コンフィグ変数を変更しているような下記の表記をたびたび目にするでしょう。
 
     SS.config.limiter.enabled = true
 
-この場合、設定ファイルで次のように書くことで環境変数★の値を変更できます。
+この場合、設定ファイルで次のように書くことで環境変数の値を変更できます。
 
 ``` coffee-script
 exports.config =
@@ -547,7 +542,7 @@ SS.users.online.now (data) -> console.log(data)
 
 SocketStream のクライアントは、超軽量な 'heartbeat' シグナルをデフォルトで 30秒ごとにサーバに送ることで、ユーザがオンラインであることを伝えます。サーバサイドでは1分ごとに起動するプロセスでシグナルをチェックしており、1分間応答のないユーザをリストから取り除きます。それらのタイミングは SS.config.client.heartbeat_interval と SS.config.users.online の値で調節できます。
 
-注釈: 'オンラインユーザ' 機能は、オーバーヘッドが最小になるようにデフォルトでオンになっています。この機能が不要なら、configファイルの SS.config.users.online.enabled の値に false を設定してください。
+注釈: 'オンラインユーザ' 機能は、オーバーヘッドが最小になるようにデフォルトでオンになっています。この機能が不要なら、設定ファイルの SS.config.users.online.enabled の値に false を設定してください。
 
 
 ### Pub/Sub をもっと知る
@@ -593,7 +588,7 @@ SocketStream の Pub/Subシステムは、水平方向へのスケーラビリ�
 
 HTTP APIは、サーバサイドの全アクションを、おなじみの HTTP/HTTPSリクエストベースのインタフェースでアクセスできるようにします。
 
-HTTP APIはデフォルトで有効になっており、下記の環境変数★で変更できます。
+HTTP APIはデフォルトで有効になっており、下記のコンフィグ変数で変更できます。
 
 ``` coffee-script
 SS.config.api.enabled            Boolean       default: true         # HTTP API の有効／無効
