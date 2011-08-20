@@ -1,4 +1,8 @@
 ◆→bekkou: メソッド／関数って使い分けどうでしたっけ？←◆
+◆bekkou: TODO
+  environment variable：環境変数
+  config file　　　　　：設定ファイル
+  config variable　　　：コンフィグ変数
 ◆→bekkouTODO ソースコード中の文字列リテラルを日本語にする←◆  
  * development／__development__ ←あ、これはこういう記法なのかな  
 ◆→bekkou: 文言未確定は ★ をつけました←◆  
