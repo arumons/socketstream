@@ -852,17 +852,16 @@ A: websocket はサポートされていますが、デフォルトでは無効�
 アイデアを議論したかったり、何かお話したいことがあれば info@socketstream.org 宛にメールをお送りください。
 
 
-### Credits（微妙）
+### クレジット
 
-Guillermo Rauch (Socket.IO), TJ Holowaychuk (Stylus, Jade), Jeremy Ashkenas (CoffeeScript), Mihai Bazon (UglifyJS), Isaac Schlueter (NPM), Salvatore Sanfilippo (Redis) そして SocketStream を可能にしてくれた様々な方の素晴らしい活動に感謝します。
-特に物事を異なるやり方で行うことに対してインスピレーションをくれた Ryan Dahl (node.js の開発者) には特別な感謝を送ります。
+Guillermo Rauch（Socket.IO）、TJ Holowaychuk（Stylus, Jade）、Jeremy Ashkenas（CoffeeScript）、Mihai Bazon（UglifyJS）、Isaac Schlueter（NPM）、Salvatore Sanfilippo（Redis）、そして SocketStream をよりよいものにしてくれた沢山の方々の素晴らしい活動に感謝します。違うアプローチで取り組むことにインスピレーションをくれた Ryan Dahl（node.js の開発者）には特別な感謝を送ります。
 
 
-### ありがとう！
+### ありがとう！◆→bekkou: 謝辞 だと固いかな。。←◆
 
-SocketStreamの開発はAOLの支援によって行われています。
+SocketStream の開発は AOL に支援されています。
 
 
 ### ライセンス
 
-SocketStreamはMITライセンスの元でリリースされています。
+SocketStream は MITライセンスでリリースされています。
