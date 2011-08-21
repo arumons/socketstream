@@ -1,5 +1,3 @@
-◆→bekkouTODO ソースコード中の文字列リテラルを日本語にする←◆  
- * development／__development__ ←あ、これはこういう記法なのかな  
 ◆→bekkou: '' で囲っているやつと囲っていないやつはニュアンスが何か違うの？　メソッド名に付いていたり付いていなかったり。どちらかに統一したいなぁ。あとは xxx() メソッド とか xxx メソッドとかも統一したい←◆  
 
 ![SocketStream!](https://github.com/socketstream/socketstream/raw/master/new_project/public/images/logo.png)
@@ -95,7 +93,7 @@ exports.actions =
 ``` coffee-script
 exports.square = (number) ->
   SS.server.app.square number, (response) ->
-    console.log "#{number} squared is #{response}"
+    console.log "#{number} の二乗は #{response}"
 ```
 
 サーバーを再起動してページをリフレッシュした後、次のコードをブラウザのコンソールから入力してください。
@@ -106,7 +104,7 @@ SS.client.app.square(25)
 
 以下のように出力されたと思います。
 
-    25 squared is 625
+    25 の二乗は 625
 
 注意深い人なら SS.client.app.square(25) が実際には 'undefined' を返していることに気がつくでしょう。この動作は正常です。注目すべきはリクエストが処理された後にサーバーから非同期に送られるレスポンスです。
 
@@ -141,10 +139,10 @@ exports.actions =
     r = coords_from_browser.coords
     http = require('http')
     google = http.createClient(80, host)
-    google.on 'error', (e) -> console.error "Unable to connect to #{host}"
+    google.on 'error', (e) -> console.error "#{host} に接続できませんでした"
     request = google.request 'GET', "/maps/api/geocode/json?sensor=true&latlng=#{r.latitude},#{r.longitude}"
     request.end()
-    request.on 'error', (e) -> console.error "Unable to parse response from #{host}"
+    request.on 'error', (e) -> console.error "#{host} からのレスポンスのパースに失敗しました"
     request.on 'response', (response) => parseResponse(response, cb)
 
 parseResponse = (response, cb) ->  # 注釈: プライベートメソッドは exports.actions の外側に書かれている
@@ -172,18 +170,18 @@ exports.determineLocation = ->
   if navigator.geolocation
     navigator.geolocation.getCurrentPosition(success, error)
   else
-    alert 'Oh dear. Geolocation is not supported by your browser. Time for an upgrade.'
+    alert 'なんということでしょう。お使いのブラウザでは Geolocation がサポートされていません。実装されるそのときまでお待ちください'
 
 # プライベートな関数
 
 success = (coords_from_browser) ->
   SS.server.geocode.lookup coords_from_browser, (response) ->
     console.log response
-    alert 'You are currently at: ' + response.formatted_address
+    alert 'あなたの現在地: ' + response.formatted_address
 
 error = (err) ->
   console.error err
-  alert 'Oops. The browser cannot determine your location. Are you online?'
+  alert 'おっと。現在地を見つけられませんでした。オンラインになってますか？'
 ```
 
 コードを実行すると現在地が表示されます（WiFi 環境下なら、より正確な位置になります）。もちろん実際にはクライアントへのコールバックの処理を実行中に起こりうる様々なエラーに対応する必要があるでしょう。
@@ -413,7 +411,7 @@ areas = ['Home', 'Products', 'Contact Us']
 exports.draw = ->
   areas.forEach (area) ->
     render(area)
-    console.log(area + ' has been rendered')
+    console.log(area + ' は既に表示されました')
 
 render = (area) ->
   $('body').append("<li>#{area}</li>")
