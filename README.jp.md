@@ -15,7 +15,7 @@ IRC channel: [#socketstream](http://webchat.freenode.net/?channels=socketstream)
 ### イントロダクション
 
 SocketStrem は、[Single-page Application](http://en.wikipedia.org/wiki/Single-page_application)パラダイムにあわせて開発された新しいフルスタックWebフレームワークです。
- や、インメモリデータベース（Redis）、クライアントサイドでのレンダリングを取り入れることで、驚くほどのレスポンスを実現しています。
+websocket や、インメモリデータベース（Redis）、クライアントサイドでのレンダリングを取り入れることで、驚くほどのレスポンスを実現しています。
 
 Project status: 利用可能ですが実験段階です。日々改善しています。
 
@@ -23,7 +23,7 @@ Project status: 利用可能ですが実験段階です。日々改善してい�
 
 ### 特徴
 
-* （またはflashsocket）を使った双方向通信です
+* websocket（またはflashsocket）を使った双方向通信です
 * 非常に高速です！　起動は一瞬です。スローダウンの原因になるリクエストごとの HTTPハンドシェイク/ヘッダ/ルーティングはありません
 * Chrome と Safari で問題なく動きます。Firefox や IE のサポートは不安定ですが、[Socket.IO](http://socket.io/)を用いて改善しつづけています
 * 全てのコードは[CoffeeScript](http://jashkenas.github.com/coffee-script/) もしくは JavaScript にて記述します。好きな方を選んでください
@@ -49,7 +49,7 @@ Project status: 利用可能ですが実験段階です。日々改善してい�
 
 ユーザの初回アクセス時、SocketStream は全ての静的 HTML、CSS、クライアントサイドコードを自動的に圧縮しミニファイして送信します。
 
-その後、全てのデータはシリアライズされた JSONオブジェクトとして （もしくは 'flashsocket'）トンネル経由でやりとりされます。
+その後、全てのデータはシリアライズされた JSONオブジェクトとして websocket（もしくは 'flashsocket'）トンネル経由でやりとりされます。
 トンネルはクライアントが接続した直後に生成されます。また、切断しても自動的に再生成されます。
 
 つまり、コネクションレイテンシ、HTTPヘッダによるオーバーヘッド、扱いにくいAJAX呼び出しが無いのです。
@@ -244,7 +244,7 @@ SocketStream は NPMパッケージとして公開されています。インス
 * 使いたい JavaScript ライブラリは /lib/client に配置してください
 * 開発モードにてブラウザコンソールから着信/発信の呼び出しを見てください
 ◆→bekkou: 「内部／外部の関数呼び出しの確認は、開発モードでブラウザのコンソールから行えます」ってこと？　incoming/outgoing のニュアンスが難しい←◆
-* SS.client.app.init() 関数は、 コネクションの確立時に自動的に一度だけ呼び出されます
+* SS.client.app.init() 関数は、websocketコネクションの確立時に自動的に一度だけ呼び出されます
 * 従って、/app/client/app.coffee（もしくは app.js）ファイルは必須です
 * /app/client 配下にディレクトリを作成できます。詳しくは、名前空間セクションを参照してください。
 
@@ -612,7 +612,7 @@ exports.config =
 
 ### 回線切断時のハンドリング
 
-／'flashsocket'トンネルは障害がおきても驚くほどすぐに回復します。ですが開発者は接続が失敗する可能性をつねに考えなければいけません。特にモバイル機器の回線は不安定です。
+websocket／'flashsocket'トンネルは障害がおきても驚くほどすぐに回復します。ですが開発者は接続が失敗する可能性をつねに考えなければいけません。特にモバイル機器の回線は不安定です。
 
 **クライアントサイド**
 
@@ -665,7 +665,7 @@ exports.call = (request, response, next) ->
 
 ### 互換性のないブラウザ
 
-SocketStream がすべてのブラウザにリアルタイムでコンテンツを送るときはデフォルトで  を使おうとし、websocket が利用できなければ 'flashsocket' を使います。
+SocketStream がすべてのブラウザにリアルタイムでコンテンツを送るときはデフォルトで websocket を使おうとし、websocket が利用できなければ 'flashsocket' を使います。
 
 flashsocket はオーバーヘッドが大きく最初の接続時にレイテンシがあるため、リアルタイムのやり取りには向いていません。そのため Strictモードを有効にしたくなるかもしれません。
 
@@ -673,11 +673,11 @@ flashsocket はオーバーヘッドが大きく最初の接続時にレイテ�
 SS.config.browser_check.strict = true
 ```
 
-上記のようにオプションをセットすると、ネイティブな  をサポートしているブラウザ（現在サポートしているのは Chrome 4以降と Safari 5以降）のみがアプリと通信できるようになります。それ以外のブラウザでアクセスした場合、/static/incompatible_browsers/index.html の内容が表示されます。このファイルは自由に変更できます。
+上記のようにオプションをセットすると、ネイティブな websocket をサポートしているブラウザ（現在サポートしているのは Chrome 4以降と Safari 5以降）のみがアプリと通信できるようになります。それ以外のブラウザでアクセスした場合、/static/incompatible_browsers/index.html の内容が表示されます。このファイルは自由に変更できます。
 
 今後は互換ブラウザを検出するテストの精度を向上させ、安全対策として SocketStreamクライアントの Flashサポートを改良する予定です。
 
-注釈: HTTP APIリクエストが送られる前にブラウザの互換性チェックが行われるので、これらの設定の影響は受けません。◆→bekkou: 自信ない。。←◆◆→arumons: チェックの前にAPIリクエストが送られるんじゃないかな？だからをサポートしていないブラウザからでもHTTP APIの呼び出しは可能。。みたいな←◆
+注釈: HTTP APIリクエストが送られる前にブラウザの互換性チェックが行われるので、これらの設定の影響は受けません。◆→bekkou: 自信ない。。←◆◆→arumons: チェックの前にAPIリクエストが送られるんじゃないかな？だから websocket をサポートしていないブラウザからでもHTTP APIの呼び出しは可能。。みたいな←◆
 
 
 ### セキュリティ
@@ -698,7 +698,7 @@ whileループで 'SS.server' のメソッドをひたすら呼びつづける�
 
 __レート制限と DDOSプロテクト__
 
-SocketStream は DDOS攻撃へのプロテクト機能を持っており、特定クライアントの毎秒15回をこえる  の接続を検知することで実現しています（回数は SS.config.limiter.websockets.rps で設定できます）。
+SocketStream は DDOS攻撃へのプロテクト機能を持っており、特定クライアントの毎秒15回をこえる websocket の接続を検知することで実現しています（回数は SS.config.limiter.websockets.rps で設定できます）。
 
 毎秒15回をこえる接続をされると対象のクライアントがコンソールに表示され、そのクライアントからの全ての連続したリクエストは無視されます。この機能は実験段階でテスト中のため現在はオフになっていますが、SS.config.limiter.enabled に true をセットすると有効にできます。
 
@@ -709,7 +709,7 @@ SocketStream は DDOS攻撃へのプロテクト機能を持っており、特�
 
 理由は二つあります。
 
-1. 携帯の通信会社がよく使う HTTPプロキシーはリクエストを改変します。それによって  の初期化はたびたび妨げられます。そこで HTTPS/TLS を使うことで通信の内容だけでなくヘッダも暗号化されるので、3G回線上のモバイルSafari（iPad や iPhone）からでも websocket がちゃんと動くようになるでしょう。◆→bekkou: 保証するだと意味が強すぎるかな←◆
+1. 携帯の通信会社がよく使う HTTPプロキシーはリクエストを改変します。それによって websocket の初期化はたびたび妨げられます。そこで HTTPS/TLS を使うことで通信の内容だけでなくヘッダも暗号化されるので、3G回線上のモバイルSafari（iPad や iPhone）からでも websocket がちゃんと動くようになるでしょう。◆→bekkou: 保証するだと意味が強すぎるかな←◆
 
 2. [FireSheep](http://en.wikipedia.org/wiki/Firesheep) をご存知ですか？　セッションハイジャックの問題は、インターネット上に公開する SocketStreamアプリのデフォルトを HTTPS にすることでケリをつけましょう。
 
@@ -719,7 +719,7 @@ SocketStream で HTTPS は簡単につかえます。./configure を実行して
 
 Node が HTTPS/TLS をサポートするようにさせたら、stating または production 環境で SS.config.https.enabled = true と設定することで HTTPS/TLS を有効にできます。SocketStream はデフォルトで HTTPSサーバーを 443番ポートで立ち上げようとするため、起動には 'sudo'コマンドが必要になるでしょう。
 
-認証されたSSL証明書が見つからない場合は SocketStream に付属する自己署名証明書がデフォルトでロードされます。テストやデバッグには役立ちますが、自己署名証明書をサポートしていないブラウザで  を使うときには問題が発生するかもしれません。
+認証されたSSL証明書が見つからない場合は SocketStream に付属する自己署名証明書がデフォルトでロードされます。テストやデバッグには役立ちますが、自己署名証明書をサポートしていないブラウザで websocket を使うときには問題が発生するかもしれません。
 
 
 **デプロイ**
@@ -801,7 +801,7 @@ A: Node.js 用のテスティングフレームワークをオススメします
 
 Q: SocketStreamアプリを Heroku にデプロイできますか？
 
-A: まだ Heroku は  に対応していません。将来 SocketStream/websocket のアプリに対応したホスティングサービスが立ち上がると確信しています。サービスができた時はここに通知する予定です。
+A: まだ Heroku は websocket に対応していません。将来 SocketStream/websocket のアプリに対応したホスティングサービスが立ち上がると確信しています。サービスができた時はここに通知する予定です。
 
 
 Q: モデルはどうやってつくりますか？
@@ -819,9 +819,9 @@ Q: SocketStream のオフィシャルサイトは公開されますか？◆→b
 A: もちろん！　現在作成中で www.socketstream.org に公開予定です :)
 
 
-Q:  は Opera で動作しますか？
+Q: websocket は Opera で動作しますか？
 
-A:  はサポートされていますが、デフォルトでは無効になっています。Opera 11 で websocket を有効にするには "opera:config#Enable%20WebSockets" とアドレス欄に入力し、"Enable websockets" にチェックをつけて設定を保存してください。そうすれば websocket が有効になります。
+A: websocket はサポートされていますが、デフォルトでは無効になっています。Opera 11 で websocket を有効にするには "opera:config#Enable%20WebSockets" とアドレス欄に入力し、"Enable websockets" にチェックをつけて設定を保存してください。そうすれば websocket が有効になります。
 
 ### コアチーム
 
