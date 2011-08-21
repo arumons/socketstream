@@ -17,24 +17,24 @@ IRC channel: [#socketstream](http://webchat.freenode.net/?channels=socketstream)
 SocketStrem は、[Single-page Application](http://en.wikipedia.org/wiki/Single-page_application)パラダイムにあわせて開発された新しいフルスタックWebフレームワークです。
 websocket や、インメモリデータベース（Redis）、クライアントサイドでのレンダリングを取り入れることで、驚くほどのレスポンスを実現しています。
 
-Project status: 利用可能ですが実験段階です。日々改善しています。
+プロジェクトの状態: 利用できますが実験段階で、日々改善しています。
 
-最近の開発状況や思想は[@socketstream](http://twitter.com/#!/socketstream)よりご覧になれます。近日中に Webサイトを公開します。
+最近の開発状況や考えは [@socketstream](http://twitter.com/#!/socketstream) よりご覧になれます。近日中に Webサイトを公開します。
 
 ### 特徴
 
 * websocket（またはflashsocket）を使った双方向通信です
-* 非常に高速です！　起動は一瞬です。スローダウンの原因になるリクエストごとの HTTPハンドシェイク/ヘッダ/ルーティングはありません
-* Chrome と Safari で問題なく動きます。Firefox や IE のサポートは不安定ですが、[Socket.IO](http://socket.io/)を用いて改善しつづけています
-* 全てのコードは[CoffeeScript](http://jashkenas.github.com/coffee-script/) もしくは JavaScript にて記述します。好きな方を選んでください
+* 非常に高速です！　起動は一瞬で、スローダウンの原因になるリクエストごとの HTTPハンドシェイク/ヘッダ/ルーティングはありません
+* Chrome と Safari で問題なく動きます。Firefox や IE での動作は不安定ですが、[Socket.IO](http://socket.io/) によって改善されつづけています
+* 全てのコードは [CoffeeScript](http://jashkenas.github.com/coffee-script/) もしくは JavaScript にて記述します。好きな方を選んでください
 * クライアント／サーバー間でコードを簡単に共有できます。ビジネスロジックやモデルの検証に最適です
 * 3G回線の iPad や iPhone の Mobile Safari（iOS 4.2 以上）でも問題なく動きます
 * オートマチック HTTP/HTTPS API。全てのサーバーサイドコードは高速なリクエストベースの API を介してアクセスできます
-* スケーラブルでプライベートチャンネルを含む pub/sub システムを手軽につかえます。下記の例を参照してください
-* 統合されたアセットマネージャー。全てのクライアントサイドアセットは自動的にパッケージングされ[ミニファイされます](https://github.com/mishoo/UglifyJS)
+* スケーラブルでプライベートチャンネルを含む pub/subシステムを手軽につかえます。下記の例を参照してください
+* 統合されたアセットマネージャー。全てのクライアントサイドアセットは自動的にパッケージングされ[ミニファイ](https://github.com/mishoo/UglifyJS)されます
 * 自動HTTPリダイレクトによってすぐに使える HTTPS をサポートしています。下記の HTTPS のセクションを参照してください
 * モジュール化された認証システムによる組み込みユーザモデル。ユーザのオンライン状態を自動的にトラッキングします（下記を参照してください）
-* 対話的コンソール。'socketstream console' とタイプするだけで、任意のサーバーサイド／共有メソッドを呼び出せます
+* 対話的コンソール。'socketstream console' とタイプするだけで、お好きなサーバーサイド／共有メソッドを呼び出せます
 * 'API ツリー' によって、フロントからバックエンドをまたぐ巨大なコードベースの名前空間を、シンプルで一貫したものにできます
 * セッションの検索、pub/sub、オンラインユーザの一覧表示など、即時性が要求されるデータの扱いには [Redis](http://www.redis.io/) を使います
 * カスタム HTTP middleware/responders をサポートします。これらは柔軟性とスピードを最大限にするために最初に実行されます
