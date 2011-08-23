@@ -737,7 +737,7 @@ site.request.csr ファイルを認証局に送ると証明書が手に入りま
 
 **strayリクエストのリダイレクト**
 
-HTTPS が使えるようになってからは、証明書に記載されている 'Common Name'（'www.' を含むフルドメイン）にサイト訪問者がアクセスできるようにしなければなりませんね。SS.config.https.domain にサイトのFQDN（例: www.yourdomain.com） を設定することで、SocketStream は http://yourdomain.com へのリクエストを https://www.yourdomain.com へ自動的にリダイレクトします。これによって訪問者は残念なセキュリティ警告を見ずに済みます。
+HTTPS が使えるようになってからは、証明書に記載されている 'Common Name'（'www.' を含むフルドメイン）にサイト訪問者がアクセスできるようにしなければなりませんね。SS.config.https.domain にサイトのFQDN（例: www.yourdomain.com ）を設定することで、SocketStream は http://yourdomain.com へのリクエストを https://www.yourdomain.com へ自動的にリダイレクトします。これによって訪問者は残念なセキュリティ警告を見ずに済みます。
 
 デフォルトではさらにセカンダリHTTPサーバーを80番ポートで立ち上げ、APIからではない http:// へのリクエストを https:// へ転送します。リダイレクトが不要ならオフにできます（SS.config.http を参照）。
 
