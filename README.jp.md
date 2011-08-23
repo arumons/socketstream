@@ -768,7 +768,7 @@ SocketStream 自体のテストが十分とはいえず、よくない状態で�
 
 ### FAQ
 
-Q: SocketStream は Java／Erlang／PHP／Ruby／Python／お気に入りの言語 のうち、どれかサポートする予定はありますか？
+Q: SocketStream は Java／Erlang／PHP／Ruby／Python／わたしが気に入ってる言語 のうち、どれかサポートする予定はありますか？
 
 A: いいえ。SocketStream は、つかう技術が慎重に選ばれているスタンドアロンのフレームワークです。だからといって既存のアプリ全体を SocketStream で書き直すよりも、サーバサイドから簡単に呼び出せるレガシーな Webサービスのフロントエンドとして使うことを検討しましょう。
 
