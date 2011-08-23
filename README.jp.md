@@ -13,7 +13,7 @@ IRC channel: [#socketstream](http://webchat.freenode.net/?channels=socketstream)
 SocketStrem は、[Single-page Application](http://en.wikipedia.org/wiki/Single-page_application)パラダイムにあわせて開発された新しいフルスタックWebフレームワークです。
 websocket や、インメモリデータベース（Redis）、クライアントサイドでのレンダリングを取り入れることで、驚くほどのレスポンスを実現しています。
 
-プロジェクトの状態: 利用できますが実験段階で、日々改善しています。
+プロジェクトの状態: 利用できますが実験段階です。日々改善しています。
 
 最近の開発状況や考えは [@socketstream](http://twitter.com/#!/socketstream) よりご覧になれます。近日中に Webサイトを公開します。
 
@@ -72,7 +72,7 @@ SocketStream が得意なのはリアルタイムデータ（チャット、株�
 [SocketRacer](https://github.com/alz/socketracer) - マルチプレイヤーレーシングゲーム
 
 
-### ざっくりわかるSocketStream
+### ざっくりわかる SocketStream
 
 SocketStream を使いこなす鍵になるのが 'SS' グローバル変数です。これはサーバ／クライアントサイドのどこからでも呼び出せます。
 
@@ -223,7 +223,7 @@ exports.actions =
 
 ### SocketStrem を動かそう
 
-SocketStream を試す準備はいいですか？　SocketStrem はまだ実験段階にありますが、私たち開発チームは新しいプロジェクトに SocketStream をつかい、日々改善しています。
+SocketStream を実際に動かしてみましょう。SocketStrem はまだ実験段階にありますが、私たちは新しいプロジェクトで SocketStream をつかって日々改善しています。
 
 SocketStream は NPMパッケージとして公開されています。インストールは以下のコマンドをタイプするだけです。
 
@@ -737,7 +737,7 @@ site.request.csr ファイルを認証局に送ると証明書が手に入りま
 
 **strayリクエストのリダイレクト**
 
-HTTPS が使えるようになってからは、証明書に記載されている 'Common Name'（'www.' を含むフルドメイン）にサイト訪問者がアクセスできるようにしなければなりませんね。SS.config.https.domain にサイトのFQDN（例: www.yourdomain.com）を設定することで、SocketStream は http://yourdomain.com へのリクエストを https://www.yourdomain.com へ自動的にリダイレクトします。これによって訪問者は残念なセキュリティ警告を見ずに済みます。
+HTTPS が使えるようになってからは、証明書に記載されている 'Common Name'（'www.' を含むフルドメイン）にサイト訪問者がアクセスできるようにしなければなりませんね。SS.config.https.domain にサイトのFQDN（例: www.yourdomain.com） を設定することで、SocketStream は http://yourdomain.com へのリクエストを https://www.yourdomain.com へ自動的にリダイレクトします。これによって訪問者は残念なセキュリティ警告を見ずに済みます。
 
 デフォルトではさらにセカンダリHTTPサーバーを80番ポートで立ち上げ、APIからではない http:// へのリクエストを https:// へ転送します。リダイレクトが不要ならオフにできます（SS.config.http を参照）。
 
