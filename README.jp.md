@@ -11,7 +11,7 @@ IRC channel: [#socketstream](http://webchat.freenode.net/?channels=socketstream)
 
 ### イントロダクション
 
-SocketStrem は、[Single-page Application](http://en.wikipedia.org/wiki/Single-page_application)パラダイムにあわせて開発された新しいフルスタックWebフレームワークであり、分散ホスティングプラットフォームです。
+SocketStrem は [Single-page Application](http://en.wikipedia.org/wiki/Single-page_application) パラダイムにあわせて開発された新しいフルスタックWebフレームワークであり、分散ホスティングプラットフォームです。
 websocket や、インメモリデータベース（Redis）、クライアントサイドでのレンダリングを取り入れることで、驚くほどのレスポンスを実現しています。
 
 まだ開発段階ではありますが、リアルタイムWebアプリを作成するための機能の多くは使えるようになっており、比較的安定しています。
