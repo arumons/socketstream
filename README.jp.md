@@ -309,7 +309,7 @@ SocketStream を実際に動かしてみましょう。SocketStream は NPMパ�
 
 * [FAQs](https://github.com/socketstream/socketstream/blob/master/doc/guide/en/faqs.md)
 * [内部 RPC のスペック](https://github.com/socketstream/socketstream/blob/master/doc/guide/en/rpc_spec.md)
-* [貢献](https://github.com/socketstream/socketstream/blob/master/doc/guide/en/contributing.md)
+* [コントリビューション](https://github.com/socketstream/socketstream/blob/master/doc/guide/en/contributing.md)
 
 ***
 
