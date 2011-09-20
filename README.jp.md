@@ -12,9 +12,9 @@ IRC channel: [#socketstream](http://webchat.freenode.net/?channels=socketstream)
 ### イントロダクション
 
 SocketStrem は [Single-page Application](http://en.wikipedia.org/wiki/Single-page_application) パラダイムにあわせて開発された新しいフルスタックWebフレームワークであり、分散ホスティングプラットフォームです。
-websocket や、インメモリデータベース（Redis）、クライアントサイドでのレンダリングを取り入れることで、驚くほどのレスポンスを実現しています。
+websocket や、インメモリデータベース（Redis）、クライアントサイドでのレンダリングを取り入れることで驚くほどのレスポンスを実現しています。
 
-まだ開発段階ではありますが、リアルタイムWebアプリを作成するための機能の多くは使えるようになっており、比較的安定しています。
+まだ開発段階ではありますが、リアルタイムWebアプリを構築するための機能の多くは使えるようになっており、比較的安定しています。
 まだ存在しない機能（特に、サーバーサイドモデルを構築するエレガントな方法、外部認証機能、組み込みのテストフレームワーク、フロントエンドスケーリング）は現在フルタイムで開発が進められているため、数ヶ月中にリリースされる見込みです。開発プロセスのスピードアップのため、あらゆる貢献が取り入れられています。
 
 最近の開発状況や考えは [@socketstream](http://twitter.com/#!/socketstream) よりご覧になれます。近日中に Webサイトを公開します。
@@ -49,8 +49,8 @@ websocket や、インメモリデータベース（Redis）、クライアン�
 
 #### 分散ホスティング
 
-* 自動的なHTTPリダイレクトにてすぐにHTTPSが使えるようになっています
-* 軽量な RPC 抽象レイヤにより分割される分散したフロントエンドとバックエンドアーキテクチャ
+* 自動的なHTTPリダイレクトによって、すぐにHTTPSが使えるようになっています
+* フロントエンドとバックエンドの分散アーキテクチャは軽量な RPC 抽象化レイヤによって分離が行われます
 * インストールが必要なCライブラリを必要とせず、シングルプロセスによる高速な立ち上げを可能にします（Cloud9 IDE にとって理想的です）
 * スケールアップが必要になった場合、ZeroMQ を使うことで、簡単にマルチCPU や サーバーに処理を分散させることができます
 * 複数のバックエンドサーバーに対してCPUをフルに使うタスクを分散させた場合、線形にスケールします（`socketstream benchmark` で試すことができます）
@@ -238,7 +238,7 @@ exports.actions =
 
 ### 動作環境
 
-+[Node 0.4.X](http://nodejs.org/#download) 注釈: [Connect](http://senchalabs.github.com/connect/) が 0.5/0.6 をサポート次第、SocketStream もそれらのバージョンで動作するようになるでしょう。
+[Node 0.4.X](http://nodejs.org/#download) 注釈: [Connect](http://senchalabs.github.com/connect/) が 0.5/0.6 をサポート次第、SocketStream もそれらのバージョンで動作するようになるでしょう。
 
 [NPM 1.0](http://npmjs.org/) （Node Package Manager）か、それ以降のバージョン
 
