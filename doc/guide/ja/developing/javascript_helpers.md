@@ -1,7 +1,7 @@
-### Javascript Helpers
+### Javascript ヘルパー
 
-SocketStream comes with a number of JavaScript prototype helper methods, created automatically when you make a new project. The concept is very similar to ActiveSupport in Rails.
+SocketStream には JavaScript で作られたヘルパーメソッドが数多く用意されています。ヘルパーメソッドはプロジェクトの新規作成時につくられます。ヘルパーのコンセプトは Rails の ActiveSupport によく似たものです。
 
-The default helpers we ship with are also used server-side throughout SocketStream. Hence you can use them in client, shared and server code and expect the same result, no matter where the code executes.
+ヘルパーは最初からサーバサイドの SocketStream にも組み込まれています。そのため、クライアントサイド、共有コード、サーバサイドのどこでも同じように使えます。どこで実行できるかを気にする必要がありません。
 
-Take a look at /lib/client/3.helpers.js to see the available helpers. If for some reason these conflict with a third-party library, or you simply don't want to use them, just delete this file and it won't come back.
+利用できるヘルパーは /lib/client/3.helpers.js を読むと確認できます。もしサードパーティのライブラリと競合してしまったり、ヘルパーそのものが不要なら、ファイルを削除してしまって問題ありません。
