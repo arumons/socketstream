@@ -1,41 +1,41 @@
-### Environments and Configuration
+### 環境設定
 
-Like other frameworks, SocketStream supports running your code in multiple environments.
+他のフレームワークと同様に、SocketStream は複数の環境におけるコードの実行をサポートしています。
 
-SocketStream runs in __development__ mode by default, outputting all incoming and outgoing requests to the terminal, displaying all server-side exceptions in the browser console, and compiling all client assets on the fly in order to aid debugging.
+SocketStream はデフォルトでは __development__ モードにで起動します。このモードではすべてのリクエストとレスポンスはターミナルに表示され、サーバサイドで発生したあらゆる例外はブラウザのコンソールに表示され、すべてのクライアントアセットはデバッグ用にそのままコンパイルされます。
 
-Two other 'preset' environments are available: __staging__ and __production__. Both will load SocketStream with sensible defaults for their intended use.
+__development__モードの他に __staging__ と __production__ の二つのモードを利用できます。それぞれモードごとの用途にあった設定で SocketStream をロードします。
 
-Preset variables can be overwritten and augmented by two optional files if required: an application-wide config file placed in /config/app.coffee, and an environment-specific file placed in /config/environments/<SS_ENV>.coffee (e.g. /config/environments/development.coffee) which will override any values in app.coffee.
+プリセット変数の上書きや追加は、設定ファイルを書き換えることで行えます。アプリケーション全体に適用される設定ファイルは /config/app.coffee で、それぞれの環境に適用される設定ファイルは /config/enviroments/<SS_ENV>.coffee です（例: /config/environments/development.coffee）。なお、<SS_ENV>.coffee は app.coffee の設定を上書きします。
 
-Use the SS_ENV environment variable to start SocketStream in a different environment. E.g:
+__development__モード以外の環境で SocketStream を立ち上げるには SS_ENV環境変数を使います。
 
     SS_ENV=staging socketstream start
     
-An unlimited number of new environments may also be added. You can easily tell which environment you're running in by typing `SS.env` in the server or client console.
+追加できる環境の数に制限はありません。サーバー、もしくはクライアント側コンソール上で `SS.env` とタイプすることでどの環境で動作しているのかを容易に確認できます。
 
-Our forthcoming website will detail the full list of configurable params, but for now these can be viewed (and hence overridden in the config file), by typing `SS.config` in the SocketStream console.
+すべての設定可能な環境変数は近日公開予定のサイトにてお知らせします。現在は SocketStream コンソール上で `SS.config` とタイプすることですべての設定可能な環境変数を確認できます（また config ファイルにて設定の上書きができます）。
 
 
-#### How configuration files work
+#### コンフィグ設定の方法
 
-Throughout this README you'll see repeated references to config variables which look something like this:
+README を読んでいると、コンフィグ変数を変更しているような下記の表記をたびたび目にするでしょう。
 
     SS.config.limiter.enabled = true
 
-In this case, you could change the value of the variable by adding the following to your config file:
+この場合、設定ファイルで次のように書くことで環境変数の値を変更できます。
 
 ``` coffee-script
 exports.config =
-  limiter: 
+  limiter:
     enabled: true
 ```
 
-#### Configuring Socket.IO
+#### Socket.IO の設定
  
-You may wish to configure Socket.IO 0.8 directly using the optional configure() function within /app/config.coffee
+Socket.IO 0.8 の設定は /app/config.coffee にて configure() 関数を定義することで行うことができます。
  
-For example:
+例:
  
 ``` coffee-script
   socketio:
