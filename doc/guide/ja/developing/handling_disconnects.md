@@ -1,17 +1,17 @@
-### Handling Disconnects
+### 回線切断時のハンドリング
 
-Both websocket and 'flashsocket' tunnels are surprisingly resilient to failure; however, as developers we must always assume the connection will fail from time to time, especially as the client may be on an unstable mobile connection.
+websocket／'flashsocket' トンネルは障害がおきてもすぐに回復します。ですが開発者は接続が失敗する可能性をつねに考えなければいけません。特にモバイル機器の回線は不安定です。
 
-#### Client Side
+#### クライアントサイド
 
-We recommend binding a function to the 'disconnect' and 'connect' events provided by the SocketStream client (courtesy of Socket.IO). For example:
+SocketStream のクライアントで利用できる（Socket.IO の機能です） 'disconnect'・'connect' イベントに関数をバインドすることをオススメします。例えば次のようにやります。
 
 ``` coffee-script
-SS.socket.on('disconnect', -> alert('Connection Down'))
+SS.socket.on('disconnect', -> alert('コネクションが切断されました。'))
 
-SS.socket.on('connect', -> alert('Connection Up'))
+SS.socket.on('connect', -> alert('コネクションが確立しました'))
 ```
 
-These events can be used client side to toggle an online/offline icon within the app, or better still, to dim the screen and show a 'Attempting to reconnect...' message to users.
+オンライン／オフラインのアイコンを切り替えたり、よりよい方法としてはスクリーンを暗くして '再接続中です...' とメッセージを表示したりすることに活用できます。
 
-You may also want to run custom code on the server when a client connects or disconnects. If so, check out Server-side Events in /doc/guide/en/developing/server-side_events.md
+接続／切断時の処理をサーバーサイドでも書きたくなるかもしれません。その際は /doc/guide/ja/developing/server-side_events.md にあるサーバーサイドイベントのセクションを参照してください。
