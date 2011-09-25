@@ -1,15 +1,15 @@
-### Connecting to Redis
+### Redisとの通信
 
-An open connection to Redis is automatically accessible anywhere within your server-side code using the R global variable. E.g.
+Redis は、自動的にサーバサイドのどこからでもグローバル変数R にてアクセスできるようになっています。
 
 ``` coffee-script
     R.set("string key", "string val")
 
-    R.get("string key", (err, data) -> console.log(data))    # prints 'string val'
+    R.get("string key", (err, data) -> console.log(data))    # 'string val' を出力する
 ```
 
-The Redis host, port and database/keyspace index are all configurable via the `SS.config.redis` params. You may wish to set a different `SS.config.redis.db_index` for your development/staging/production environments to ensure data is kept separate.
+Redis のホスト、ポート番号、データベース／キースペースのインデックスは SS.config.redis によって設定できます。development／staging／production ごとにデータを格納するために SS.config.redis.db_index の値を設定したくなるかもしれません。
 
-All internal SocketStream keys and pub/sub channels are prefixed with 'ss:', so feel free to use anything else in your application.
+key や pub/subチャンネルなど、SocketStream が内部で使用する全てのキーの先頭には 'ss:' が付きます。それ以外のダブらないキーをアプリケーション内で使えます。
 
-[View full list of commands](http://redis.io/commands)
+[Redis の全コマンド一覧](http://redis.io/commands)
