@@ -1,9 +1,9 @@
-### Custom HTTP handlers / middleware
+### カスタムHTTPハンドラ／ミドルウェアの使い方
 
-SocketStream uses Connect both internally and externally, allowing you to hook-in any 3rd-party middleware - or easily write your own!
+SocketStream は Connect を内部と外部の両方で使います。コネクトを使うことで サードパーティ製のミドルウェアをフックすることができます。自分自身でミドルウェアを書くこともできます！
 
-Middleware can either alter the request object or, more usefully, allow you to respond with your own headers and content depending upon the URL, user agent and other request parameters sent.
+ミドルウェアはリクエストオブジェクトの変更や、さらには、URL・ユーザエージェント・リクエストパラメータに応じてヘッダとコンテンツを独自に処理することさえできます。
 
-This is a very powerful feature, particularly because it's the first thing Node calls when a HTTP request comes in - so you have all the flexibility and speed of a bare-bones Node.js app.
+これはとても強力な機能です。HTTPリクエストがきた時に Node.js によって最初に呼びだされるため、ものすごく柔軟で無駄のない Node.jsアプリをつくれます。
 
-Please see the comments in /config/http.coffee to make use of custom/3rd-party Connect middleware.
+カスタム／サードパーティ製 の Connect ミドルウェアをを使う際は /config/http.coffee に書かれているコメントを見てください。
