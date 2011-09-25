@@ -1,12 +1,12 @@
-### Namespacing (Client and Shared code)
+### 名前空間（クライアントサイドのコードと共有コード）
 
-One of the trickiest problems to solve in this new exciting world of rich JavaScript-based web apps is where to put all of those files and how to organise them as your project grows.
+JavaScriptベースの Webアプリ開発というエキサイティングな世界には、ファイルをどこに配置して、プロジェクトの成長に合わせてどのように構成していくのかという誰もが頭をかかえる問題があります。
 
-SocketStream's novel approach is to turn all your Client and Shared files into an 'API tree' which can be called from a global variable (`SS.client` and `SS.shared` respectively). Server code works slightly differently but essentially follows the same API Tree approach (in this case for `SS.server`).
+SocketStream は、全てのクライアントサイドのファイルと共有ファイルを「APIツリー」に対応づけるという新しいアプローチをとっています。APIツリーはグローバル変数 `SS.client` と `SS.shared` で参照できます。サーバサイドのコードは少し異なる動作をしますが、基本的には同じです（`SS.server` で参照します）。
 
-The rule is simple: Every object, function and variable will automatically remain private inside your file unless you prefix it with 'exports.'. Once you do, it will be added to the API tree and can be easily referenced or invoked from any file in the same environment.
+使い方はシンプルです。'exports.' をプリフィックスにしていないすべてのブジェクト、関数、変数は自動的にプライベートになります。'exports.' をプリフィックスにすることでそれらは APIツリーに追加され、同じ環境のあらゆるファイルからアクセスできるようになります。
 
-For example, let's create a file called /app/client/navbar.coffee and paste the following in it:
+たとえば /app/client/navbar.coffee というファイルを作成し、下記のコードを追加します。
 
 ``` coffee-script
 areas = ['Home', 'Products', 'Contact Us']
@@ -14,17 +14,17 @@ areas = ['Home', 'Products', 'Contact Us']
 exports.draw = ->
   areas.forEach (area) ->
     render(area)
-    console.log(area + ' has been rendered')
+    console.log(area + ' は既に表示されました')
 
 render = (area) ->
   $('body').append("<li>#{area}</li>")
 ```
     
-In this case the `draw` method has been made public and can now be executed by calling `SS.client.navbar.draw()` from anywhere in your client code, or directly in the browser's console. The `areas` variable and `render` function both remain private within that file (thanks to closures) and will never pollute the global namespace.
+'exports.' をプリフィックスにしている `draw` メソッドはパブリックになるため、ブラウザのコンソールやクライアントコードのどこからでも `SS.client.navbar.draw()` メソッドを呼び出せます。`areas` 変数と `render` 関数はプライベートなので、グローバルの名前空間は汚染されません（クロージャのおかげです）。
 
-Nested namespaces using multiple folders and deep object trees are fully supported. SocketStream does a quick check when it starts up to ensure file and folder names don't conflict in the same branch. We think API trees are one of the coolest features of SocketStream. Let us know what you think.
+ディレクトリがネストした名前空間や深いオブジェクトツリーもサポートしています。SocketStream は起動時に、名前空間の衝突がないかどうかチェックします。わたしたち開発チームは、APIツリーが最もクールな機能の一つだと考えています。ぜひご意見・ご感想をお寄せください。
 
-**Tip** If you'd like to save on keystrokes, feel free to alias `SS.client` with something shorter. E.g:
+**まめ知識** キーストロークをとことん少なくしたいなら、`SS.client` のエイリアスをつくりましょう。
 
 ``` coffee-script
 window.C = SS.client
