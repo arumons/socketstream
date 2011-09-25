@@ -1,14 +1,14 @@
-### Security
+### セキュリティ
 
-So how secure is SocketStream? Well, to be honest - we just don't know. The entire stack, from Node.js right up to the SocketStream client is brand new and no part of it is claiming to be production-ready just yet. So for now we recommend using SocketStream internally, behind a firewall.
+正直なところ、SocketStream がどれくらいセキュアなのか私たちは把握していません。Node.js から SocketStreamクライアントにいたるワンセットはすべて目新しいものばかりなので、リリース可能なちゃんとしたソフトウェアを開発できるように改善している段階です。このような状態なので、SocketStream はファイアウォールで保護して運用することをオススメします。
 
-Of course, if you're feeling adventurous, you're more than welcome to experiment with hosting public SocketStream websites. We're going to be doing this ourselves with www.socketstream.org. Just make sure there is no sensitive data on the server and you can easily restore everything should it become compromised.
+もしあなたが好奇心に満ちあふれているなら、SocketStream 製の Webサイトをぜひ公開してください。私たちも www.socketstream.org に公開する予定です。ただし、重要なデータはサーバに置かないようにし、なにかあった場合はすぐ復元できるようにしておきましょう。
 
-If you are especially gifted at spotting vulnerabilities, or come across a potential security hole while looking through the source code, please let us know. We'd really appreciate it. It will bring us closer to the day when we're happy to recommend SocketStream for public websites.
+ソースコードを読んでいて脆弱性を見つけたり、セキュリティホールになりかねないものに出くわしたら、ぜひ私たちにお知らせください。あなたの協力によって、SocketStream 製の Webサイトが安全に公開できる日が近づくでしょう。
 
 
-#### XSS Attacks
+#### XSS 攻撃
 
-A quick reminder: SocketStream is just as vulnerable to XSS attacks as other web frameworks. We advise filtering-out any malicious user generated content (UGC) both at input stage (in your /app/server code), as well as in the client before outputting UGC onto the screen. We will include 'helpers' for this in the future.
+クイックリマインダ: 他のWebフレームワークと同じように、SocketStream は XSS攻撃を受ける可能性があります。悪意を持ってつくられた UGC（User Generated Content）は、ユーザからの入力時（サーバーサイド）とスクリーンへの出力時（クライアントサイド）でフィルタリングすることをオススメします。将来は 'ヘルパー' にフィルタリング機能を実装する予定です。
 
-It is all too easy to append a line of JavaScript code to the end of a user-submitted link which wraps calls to 'SS.server' in a while loop. SocketStream includes a basic Rate Limiter to protect against this. Take a look at /doc/guide/en/optional_modules/rate_limiter.md
+whileループで 'SS.server' のメソッドをひたすら呼びつづけるコードを、ユーザが投稿するリンクの最後に埋め込むのはとても簡単です。SocketStream は基本的なレート制限機構を対DDOS用に用意しています。詳細は /doc/guide/ja/optional_modules/rate_limiter.md を見てください。
