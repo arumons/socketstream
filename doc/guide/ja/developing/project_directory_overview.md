@@ -1,50 +1,50 @@
-### Project Directory Overview
+### ディレクトリ構造
 
-The following directories are created whenever you run `socketstream new`:
+下記のディレクトリは `socketstream new` コマンドを実行することで生成できます：
 
 #### /app/client
-* All files within /app/client will be sent to the client
-* Any CoffeeScript files will automatically be converted to JavaScript
-* If you have a JavaScript library you wish to use (e.g. jQuery UI), put this in /lib/client instead
-* The `SS.client.app.init()` function will be automatically called once the websocket connection is established
-* Hence the /app/client/app.coffee (or app.js) file must always be present
-* Nesting client files within multiple folders is supported. See section on Namespacing
+* /app/client ディレクトリ配下の全ファイルはクライアントに送られます。
+* CoffeeScript ファイルは自動的に JavaScript ファイルに変換されます
+* 使いたい JavaScript ライブラリ（例：jQuery UI）は /lib/client に配置してください
+* SS.client.app.init() 関数は、websocket コネクションの確立時に自動的に一度だけ呼び出されます
+* 従って、/app/client/app.coffee（もしくは app.js）ファイルは必須です
+* /app/client 配下にディレクトリを作成できます。詳しくは、名前空間セクションを参照してください。
 
 #### /app/server
-* All files in this directory can expose functions which can be called from the Client (see Server-side Code section)
-* For example, to call app.init from the client and pass 25 as params, call `SS.server.app.init(25)` in the client
-* All methods can be automatically accessed via the optional HTTP API (e.g. /api/app/square.json?5)
-* All server methods are pre-loaded and accessible via `SS.server` in the console or from other server-side files
-* The last argument must always be the callback (cb)
-* All publicly available methods should be listed under 'exports.actions'. Private methods must be placed outside this scope and begin 'methodname = (params) ->'
-* Server files can be nested. E.g. `SS.server.users.online.yesterday()` would call the 'yesterday' method in /app/server/users/online.coffee
-* You may also nest objects within objects to provide namespacing within the same file
-* @session gives you direct access to the current session
-* @request gives you meta data regarding the RPC call (includes any HTTP POST data if present)
+* このディレクトリ内の全てのファイルはクライアントから呼び出し可能な関数を公開できます（サーバーサイドコードセクションを見てください）
+* 例えばクライアント側から app.init に引数として 25 を渡して呼び出すには `SS.server.app.init(25)` と書きます
+* 全てのメソッドはオプショナルな HTTP API としてアクセス可能になります（例：/api/app/square.json?5）
+* すべてのメソッドは事前にロードされ、コンソールや他のサーバーサイドのファイルから `SS.server` 経由でアクセスできます
+* 最後の引数は常にコールバック（cb）です
+* すべてのパブリックなメソッドは 'exports.actions' のプロパティとして定義されます。プライベートなメソッドはそのスコープの外側に配置されます。定義は 'methodname = (params) ->' から始まります。
+* サーバー側のファイルはネストできます。例えば `SS.server.users.online.yesterday()` と書けば、/app/server/users/online.coffee に定義された 'yesterday' メソッドが呼び出されます
+* 同じファイルの中で名前空間をわけるためにオブジェクトをネストすることもできます
+* @session でユーザのセッションにアクセスできます
+* @request で RPC 呼び出しを考慮したメタデータにアクセスできます（もし存在するなら HTTP POST データも含んでいます）
 
 #### /app/shared
-* See 'Sharing Code' section
+* '共有コード' セクションを見てください
 
 #### /app/css
-* /app/css/app.styl must exist. This should contain your stylesheet code in [Stylus](http://learnboost.github.com/stylus/) format (similar to SASS). You can also use plain CSS if you prefer.
-* Additional Stylus files can be imported into app.styl using @import 'name_of_file'. Feel free to nest files if you wish.
-* If you wish to use CSS libraries within your project (e.g. normalize.css or jQuery UI) put these in /lib/css instead, or feel free to link to hosted CDN files in /app/views/app/jade
-* Stylus files are automatically compiled and served on-the-fly in development mode and pre-compiled/compressed/cached in staging and production
+* /app/css/app.styl は必須です。これは SASS に似た [Stylus](http://learnboost.github.com/stylus/) フォーマットで書きます。CSSフォーマットで書くこともできます
+* 外部Stylusファイルは app.styl で @import 'name_of_file' と書くとインポートできます。ファイルはネストできます
+* CSSライブラリ（例: normalize.css や jQuery UI など） を使いたい場合、それらを /lib/css に配置するか、ホスティングされている CDNファイルへのリンクを /app/views/app/jade に書いてください
+* Stylusファイルは自動的にコンパイルされ、developmentモードの場合、そのまま送られます。staging もしくは production モードの場合、プリコンパイル、圧縮、キャッシュされます
 
 #### /app/views
-* Either /app/views/app.jade or /app/views/app.html must exist. This should contain all the static layout HTML your app will ever need.
-* Use [Jade](http://jade-lang.com/) format (similar to HAML) if you wish (recommended to ensure valid HTML syntax)
-* The HTML HEAD tag must contain '!= SocketStream' in Jade, or '<SocketStream>' in plain HTML. This helper ensures all the correct libraries are loaded depending upon the environment (declared by SS_ENV)
-* Easily nest additional HTML as jQuery templates (similar to Rails partials) in either Jade or plain HTML. E.g /app/views/people/customers/info.jade is accessible as $("#people-customers-info").tmpl(myData).
-* Views and templates are automatically compiled and served on-the-fly in development and pre-compiled/compressed/cached in staging and production
+* /app/views/app.jade もしくは /app/views/app.html は必須です。このファイルにはアプリを初期表示するための静的HTMLを書いてください
+* [Jade](http://jade-lang.com/)（HAML に似ています）フォーマットを使えます（正しい HTML構文が保証されるため使用をオススメします）
+* HTML の HEADタグには Jade では '!= SocketStream' を、プレーンHTML では '<SocketStream>' を含めます。このヘルパーは環境（SS_ENV で指定します）ごとにライブラリをただしく読み込みます
+* Jade と HTML 両方で jQuery template（Rails の partial に似ています）を使って別ファイルにわけた HTML を簡単に取り込めます。例えば /app/views/people/customers/info.jade に書いた部分テンプレートは $("#people-customers-info").tmpl(myData) としてアクセスできます
+* ビューとテンプレートは自動的にコンパイルされ、developmentモードの場合、そのまま送られます。staging や production モードの場合、プリコンパイル、圧縮、キャッシュされます
 
 #### /lib
-* Changes to files within /lib/client or /lib/css automatically triggers re-compilation/packing/minification of client assets
-* Any modules placed in /lib/server can easily be included within /app/server files with SS.require('my_module.coffee')
-* New files added to these directories are not currently recognised (hence a server restart is needed). We will fix this soon
-* Easily control the order your client libraries are loaded by prefixing them with a number (e.g. 1.jquery.js, 2.jquery-ui.js)
-* Client JS files are automatically minified by [UglifyJS](https://github.com/mishoo/UglifyJS) unless the filename contains '.min'
+* /lib/client や /lib/css 配下のファイルを変更すると、クライアントアセットとして自動的に再コンパイル、パッキング、ミニファイされます
+* /lib/server に配置したモジュールは /app/server ファイルにて SS.require('my_module.coffee')とすることで簡単に読み込めます
+* これらのディレクトリに新しくファイルを追加してもサーバーを再起動するまでは認識されません。開発チームは現在この問題を修正中です
+* ライブラリ名の先頭に数字をつけることで、ライブラリの読み込み順を簡単に指定できます（例: 1.jquery.js, 2.jquery-ui.js） 
+* クライアント側の JSファイルは、ファイル名に '.min' が含まれていないと [UglifyJS](https://github.com/mishoo/UglifyJS) によって自動的にミニファイされます
 
 #### /public
-* Store your static files here (e.g. /public/images, robots.txt, etc)
-* The /index.html file and /public/assets folder are managed by SocketStream and should not be touched
+* 静的ファイルを配置してください（例: /public/images, robots.txt など）
+* /index.html と /public/assetsディレクトリは SocketStream によって管理されるので変更を加えないでください
