@@ -1,20 +1,20 @@
-### Sharing Code
+### コードの共有
 
-One of the great advantages SocketStream provides is the ability to share the same JavaScript/CoffeeScript code between client and server. Of course you can always copy and paste code between files, but we provide a more elegant solution:
+SocketStream の強力な機能の一つに、クライアント／サーバ間で同じ JavaScript/CoffeeScriptコードを共有できることがあげられます。クライアントとサー>バの両方に都度コピーすればもちろん共有できますが、SocketStream はより素晴らしいソリューションを提供します。
 
-Shared code is written and namespaced in exactly the same way as Client code, but it is designed to run in both environments. Simply add a new file within /app/shared and export the functions, properties, objects or even CoffeeScript classes you wish to share.
+共有コードの書き方や名前空間のマッピングはクライアントサイドのコードのそれらと同じですが、共有コードはクライアントとサーバ、両方の環境で動作します。使い方はシンプルで、/app/shared 配下にファイルを追加し、共有したい関数・プロパティ・オブジェクト・CoffeeScriptのクラスなどを export するだけです。
 
-For example, let's create a file called /app/shared/calculate.coffee and paste the following in it:
+たとえば /app/shared/calculate.coffee というファイルを作成し、次のコードをペーストしてください。
 
 ``` coffee-script
 exports.circumference = (radius = 1) ->
   2 * estimatePi() * radius
 
 estimatePi = -> 355/113
-```    
+```
 
-This can now be executed by calling `SS.shared.calculate.circumference(20)` from anywhere within your server OR client code! This makes /app/shared the ideal place to write calculations, formatting helpers and model validations - among other things. Just remember never to reference the DOM, any back-end DBs or Node.js libraries as this code needs to remain 'pure' enough to run on both the server or browser.
+これによってサーバとクライアントの両方から `SS.shared.calculate.circumference(20)` を呼び出せます！/app/shared は計算やフォーマット用ヘルパー、モデルのバリデーションといった処理を書く場所として理想的です。DOM 、バックエンドで動く DB、Node.js のライブラリなど、どちらかの環境だけで動作するような処理は共有しないでください。共有コードはサーバとクライアントの両方で動作する 'ピュア' なコードにしてください。
 
-All Shared code is pre-loaded and added to the `SS.shared` API tree which may be inspected at any time from the server or browser's console. You'll notice `estimatePi()` does not appear in the API tree as this is a private function (although the code is still transmitted to the client).
+共有コードは全て事前にロードされ APIツリーの `SS.shared` に追加されるので、サーバやブラウザのコンソールからいつでも呼び出せます。APIツリー上に `estimatePi()` が無いことに気づかれたかもしれません。なぜ無いのかというと、estimatePi() はプライベートで定義されているからです（コード自体はクラ>イアントへ転送されています）。
 
-**Warning** All code within /app/shared will be compressed and transmitted to the client upon initial connection. So make sure you don't include any proprietary secret sauce or use any database/filesystem calls.
+**注意** /app/shared 内の全てのコードは、最初の接続時に圧縮されてクライアントへ送られます。誰かに見られたら困るコード、データベース／ファイルシ>ステムの呼び出しなどは含めないでください。
