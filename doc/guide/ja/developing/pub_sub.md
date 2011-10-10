@@ -1,59 +1,58 @@
-### Pub/Sub - Broadcasting events and Private Channels
+### Pub/Sub - イベントのブロードキャスティングとプライベートチャンネル
 
-In addition to the `SS.publish.user()` method documented in Example 3 within the README, there are two additional publish commands which allow you to easily message users in bulk.
+例：３で説明した `SS.publish.user()` メソッドの他に、ユーザにまとめてメッセージを送る方法が二つあります。
 
+#### ブロードキャスティング
 
-#### Broadcasting
-
-To send a notification to every connected client (for example to let everyone know the system is going down for maintenance), use the broadcast method:
+接続中の全クライアントに通知を行う場合（例えば、サーバーメンテナンスによるシステムダウンを全員に通知する場合）、broadcast メソッドを使います。
 
 ``` coffee-script
-SS.publish.broadcast('flash', {type: 'notification', message: 'Notice: This service is going down in 10 minutes'})
+SS.publish.broadcast('flash', {type: 'notification', message: 'お知らせ: サービスは10分間ご利用できません。'})
 ```
 
-Receive the event in the browser with:
+このイベントをブラウザで受け取るには下記のように書きます：
 
 ``` coffee-script
 SS.events.on 'flash', (msg) ->
   alert(msg.message)
 ```
 
-#### Private Channels
+#### プライベートチャンネル
     
-Sometimes you'll want to send events to a sub-set of connected users. For example, if you have a chat app with multiple rooms. SocketStream supports Private Channels which let you do just that.
+複数の部屋があるチャットアプリを作るなら、メッセージを特定のグループにのみ通知したいこともあるでしょう。まさにそのための機能としてプライベートチャンネルが用意されています。
 
-The syntax is similar to the command above with an extra initial argument specifying the channel name (or names as an array):
+シンタックスは先ほど紹介したメソッドと似ています。チャンネル名（もしくはチャンネル名の配列）を第一引数に与えてください。
+
 
 ``` coffee-script
-SS.publish.channel(['disney', 'kids'], 'newMessage', {from: 'mickymouse', message: 'Has anyone seen Tom?'})
+SS.publish.channel(['disney', 'kids'], 'newMessage', {from: 'mickymouse', message: 'Tom をどこかで見なかったかい？'})
 ```
 
-Receive these events in the browser in the usual way. Note: If the event was sent to a channel, the channel name is passed to the second argument:
+ブラウザでこれらのイベントをブロードキャストと同様に受け取ってください。イベントがチャンネルに対して送られると、第二引数にチャンネル名が渡されます：
 
 ``` coffee-script
 SS.events.on 'newMessage', (msg, channel_name) ->
-  console.log "The following message was sent to the #{channel_name} channel:", msg
+  console.log "#{channel_name} チャンネルへ送られたメッセージが続きます:", msg
 ```
  
-Clients can subscribe to an unlimited number of channels using the following commands (which must be run inside your /app/server code). E.g:
+★クライアントは下記のコマンドで無制限のチャンネルを登録できます（このコマンドは /app/server 内でのみ呼び出せます）。
 
 ``` coffee-script
-  @session.channel.subscribe('disney')        # note: multiple channel names can be passed as an array 
+  @session.channel.subscribe('disney')        # 補足: 複数のチャンネルを配列にまとめて渡せます。
     
-  @session.channel.unsubscribe('kids')        # note: multiple channel names can be passed as an array
+  @session.channel.unsubscribe('kids')        # 補足: 複数のチャンネルを配列にまとめて渡せます。
 
-  @session.channel.unsubscribeAll()           # unsubscribes you from every channel (useful if you've logged out)
+  @session.channel.unsubscribeAll()           # 全ての購読を取り消します（ログアウト時に便利です）。
     
-  @session.channel.list()                     # shows which channels the client is currently subscribed to
+  @session.channel.list()                     # 現在購読中のチャンネル一覧を表示します。
 ```
 
 **Notes**
 
-1. Methods that 'do' things (e.g. `subscribe`) can take an optional callback - especially useful if you're writing high-speed integration tests.
+1. 特定のメソッド（例：`subscribe`）はオプショナルなコールバック関数を引数に取ります。高速な結合テストを書くのに役立つでしょう。
 
-2. If the channel name you specify does not exist it will be automatically created. Channel names can be any valid JavaScript object key. If the client gets disconnected and re-connects to another server instance they will automatically be re-subscribed to the same channels, providing they retain the same session ID. Be sure to catch for any errors when using these commands.
+2. 存在しないチャンネル名を指定すると、自動的に作成されます。チャンネル名は JavaScript のオブジェクトキーとして有効であればどんな文字列でも使用できます。クライアントが切断して別のサーバーインスタンスへ再接続した場合でも以前のセッションIDを保持している限り、同じチャンネルへ再登録が行われます。これらのコマンドを使う際はエラーを必ずハンドルしてください。
 
-3. The SocketStream Pub/Sub system has been designed from the ground up with horizontal scalability and high-throughput in mind. The 'broadcast' and 'channel' commands will be automatically load-balanced across all SocketStream servers.
+3. SocketStream Pub/Sub システムはスケールアウトと高スループットを完全に念頭においてデザインされています。'broadcast' と 'channnel' コマンドは全ての SocketStream サーバー間で自動的にロードバランスされます。
 
-4. It is important to remember messages are never stored or logged. This means if a client/user is offline the message will be lost rather than queued. Hence, if you're implementing a real time chat app we recommend storing messages in a database (or messaging server) before publishing them.
-
+4. メッセージがどこかに格納されたり、ログに残ることはありません。クライアント／ユーザーがオフラインだとメッセージはキューに残ることなく失われます。リアルタイムなチャットアプリを作るなら、メッセージを送る前にデータベース（もしくはメッセージングサーバー）に保存することをオススメします。
