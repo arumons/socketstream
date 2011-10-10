@@ -1,10 +1,10 @@
-### Server-side Events
+### サーバーサイドイベント
 
-SocketStream 0.2 allows you to run your own custom server-side code when a client initializes, sends a regular heartbeat, or disconnects - with more events becoming available in the future. This is particularly useful if you need to clean up the database when a client departs.
+SocketStream 0.2 ではクライアントの初期化時や、ハートビートの送信時、または切断時に独自のコードをサーバー側で実行できます。将来はさらに多くのイベントを追加する予定です。ユーザーのログオフ時にデータベースをクリーンアップしたい時にこの機能は役立ちます。
 
-The best way to get started, and to see the most up-to-date list of possible SS.events, is to generate a new project and look at /config/events.coffee (which of course you're welcome to convert to events.js). All possible server-side events are listed here - commented out until you wish to use them.
+最新の利用可能なイベント一覧を確認して、実際にイベント処理を実装するには、新規プロジェクトを作成し、 /config/events.coffee ファイルを見てください（もちろんこのファイルは event.js に変換できます）。
+利用可能なサーバーサイドイベントの一覧がこのファイルに載っています。使いたいイベントがあれば、コメントを外してください。
 
-All custom server-side events are automatically load balanced across available back end servers, allowing you to simply add additional servers to the cluster as traffic increases.
+全てのサーバーサイドイベントは自動的にバックエンドサーバー間でロードバランシングされます。そのため、トラフィックが増加したら単純にサーバーをクラスタに追加するだけで済みます。
 
-Note: Even though your app may receive a `client:disconnect` event, it doesn't mean the user has logged out. They may still be connected via another client (potentially via another front end server). This is huge problem that still needs to be resolved by good design - mostly at the application level.
-
+注釈：`client:disconnect` イベントを受け取っても、それはユーザーがログアウトしたことを意味しません。別のクライアント経由でまだ接続しているかもしれません。これは大部分をアプリケーションレベルにおいて、良いデザインで解決すべき問題です。
