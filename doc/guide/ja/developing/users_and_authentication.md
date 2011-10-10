@@ -1,36 +1,37 @@
-### Users and Modular Authentication
+### モジュール化されたユーザ認証
 
-As almost all web applications have users which need to sign in and out, we have built the concept of a 'current user' into the core of SocketStream. This not only makes life easier for developers, but is vital to the correct functioning of the pub/sub system, authenticating API requests, and tracking which users are currently online (see section below).
+ユーザのログイン・ログアウト機能を必要とする Webアプリケーションは多いでしょう。そのため私たちは 'カレントユーザ' という概念を SocketStream に取り入れました。これは、開発をやりやすくさせるだけでなく、ちゃんとした pub/subシステムの開発、APIリクエストの認証、オンラインユーザのトラッキング>（後述するセクションを参照してください）をするために欠かせないものです。
 
-Authentication is completely modular and trivial for developers to implement. Here's an example of a custom authentication module we've placed in /lib/server/custom_auth.coffee
+認証はモジュール化されているのでサクッと実装できます。たとえば、お手製の認証モジュールを /lib/server/custom_auth.coffee につくってみましょう。
 
 ``` coffee-script
 exports.authenticate = (params, cb) ->
-  success = # do DB/third-party lookup
+  success = # DB アクセスなど何かやる
   if success
     cb({success: true, user_id: 21323, info: {username: 'joebloggs'}})
   else
     cb({success: false, info: {num_retries: 2}})
 ```
 
-* Notice the first argument takes incoming params from the client, normally in the form of `{username: 'something', password: 'secret'}` but it could also contain a biometric ID, iPhone device ID, SSO token, etc.
+* クライアントから送られるパラメータが第一引数に渡されていることに注目してください。一般的なパラメータは `{username: 'something', password: 'secret'}` といった値ですが、バイオメトリックID・iPhoneデバイスID・SSOトークンなど他のパラメータを追加できます。
 
-* The second argument is the callback. This must return an object with a 'status' attribute (boolean) and a 'user_id' attribute (number or string) if successful. Additional info, such as number of tries remaining etc, can optionally be passed back within the object and pushed upstream to the client if desired.
 
-To use this custom authentication module within your app, you'll need to call `@session.authenticate` in your /app/server code, passing the name of the module you've just created as the first argument:
+* 第二引数はコールバック関数です。コールバック関数には必ず '認証の可否' を表す値（下記の例では 'success' 属性に設定）と 'user_id' パラメータ（数もしくは文字列）を渡す必要があります（'user_id' パラメータは認証が成功した場合のみ）。さらに、残りログイン試行回数など他のパラメータを追加してクライアントに送り返せます。
+
+つくった認証モジュールを使うには、/app/server 内のコードで `@session.authenticate` を呼び出し、第一引数にモジュール名を渡します。
 
 ``` coffee-script
 exports.actions =
 
   authenticate: (params, cb) ->
     @session.authenticate 'custom_auth', params, (response) =>
-      @session.setUserId(response.user_id) if response.success       # sets session.user.id and initiates pub/sub
-      cb(response)                                                  # sends additional info back to the client
+      @session.setUserId(response.user_id) if response.success      # session.user.id をセットして pub/sub を開始する
+      cb(response)                                                  # 追加情報をクライアントに送る
 
   logout: (cb) ->
-    @session.user.logout(cb)                                        # disconnects pub/sub and returns a new Session object
+    @session.user.logout(cb)                                        # pub/sub を切断してまっさらな Session オブジェクトを返す
 ```
 
-This modular approach allows you to offer your users multiple ways to authenticate. In the near future we will also support common authentication services like Facebook Connect which require interaction with the HTTP layer.
+モジュール化アプローチによって、複数の方法でユーザ認証が行えます。今後、Facebook コネクトのような HTTP でのやりとりを必要とする共通認証サービスをサポートする予定です。
 
-Once a user has been authenticated, their User ID is accessible by calling `@session.user_id` anywhere in your /app/server code.
+ユーザーの認証が済むと、/app/server 内のコードから `@sessionn.user_id` 経由でユーザIDにアクセスすることができます。
