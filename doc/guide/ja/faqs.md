@@ -1,50 +1,50 @@
 ### FAQs
 
-__Q: Will SocketStream support Java/Erlang/PHP/Ruby/Python/my favourite language?__
+__Q: SocketStream は Java／Erlang／PHP／Ruby／Python／わたしが気に入ってる言語 のうち、どれかサポートする予定はありますか？__
 
-A: Not directly. SocketStream is a stand-alone framework which uses a very carefully curated technology stack. However, rather than re-write your entire app in SocketStream, consider using it as a front-end to a legacy application. If your legacy appication has a web service this should be easy. If not, consider adding ZeroMQ bindings to it and connecting to it at high speed using Plug Sockets.
-
-
-__Q: Can I integrate SocketStream into my existing web app?__
-
-A: No. At least not on the same host and port. For 'hybrid' real time apps we recommend using [Pusher](http://www.pusher.com)
+★　A: 直接はサポートしません。SocketStream は、つかう技術が慎重に選ばれているスタンドアロンのフレームワークです。だからといって既存のアプリ全体を SocketStream で書き直すよりも、サーバサイドから簡単に呼び出せるレガシーな Webサービスのフロントエンドとして使うことを検討しましょう。あなたのレガシーアプリケーションが Webサービスを持っているなら、これは簡単なはずです。もしそうでないなら ZeroMQ バインディングを追加し、Plug Sockets を使うことで高速な接続を行うことを検討してください。
 
 
-__Q: Can I host more than one SocketStream website on the same port?__
+__Q: 既存のアプリの中に SocketStream アプリを組み込むことはできますか？__
 
-A: Not at the moment. We will be looking at ways to support this in the future using reverse proxies.
-
-
-__Q: How do I test my app?__
-
-A: For now we recommend choosing one of the many testing frameworks available for Node.js. Let us know if there is anything we can do to help integrate SocketStream with your framework of choice. SocketStream will have an in-built default testing framework in the future but it will be a radical departure from anything that's gone before. Look out for announcements towards the end of 2011.
+A: いいえ。少なくとも同じホストとポートは使えません。'ハイブリッド' なリアルタイムアプリを開発するなら [Pusher](http://www.pusher.com) を使うことをオススメします。
 
 
-__Q: Can I deploy SocketStream apps to Heroku?__
+__Q: 同じポートで複数の SocketStream Webサイトを動かせますか？__
 
-A: Not at the moment as Heroku cannot correctly route websockets, but we working on something big in this area. Stay tuned.
-
-
-__Q: How do I make models?__
-
-A: There is no ability to create server-side models at the moment. This won't stop you from making many types of apps such as real-time chat, but may prove annoying if your app involves lots of CRUD. The good news is we have a great solution called Real Time Models which will be available in version 0.3.
+A: 現在はできません。リバースプロキシをつかったサポートを検討しています。
 
 
-__Q: Does SocketStream work with Backbone.js__
+__Q: Q: アプリはどうテストすればいいですか？__
 
-A: Not yet, but it's coming in version 0.3. There are already community efforts underway to make it work right now. Please take a look at our Google Group for the latest developments.
-
-
-__Q: Will the API / directory structure / config file format change in the future?__
-
-A: Yes. SocketStream is not just a new web framework, it's at the forefront of an entirely new way to develop web applications, so expect a lot of rapid change over the next 12 months as we explore new ideas. Things should settle down a little after 1.0.0 is released. Until then we will do everything we can to keep developers involved and up-to-date with any major changes. We will also provide automatic upgrade scripts where possible. The best thing to do is keep checking the HISTORY file and be sure to quote the SocketStream version number next to any examples you post online.
+A: Node.js 用のテスティングフレームワークをオススメします。SocketStream に適しているテスティングフレームワークがあればぜひ教えてください。SocketStream にデフォルトのテスティングフレームワークを組み込む予定ですが、それは私たちにとってまったく新しい試みになるでしょう。2011年末頃のアナウンスをお見逃しなく。
 
 
-__Q: Will SocketStream have a public website?__
+__Q: SocketStreamアプリを Heroku にデプロイできますか？__
 
-A: Sure! We're working on www.socketstream.org right now :)
+A: まだ Heroku は websocket に対応していません。現在我々はこの問題について作業中です。楽しみにしてください。
 
 
-__Q: Will websockets work in Opera?__
+__Q: モデルはどうやってつくりますか？__
 
-A: As of this writing websockets is supported but turned off by default in Opera. In order for Opera 11 to run websockets apps you need to turn it on in the settings. Do "opera:config#Enable%20WebSockets" in the address field and hit enter. Check "Enable websockets" Save and you are good to go.
+A: サーバーサイドのモデルをつくる方法は現在ありません。モデルがつくれなくても、リアルタイムチャットのようなアプリの開発には支障はないかもしれません。しかし CRUDを多用するアプリでは不便でしょう。リアルタイムモデルという素晴らしいソリューションを現在開発しており、バージョン 0.3 で利用可能になる予定です。
+
+
+__Q: SocketStream と一緒に Backbone.js を使えますか？__
+
+A: まだ使えませんが、バージョン 0.3 にて利用可能になる予定です。正しく動作するためのコミュニティの活動が既に始まっています。最新の開発状況は Google Group で確認できます。
+
+
+__Q: API／ディレクトリ構造／設定ファイルの形式は将来変わりますか？__
+
+A: はい。SocketStream はただ単に新しい Webフレームワークというわけではありません。Webアプリケーションのまったく新しい開発方法を提案します。その>ため、この1年で新しいアイデアが取り込まれていき、1.0.0 がリリースされるまではどんどん変更されていくでしょう。変更の過程で、開発者を巻き込むくら>い大きな変更をすると思います。自動アップグレードをするためのスクリプトを提供するかもしれません。ベストな方法は HISTORYファイルをチェックし続け、わからないことをオンラインで聞くときはバージョン番号をそえることです。
+
+
+__Q: SocketStream のオフィシャルサイトは公開されますか？__
+
+__A: もちろん！　現在作成中で www.socketstream.org に公開予定です :)__
+
+
+__Q: websocket は Opera で動作しますか？__
+
+A: websocket はサポートされていますが、デフォルトでは無効になっています。Opera 11 で websocket を有効にするには "opera:config#Enable%20WebSockets" とアドレス欄に入力し、"Enable websockets" にチェックをつけて設定を保存してください。そうすれば websocket が有効になります。
