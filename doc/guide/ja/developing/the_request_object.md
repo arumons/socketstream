@@ -1,29 +1,29 @@
-### The @request object
+### @request オブジェクト
 
-SocketStream 0.2 introduces the @request object which contains all the meta data associated with calls to /app/server methods. While the data coming in via the main params will always remain the same regardless if the call was made via the websocket or HTTP API, the contents of the @request object will vary depending upon the way the method was called and the data associated with it.
+SocketStream 0.2 で @request オブジェクトを導入しました。これは /app/server メソッドの呼び出しに関連する全てのメタデータを保持しています。メソッドの呼び出しが websockets 経由でも HTTP API 経由でもメインのパラメータの値は常に同じですが、@request オブジェクトの内容はメソッドの呼び出し方法によって変化します。
 
-For example, if you called the /app/server method via the websocket the @request object will look something like this:
+例えば、 /app/server メソッドを webocket 経由で呼び出した場合、@request オブジェクトの内容は下記のようになります：
 
     {
       id: 45,
       origin: 'socketio'
     }
 
-But if you called exactly the same method over the HTTP API and inspected the @request object it would look this this:
+一方で、HTTP API 経由でメソッドを呼び出すと@request オブジェクトの内容は下記のようになるでしょう：
 
     {
       id: 46,
       origin: 'httpapi'
     }
 
-Also new in 0.2 is the ability to POST data to HTTP API methods. This is accessible from within the /app/server action via the @request method. E.g.
+0.2 ではHTTP API メソッドへ POST 経由でデータを送ることもできます。送られたデータは 下記のように @request オブジェクトから取り出すことができます。
 
 ``` coffee-script
 exports.actions =
 
   getPostData: (cb) ->
     if @request.post
-      cb "The following data was posted: #{@request.post.raw}"
+      cb "ポストされたデータです: #{@request.post.raw}"
     else
-      cb "No data was posted"
+      cb "ポストされたデータはありません"
 ```
