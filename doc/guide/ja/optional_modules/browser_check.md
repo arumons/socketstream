@@ -1,6 +1,6 @@
 ### ブラウザチェック - 非互換ブラウザへの対処
 
-_Module status: デフォルトでは無効になっています。`SS.config.brower_check.enabled = true` とすることで有効になります_
+_Module ステータス: デフォルトでは無効になっています。`SS.config.brower_check.enabled = true` とすることで有効になります_
 
 SocketStream はデフォルトで全てのブラウザに対し、ネイティブ websockets （利用可能であれば）もしくはフォールバックとして XHR ポーリングや Socket.IO のフォールバック機構のいずれかを使用してリアルタイムコンテンツを提供するようになるでしょう。
 
