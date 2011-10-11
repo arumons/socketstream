@@ -1,3 +1,37 @@
+0.2.4 / 2011-10-06
+==================
+
+* Important change: URLs which are not recognized as assets to be served or compiled now return the main client by default (instead of a Connect GET error)
+* This allows use of mock HTTP routes using HTML5 Pushstate. Checkout the Router included in Backbone.js for a great implementation of this
+* You can now call SocketStream programatically from an external script/test with `ss = require('socketstream'); ss.load();`
+* Start the server with `ss = require('socketstream'); ss.load(); ss.start.single();` if you're using Cloud9
+* Added new much needed documentation on Client-side jQuery templating [here](https://github.com/socketstream/socketstream/blob/master/doc/guide/en/developing/client-side_templates.md)
+* Initial examples in README are now in pure JavaScript to lower barrier to entry for new users
+* Fixed bug which can appear when loading http.coffee if it requires other files. Thanks nponeccop
+* Re-instated bundling of reset.css instead of normalize.css. After trying both I find this easier to work with in practice
+* Added and commented on `SS.config.redis.db_index` in newly generated /config/app.coffee file
+
+
+0.2.3 / 2011-09-27
+==================
+
+Major Update!
+
+* SocketStream no longer requires Redis when developing in single-process mode (the default):
+* - Redis support is switched on by default (SS.config.redis.enabled = true) so existing apps work just as before
+* - New projects have Redis disabled in the config file along with an explanation how to install & enable
+* - All features work without Redis enabled except for Users Online (fixable in the future)
+* - This change reduces the barriers to entry for new developers and ensures better support for Windows in the future
+* Less (.less) CSS files now supported. Less and Stylus support will be moved out into optional modules in 0.3
+* Plain (.css) CSS files now supported for the first time, though continue to use .styl if you wish to use @import
+* You may now message individual clients (i.e. browser tabs) with SS.publish.socket() - thanks kyokpae!
+* Changed console.log.apply to use new cross-browser window.log() wrapper for IE compatibility
+* Cleaned-up and refactored plenty of code
+* Updated other dependencies, including Jade to 0.16.0
+* Errors in client-side files now shown in server-side console
+* Added new example app link to Readme - thanks syrio!
+
+
 0.2.2 / 2011-09-18
 ==================
 

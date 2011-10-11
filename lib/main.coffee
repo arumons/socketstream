@@ -10,7 +10,7 @@ utils = require('./utils')
 file_utils = require('./utils/file')
 
 # Initialize SocketStream. This must always be run to set the basic environment
-exports.init = (load_project = false) ->
+exports.init = ->
 
   # Define global SS variable
   global.SS =
@@ -18,7 +18,8 @@ exports.init = (load_project = false) ->
     client:           {}              # Used to store any info about the client (the JS code that's sent to the browser)
     config:           {}              # Used to store server and client configuration
     log:              {}              # Outputs to the terminal
-    redis:            {}              # Connect main and pubsub active connections here
+    
+    redis:            null            # Connect main and pubsub active connections here
     
     models:           {}              # Models are preloaded and placed here
     server:           {}              # Server code is preloaded and placed here
@@ -41,7 +42,7 @@ exports.init = (load_project = false) ->
   SS.version = SS.internal.package_json.version
 
   # Set client file version. Bumping this automatically triggers re-compilation of lib assets when a user upgrades
-  SS.client.version = '0.2.1'
+  SS.client.version = '0.2.3'
 
   # Set environment
   env = process.env.SS_ENV || 'development'
@@ -53,8 +54,6 @@ exports.init = (load_project = false) ->
   # Add helper to quickly load modules in /lib/server
   SS.require = (path) -> require(SS.root + '/lib/server/' + path)
   
-  load.project() if load_project
-
   @
 
 
@@ -136,7 +135,7 @@ exports.process = (args) ->
 
 
 # Start methods load things
-start =
+exports.start = start =
 
   ### SERVERS ###
 
@@ -161,7 +160,7 @@ start =
     SS.internal.mode = 'single'
     console.log 'Starting SocketStream server in single-process mode...'
     load.project()
-    require('./router/redis_proxy.coffee').init()
+    require('./router/redis_proxy.coffee').init() if SS.config.redis.enabled
     require('./router/job_scheduler.coffee').run()
     frontend = require('./frontend/manager.coffee')
     backend = require('./backend/worker.coffee')
@@ -229,7 +228,7 @@ create =
 
 # PRIVATE HELPERS
 
-load =
+exports.load = load =
 
   # Try loading the ZeroMQ bindings if present. Fallback to internal EventEmitter unless ZeroMQ is required for this command
   zeromq: (required = false) ->    
@@ -260,7 +259,7 @@ load =
       require.paths.unshift('./app/models')
 
     # Set default config and merge it with any application config file
-    require('./configurator.coffee').configure()
+    SS.config = require('./config/index.coffee').load()
     
     # Alias SS to SS.config.ss_var to allow for other custom variable name if desired
     global[SS.config.ss_var] = SS if SS.config.ss_var and SS.config.ss_var != 'SS'
