@@ -26,10 +26,12 @@
 * '共有コード' セクションを見てください
 
 #### /app/css
-* /app/css/app.styl は必須です。これは SASS に似た [Stylus](http://learnboost.github.com/stylus/) フォーマットで書きます。CSSフォーマットで書くこともできます
-* 外部Stylusファイルは app.styl で @import 'name_of_file' と書くとインポートできます。ファイルはネストできます
+* 通常の.cssファイルの他に .style([Stylus](http://learnboost.github.com/stylus/))、.less ([Less](http://lesscss.org/))ファイルをサポートしています
+* まず "app" の後に選択したフォーマットに応じた拡張子名をつけたファイルが必須となります（例:app.style）
+* 外部 Stylus もしくは Less ファイルは @import 'name_of_file' とすることで app.* に取り込むことができます。ファイルをネストすることもできます
+* 静的な .css ファイルでは @import は使えません。代わりに Stylus か Less を使ってください
 * CSSライブラリ（例: normalize.css や jQuery UI など） を使いたい場合、それらを /lib/css に配置するか、ホスティングされている CDNファイルへのリンクを /app/views/app/jade に書いてください
-* Stylusファイルは自動的にコンパイルされ、developmentモードの場合、そのまま送られます。staging もしくは production モードの場合、プリコンパイル、圧縮、キャッシュされます
+* Stylus & Less ファイルは自動的にコンパイルされ、developmentモードの場合、そのまま送られます。staging もしくは production モードの場合、プリコンパイル、圧縮、キャッシュされます
 
 #### /app/views
 * /app/views/app.jade もしくは /app/views/app.html は必須です。このファイルにはアプリを初期表示するための静的HTMLを書いてください
