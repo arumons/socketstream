@@ -1,6 +1,6 @@
 ### Redisとの通信
 
-Redis は、自動的にサーバサイドのどこからでもグローバル変数R にてアクセスできるようになっています。
+Redis のサポートを有効にすると（`SS.config.redis.enabled = true`）自動的にサーバーサイドのどこからでもグローバル変数Rで Redis にアクセスできるようになります。
 
 ``` coffee-script
     R.set("string key", "string val")
