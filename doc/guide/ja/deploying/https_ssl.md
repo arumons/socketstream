@@ -19,21 +19,21 @@ Node が HTTPS/TLS をサポートするようにさせたら、stating また�
 
 #### デプロイ
 
-When you're ready to go live you'll need to get a proper commercially-signed SSL certificate. We like the SSL certs from [www.rapidssl.com](www.rapidssl.com) because they support the Mobile version of Safari (iPad and iPhone) which some other popular providers do not.
+アプリを公開する準備ができたら、認証済みの SSL証明書が必要になるでしょう。私たちは [www.rapidssl.com](www.rapidssl.com) が気に入っています。他の名だたるプロバイダがやっていないモバイルバージョンの Safari（iPad と iPhone）をサポートしているからです。
 
-To obtain a commercial SSL certificate run the following in your project's root directory:
+SSL証明書を申請するにはプロジェクトのルートディレクトリで下記のコマンドを実行してください。
 
     cd config/ssl_certs
 
     openssl genrsa -out site.key.pem 2048
-    
-    openssl req -new -key site.key.pem -out site.request.csr
-    
-Note: Pay particular attention when entering the Common Name. This should be the full domain (including the www.) of your website.
-    
-Send the contents of the site.request.csr file to your certificate provider. In exchange you'll receive a certificate which should be installed as /config/ssl_certs/site.cert.pem  You should also receive an 'Intermediate Certificate' which ensures the certificate is recognised by all browsers. Place this in /config/ssl_certs/site.ca.pem
 
-Once all files are present SocketStream will use this certificate instead of the self-signed test certificates and indicate this in the console upon starting the server.
+    openssl req -new -key site.key.pem -out site.request.csr
+
+注釈: Common Name は注意して入力してください。Common Name は、あなたの Webサイトのフルドメイン（www.を含む）でなければいけません。
+
+site.request.csr ファイルを認証局に送ると証明書が手に入ります。その証明書を /config/ssl_certs/site.cert.pem に配置してください。また、すべてのブラウザでただしく検証できるように '中間証明書' を /config/ssl_certs/site.ca.pem に配置してください。
+
+それらのファイルがすべて揃うと SocketStream は自己署名証明書のかわりに認証された証明書を使うようになり、サーバの起動時にコンソールへ通知されます。
 
 
 #### strayリクエストのリダイレクト
