@@ -37,8 +37,7 @@ __socketstream backend__
 バックエンド worker プロセスはそれぞれ直接 Redis やその他データベースと接続します。近頃のサーバーは大部分がデュアルコア（少なくとも）であるため、デフォルトでは worker プロセスは２つ立ち上がります。
 この数は -w オプションにて変更可能です。
 
-★ 一度 /app/config.coffee にて ソケットの設定を行うと（下記を見てください）、アプリケーションの必要に応じてバックエンド worker プロセス
-Once you have configured the sockets in /app/config.coffee (see below), you may start and stop as many of these back end worker processes as your application needs. Should any worker process (or the entire box) die, the remaining processes will automatically take over. Obviously if your app is very database intensive, or needs to do a lot of processing / calculations, you'll want to start more back end workers to keep response times low.
+/app/config.coffee にてソケットの設定を行うと（下記をみてください）、アプリケーションの状態に応じてバックエンド worker プロセスの起動と停止を行うかもしれません。万一 worker プロセスのどれか（もしくはプロセス全体）が死んだ場合、残りのプロセスが自動的に処理を引き継ぎます。あなたのアプリがデータベースとのやりとりを頻繁に行ったり、計算処理を大量に行うようなものであるなら、レスポンスタイムを低く抑えるためにも多くのバックエンド worker を立ち上げたくなるでしょう。
 
 
 __socketstream router__
